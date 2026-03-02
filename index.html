@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Companion</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="description" content="Find water stops, cafes, gas stations, and more along your cycling route. Check weather along your route. Import from Strava, Komoot & RWGPS. Export to Garmin, Wahoo & Hammerhead.">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <style>
+        :root {
+            --bg-base: #0F172A;
+            --bg-surface: #1E293B;
+            --border-color: #334155;
+            --primary: #0284C7;
+            --primary-light: #38BDF8;
+            --cyan: #06B6D4;
+            --purple: #8B5CF6;
+            --pink: #EC4899;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --success: #10B981;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-base);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--bg-base);
+            padding: 40px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(ellipse, rgba(6, 182, 212, 0.06) 0%, rgba(139, 92, 246, 0.03) 35%, transparent 65%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo img {
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--cyan), var(--purple), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sub-tagline {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        /* Hero Visual - Screenshot Carousel */
+        .hero-visual-row {
+            position: relative;
+            width: 100%;
+            max-width: 860px;
+            height: 620px;
+            margin: 20px auto 0;
+        }
+
+        /* Glow behind phone group */
+        .hero-visual-row::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 110%;
+            height: 70%;
+            background: radial-gradient(ellipse, rgba(6, 182, 212, 0.06) 0%, rgba(139, 92, 246, 0.03) 40%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .phone-frame {
+            position: absolute;
+            bottom: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            aspect-ratio: 1284 / 2778;
+            pointer-events: none;
+            /* iPhone bezel */
+            background: #000;
+            padding: 6px;
+            border-radius: 40px;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.08);
+            z-index: 1;
+        }
+
+        .phone-frame img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 34px;
+        }
+
+        .phone-frame.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Desktop slot positions */
+        .phone-frame[data-slot="left"] {
+            width: 240px;
+            left: 30px;
+        }
+
+        .phone-frame[data-slot="center"] {
+            width: 280px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                0 0 60px rgba(6, 182, 212, 0.08);
+        }
+
+        .phone-frame[data-slot="right"] {
+            width: 240px;
+            right: 30px;
+        }
+
+        /* Carousel dots */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #475569;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .carousel-dot.active {
+            background-color: var(--primary-light);
+            transform: scale(1.25);
+        }
+
+        /* Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--text-primary);
+            color: var(--bg-base);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.15), 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.25), 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--border-color);
+            color: var(--text-secondary);
+            border: 1px solid #475569;
+        }
+
+        .btn-secondary:hover {
+            background-color: #3B4963;
+            border-color: var(--text-muted);
+            transform: translateY(-2px);
+        }
+
+        .btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: var(--bg-surface);
+            color: var(--text-muted);
+            box-shadow: none;
+            transform: none !important;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Section divider gradient */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(51, 65, 85, 0.4) 30%, rgba(51, 65, 85, 0.4) 70%, transparent);
+            border: none;
+            margin: 0;
+        }
+
+        /* Features */
+        .features-section {
+            background: var(--bg-base);
+            padding: 40px 0;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .feature-card {
+            background: var(--bg-surface);
+            padding: 24px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: #475569;
+        }
+
+        /* Per-card glow colors on hover */
+        .feature-card[data-glow="blue"]:hover {
+            box-shadow: 0 0 30px rgba(2, 132, 199, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="green"]:hover {
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="orange"]:hover {
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="purple"]:hover {
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="pink"]:hover {
+            box-shadow: 0 0 30px rgba(236, 72, 153, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="teal"]:hover {
+            box-shadow: 0 0 30px rgba(30, 111, 194, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="amber"]:hover {
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+        }
+
+        .feature-icon .material-icons {
+            font-size: 28px;
+        }
+
+        .feature-card h2 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin: 0 0 8px 0;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Integrations Bar */
+        .integrations {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .integrations-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .integrations-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .integration-item {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            padding: 8px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 100px;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .integration-item:hover {
+            border-color: var(--text-muted);
+            color: var(--text-primary);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-links {
+            margin: 0 0 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-links .dot {
+            color: var(--text-muted);
+            margin: 0 12px;
+        }
+
+        .footer-copyright {
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero {
+                padding-top: 20px;
+                padding-bottom: 30px;
+            }
+
+            .hero::before {
+                width: 500px;
+                height: 500px;
+            }
+
+            .hero-container {
+                gap: 15px;
+            }
+
+            .logo {
+                margin-bottom: 5px;
+            }
+
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+                margin-top: 0;
+                margin-bottom: 5px;
+                padding: 0 10px;
+            }
+
+            .sub-tagline {
+                font-size: 0.9rem;
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            /* Reduce glow on mobile */
+            .feature-card:hover {
+                transform: translateY(-2px);
+            }
+            .feature-card[data-glow="blue"]:hover,
+            .feature-card[data-glow="green"]:hover,
+            .feature-card[data-glow="orange"]:hover,
+            .feature-card[data-glow="purple"]:hover,
+            .feature-card[data-glow="pink"]:hover,
+            .feature-card[data-glow="teal"]:hover,
+            .feature-card[data-glow="amber"]:hover {
+                box-shadow: 0 0 15px rgba(6, 182, 212, 0.1), 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            /* Mobile: all phones stacked at center */
+            .hero-visual-row {
+                max-width: 260px;
+                height: 575px;
+                margin: 10px auto 0;
+            }
+
+            .hero-visual-row::before {
+                display: none;
+            }
+
+            .phone-frame,
+            .phone-frame[data-slot="left"],
+            .phone-frame[data-slot="center"],
+            .phone-frame[data-slot="right"] {
+                width: 100% !important;
+                left: 0 !important;
+                right: auto !important;
+                transform: none !important;
+                z-index: auto !important;
+                padding: 5px !important;
+                border-radius: 36px !important;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+            }
+
+            .phone-frame img {
+                border-radius: 31px !important;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .integrations-logos {
+                gap: 8px;
+            }
+
+            .integration-item {
+                font-size: 0.8rem;
+                padding: 6px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="logo">
+                    <img src="assets/icon.png" alt="Route Companion Logo" width="64" height="64">
+                    <h1>Route Companion</h1>
+                </div>
+                <p class="tagline">Find POIs Along Your Routes</p>
+                <p class="sub-tagline">Water, cafes, gas stations, bike shops and more — automatically discovered along your cycling, running or hiking route.</p>
+            </div>
+
+            <div class="hero-visual-row">
+                <!-- Group 1: display order 2, 1, 3 (strongest screenshot centered) -->
+                <div class="phone-frame visible" data-slot="left" data-group="0">
+                    <picture>
+                        <source srcset="screenshots/2.webp" type="image/webp">
+                        <img src="screenshots/2.png" alt="Route Companion - POI categories" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <div class="phone-frame visible" data-slot="center" data-group="0">
+                    <picture>
+                        <source srcset="screenshots/1.webp" type="image/webp">
+                        <img src="screenshots/1.png" alt="Route Companion - Find POIs along your route" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <div class="phone-frame visible" data-slot="right" data-group="0">
+                    <picture>
+                        <source srcset="screenshots/3.webp" type="image/webp">
+                        <img src="screenshots/3.png" alt="Route Companion - Navigation with alerts" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <!-- Group 2: display order 5, 4, 6 (strongest screenshot centered) -->
+                <div class="phone-frame" data-slot="left" data-group="1">
+                    <picture>
+                        <source srcset="screenshots/5.webp" type="image/webp">
+                        <img src="screenshots/5.png" alt="Route Companion - Import from Strava" loading="lazy" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <div class="phone-frame" data-slot="center" data-group="1">
+                    <picture>
+                        <source srcset="screenshots/4.webp" type="image/webp">
+                        <img src="screenshots/4.png" alt="Route Companion - Weather along your route" loading="lazy" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <div class="phone-frame" data-slot="right" data-group="1">
+                    <picture>
+                        <source srcset="screenshots/6.webp" type="image/webp">
+                        <img src="screenshots/6.png" alt="Route Companion - Lock Screen Live Activity" loading="lazy" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+            </div>
+
+            <div class="carousel-dots">
+                <button class="carousel-dot active" data-group="0" aria-label="Show screenshots 1-3"></button>
+                <button class="carousel-dot" data-group="1" aria-label="Show screenshots 4-6"></button>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary disabled">
+                    <svg viewBox="0 0 384 512" width="20" height="20" fill="currentColor" style="margin-right: 8px; margin-bottom: -2px;">
+                        <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/>
+                    </svg>
+                    Coming Soon to App Store
+                </a>
+                <a href="#" class="btn btn-secondary disabled">
+                    <svg viewBox="0 0 576 512" width="20" height="20" fill="currentColor" style="margin-right: 8px; margin-bottom: -2px;">
+                        <path d="M420.55,301.93a24,24,0,1,1,24-24,24,24,0,0,1-24,24m-265.1,0a24,24,0,1,1,24-24,24,24,0,0,1-24,24m273.7-144.48,47.94-83a10,10,0,1,0-17.27-9.94l-48.35,84a302.3,302.3,0,0,0-246.94,0l-48.35-84a10,10,0,1,0-17.27,9.94l47.94,83C64.53,202.22,8.24,285.55,0,384H576c-8.24-98.45-64.54-181.78-146.85-226.55"/>
+                    </svg>
+                    Coming Soon to Google Play
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="section-divider"></div>
+
+    <section class="features-section">
+        <div class="features container">
+            <div class="feature-card" data-glow="blue">
+                <div class="feature-icon" style="background-color: rgba(2, 132, 199, 0.15); color: #0284C7;">
+                    <span class="material-icons">location_on</span>
+                </div>
+                <h2>12 POI Categories</h2>
+                <p>Water, gas stations, cafes, restaurants, bike shops, pharmacies, hotels, toilets, shelters, camping, repair stations and grocery stores.</p>
+            </div>
+            <div class="feature-card" data-glow="green">
+                <div class="feature-icon" style="background-color: rgba(16, 185, 129, 0.15); color: #10B981;">
+                    <span class="material-icons">upload_file</span>
+                </div>
+                <h2>Import Routes</h2>
+                <p>Load GPX files or pull routes directly from Strava, Komoot and Ride with GPS.</p>
+            </div>
+            <div class="feature-card" data-glow="orange">
+                <div class="feature-icon" style="background-color: rgba(249, 115, 22, 0.15); color: #F97316;">
+                    <span class="material-icons">notifications_active</span>
+                </div>
+                <h2>Proximity Alerts</h2>
+                <p>Get notified as you approach your planned stops. Configurable arrival and proximity radius.</p>
+            </div>
+            <div class="feature-card" data-glow="purple">
+                <div class="feature-icon" style="background-color: rgba(139, 92, 246, 0.15); color: #8B5CF6;">
+                    <span class="material-icons">phone_iphone</span>
+                </div>
+                <h2>Live Activity</h2>
+                <p>See your next POI, distance remaining and a progress bar right on your iOS Lock Screen.</p>
+            </div>
+            <div class="feature-card" data-glow="pink">
+                <div class="feature-icon" style="background-color: rgba(236, 72, 153, 0.15); color: #EC4899;">
+                    <span class="material-icons">ios_share</span>
+                </div>
+                <h2>Export to FIT, TCX & GPX</h2>
+                <p>Send POIs as course points to Garmin, Wahoo, Hammerhead and more. FIT, TCX and GPX supported.</p>
+            </div>
+            <div class="feature-card" data-glow="teal">
+                <div class="feature-icon" style="background-color: rgba(30, 111, 194, 0.15); color: #1E6FC2;">
+                    <span class="material-icons">thunderstorm</span>
+                </div>
+                <h2>Route Weather</h2>
+                <p>See hourly weather forecasts along your route. Check temperature, wind, rain chance and conditions before you ride.</p>
+            </div>
+            <div class="feature-card" data-glow="amber">
+                <div class="feature-icon" style="background-color: rgba(245, 158, 11, 0.15); color: #F59E0B;">
+                    <span class="material-icons">auto_fix_high</span>
+                </div>
+                <h2>Auto-Mark & Quick Find</h2>
+                <p>Automatically space stops along your route at set intervals, or quickly find the closest POI of any type.</p>
+            </div>
+            <div class="feature-card" data-glow="green">
+                <div class="feature-icon" style="background-color: rgba(16, 185, 129, 0.15); color: #10B981;">
+                    <span class="material-icons">vrpano</span>
+                </div>
+                <h2>Street View</h2>
+                <p>Preview any point along your route before you arrive. See exactly what's there so you never miss a stop.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <div class="integrations container">
+        <p class="integrations-label">Works with</p>
+        <div class="integrations-logos">
+            <span class="integration-item">Garmin</span>
+            <span class="integration-item">Wahoo</span>
+            <span class="integration-item">Hammerhead</span>
+            <span class="integration-item">Strava</span>
+            <span class="integration-item">Komoot</span>
+            <span class="integration-item">Ride with GPS</span>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <span class="dot">&middot;</span>
+                <a href="terms.html">Terms of Service</a>
+                <span class="dot">&middot;</span>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </p>
+            <p class="footer-copyright">&copy; 2026 Route Companion. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const frames = document.querySelectorAll('.phone-frame');
+            const dots = document.querySelectorAll('.carousel-dot');
+            const isMobile = window.matchMedia('(max-width: 900px)');
+
+            let currentGroup = 0;
+            let currentMobileIndex = 0;
+            let timer = null;
+
+            function showGroup(group) {
+                frames.forEach(f => {
+                    f.classList.toggle('visible', parseInt(f.dataset.group) === group);
+                });
+                dots.forEach(d => {
+                    d.classList.toggle('active', parseInt(d.dataset.group) === group);
+                });
+                currentGroup = group;
+            }
+
+            function showMobileSlide(index) {
+                frames.forEach((f, i) => {
+                    f.classList.toggle('visible', i === index);
+                });
+                // Update dots: group 0 for indices 0-2, group 1 for 3-5
+                const dotGroup = index < 3 ? 0 : 1;
+                dots.forEach(d => {
+                    d.classList.toggle('active', parseInt(d.dataset.group) === dotGroup);
+                });
+                currentMobileIndex = index;
+            }
+
+            function startDesktopCarousel() {
+                clearInterval(timer);
+                showGroup(currentGroup);
+                timer = setInterval(() => {
+                    showGroup((currentGroup + 1) % 2);
+                }, 8000);
+            }
+
+            function startMobileCarousel() {
+                clearInterval(timer);
+                showMobileSlide(currentMobileIndex);
+                timer = setInterval(() => {
+                    showMobileSlide((currentMobileIndex + 1) % frames.length);
+                }, 6000);
+            }
+
+            // Dot click handlers
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const group = parseInt(dot.dataset.group);
+                    if (isMobile.matches) {
+                        showMobileSlide(group * 3);
+                        clearInterval(timer);
+                        timer = setInterval(() => {
+                            showMobileSlide((currentMobileIndex + 1) % frames.length);
+                        }, 6000);
+                    } else {
+                        showGroup(group);
+                        clearInterval(timer);
+                        timer = setInterval(() => {
+                            showGroup((currentGroup + 1) % 2);
+                        }, 8000);
+                    }
+                });
+            });
+
+            // Start appropriate carousel
+            function initCarousel() {
+                if (isMobile.matches) {
+                    startMobileCarousel();
+                } else {
+                    startDesktopCarousel();
+                }
+            }
+
+            isMobile.addEventListener('change', initCarousel);
+            initCarousel();
+        });
+    </script>
+</body>
+</html>
