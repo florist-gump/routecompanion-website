@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Companion | Weather, Stops & Fuel for Every Route</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="description" content="Know your route before you go. Check weather along the route, find useful stops, plan your fuel, and export to Garmin or Wahoo. For cycling, running, and hiking.">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <style>
+        :root {
+            --bg-base: #0F172A;
+            --bg-surface: #1E293B;
+            --border-color: #334155;
+            --primary: #0284C7;
+            --primary-light: #38BDF8;
+            --cyan: #06B6D4;
+            --purple: #8B5CF6;
+            --pink: #EC4899;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --success: #10B981;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-base);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--bg-base);
+            padding: 40px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(ellipse, rgba(6, 182, 212, 0.06) 0%, rgba(139, 92, 246, 0.03) 35%, transparent 65%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo img {
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .hero-kicker {
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            color: var(--primary-light);
+            margin: 0 0 8px 0;
+        }
+
+        .workflow-mascots {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 56px;
+            margin: 14px auto 6px;
+        }
+
+        .workflow-mascots img {
+            height: 72px;
+            width: auto;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            -ms-interpolation-mode: nearest-neighbor;
+            opacity: 0.92;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--cyan), var(--purple), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sub-tagline {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        /* Hero Visual - Screenshot Carousel */
+        .hero-visual-row {
+            position: relative;
+            width: 100%;
+            max-width: 860px;
+            height: 620px;
+            margin: 20px auto 0;
+        }
+
+        .hero-visual-row::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 110%;
+            height: 70%;
+            background: radial-gradient(ellipse, rgba(6, 182, 212, 0.06) 0%, rgba(139, 92, 246, 0.03) 40%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .phone-frame {
+            position: absolute;
+            bottom: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            aspect-ratio: 1284 / 2778;
+            pointer-events: none;
+            background: #000;
+            padding: 6px;
+            border-radius: 40px;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.08);
+            z-index: 1;
+        }
+
+        .phone-frame img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 34px;
+        }
+
+        .phone-frame.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .phone-frame[data-slot="left"] {
+            width: 240px;
+            left: 30px;
+        }
+
+        .phone-frame[data-slot="center"] {
+            width: 280px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                0 0 60px rgba(6, 182, 212, 0.08);
+        }
+
+        .phone-frame[data-slot="right"] {
+            width: 240px;
+            right: 30px;
+        }
+
+        .carousel-captions {
+            width: 100%;
+            max-width: 860px;
+            position: relative;
+            min-height: 1.6em;
+        }
+
+        .carousel-captions-row {
+            display: grid;
+            grid-template-columns: 270px 280px 270px;
+            justify-content: center;
+            gap: 0;
+            max-width: 860px;
+            width: 100%;
+            padding: 0 30px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .carousel-captions-row.visible {
+            opacity: 1;
+            position: relative;
+        }
+
+        .carousel-captions-row span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .carousel-caption-mobile {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin: 18px 0 0 0;
+            transition: opacity 0.4s ease;
+            min-height: 1.6em;
+            display: none;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #475569;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .carousel-dot.active {
+            background-color: var(--primary-light);
+            transform: scale(1.25);
+        }
+
+        /* Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--text-primary);
+            color: var(--bg-base);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.15), 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.25), 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--border-color);
+            color: var(--text-secondary);
+            border: 1px solid #475569;
+        }
+
+        .btn-secondary:hover {
+            background-color: #3B4963;
+            border-color: var(--text-muted);
+            transform: translateY(-2px);
+        }
+
+        .btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: var(--bg-surface);
+            color: var(--text-muted);
+            box-shadow: none;
+            transform: none !important;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Section shared */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(51, 65, 85, 0.4) 30%, rgba(51, 65, 85, 0.4) 70%, transparent);
+            border: none;
+            margin: 0;
+        }
+
+        .section-intro {
+            max-width: 760px;
+            margin: 0 auto 28px;
+            padding: 0 20px;
+        }
+
+        .section-kicker {
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            color: var(--primary-light);
+            margin: 0 0 8px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            line-height: 1.1;
+            letter-spacing: -0.8px;
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 660px;
+            margin: 12px auto 0;
+        }
+
+        /* Features */
+        .features-section {
+            background: var(--bg-base);
+            padding: 56px 0;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .feature-card {
+            background: var(--bg-surface);
+            padding: 24px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: #475569;
+        }
+
+        .feature-card[data-glow="blue"]:hover {
+            box-shadow: 0 0 40px rgba(2, 132, 199, 0.35), 0 0 80px rgba(2, 132, 199, 0.12), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="green"]:hover {
+            box-shadow: 0 0 40px rgba(16, 185, 129, 0.35), 0 0 80px rgba(16, 185, 129, 0.12), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="orange"]:hover {
+            box-shadow: 0 0 40px rgba(249, 115, 22, 0.35), 0 0 80px rgba(249, 115, 22, 0.12), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="purple"]:hover {
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.35), 0 0 80px rgba(139, 92, 246, 0.12), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="pink"]:hover {
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.35), 0 0 80px rgba(236, 72, 153, 0.12), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="teal"]:hover {
+            box-shadow: 0 0 40px rgba(30, 111, 194, 0.35), 0 0 80px rgba(30, 111, 194, 0.12), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+        }
+
+        .feature-icon .material-icons {
+            font-size: 28px;
+        }
+
+        .feature-card h2 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin: 0 0 8px 0;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* How it works */
+        .workflow-section {
+            padding: 56px 0;
+        }
+
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            padding: 0 20px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .workflow-step {
+            text-align: center;
+            padding: 20px 12px;
+            position: relative;
+        }
+
+        .workflow-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            color: var(--primary-light);
+            font-weight: 800;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .workflow-step h3 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin: 0 0 6px 0;
+        }
+
+        .workflow-step p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.45;
+        }
+
+        /* Integrations */
+        .integrations-section {
+            padding: 56px 0;
+        }
+
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .integration-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .integration-card h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            color: var(--text-primary);
+        }
+
+        .integration-card p {
+            margin: 10px 0 0 0;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .integration-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(71, 85, 105, 0.9);
+            background: rgba(15, 23, 42, 0.55);
+            color: var(--text-primary);
+            font-size: 0.86rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-links {
+            margin: 0 0 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-links .dot {
+            color: var(--text-muted);
+            margin: 0 12px;
+        }
+
+        .footer-copyright {
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero {
+                padding-top: 20px;
+                padding-bottom: 30px;
+            }
+
+            .hero::before {
+                width: 500px;
+                height: 500px;
+            }
+
+            .hero-container {
+                gap: 15px;
+            }
+
+            .logo {
+                margin-bottom: 5px;
+            }
+
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+
+            .workflow-mascots {
+                gap: 40px;
+                margin: 2px auto 10px;
+            }
+
+            .workflow-mascots img {
+                height: 56px;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+                margin-top: 0;
+                margin-bottom: 5px;
+                padding: 0 10px;
+            }
+
+            .sub-tagline {
+                font-size: 0.9rem;
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .workflow-steps {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .integration-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.55rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .feature-card:hover {
+                transform: translateY(-2px);
+            }
+            .feature-card[data-glow="blue"]:hover,
+            .feature-card[data-glow="green"]:hover,
+            .feature-card[data-glow="orange"]:hover,
+            .feature-card[data-glow="purple"]:hover,
+            .feature-card[data-glow="pink"]:hover,
+            .feature-card[data-glow="teal"]:hover {
+                box-shadow: 0 0 25px rgba(6, 182, 212, 0.2), 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            .hero-visual-row {
+                max-width: 260px;
+                height: 575px;
+                margin: 10px auto 0;
+            }
+
+            .hero-visual-row::before {
+                display: none;
+            }
+
+            .phone-frame,
+            .phone-frame[data-slot="left"],
+            .phone-frame[data-slot="center"],
+            .phone-frame[data-slot="right"] {
+                width: 100% !important;
+                left: 0 !important;
+                right: auto !important;
+                transform: none !important;
+                z-index: auto !important;
+                padding: 5px !important;
+                border-radius: 36px !important;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+            }
+
+            .phone-frame img {
+                border-radius: 31px !important;
+            }
+
+            .carousel-captions {
+                display: none;
+            }
+
+            .carousel-caption-mobile {
+                display: block;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="logo">
+                    <img src="assets/icon.png" alt="Route Companion Logo" width="64" height="64">
+                    <h1>Route Companion</h1>
+                </div>
+                <p class="hero-kicker">For Cycling, Running & Hiking</p>
+                <p class="tagline">Know your route. Find what you need along it.</p>
+            </div>
+
+            <div class="hero-visual-row">
+                <!-- Group 1: Weather (center), Stops on map (left), Fuel (right) -->
+                <div class="phone-frame visible" data-slot="left" data-group="0">
+                    <picture>
+                        <source srcset="screenshots/2.webp" type="image/webp">
+                        <img src="screenshots/2.png" alt="Route Companion - Find stops along your route" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <div class="phone-frame visible" data-slot="center" data-group="0">
+                    <picture>
+                        <source srcset="screenshots/1.webp" type="image/webp">
+                        <img src="screenshots/1.png" alt="Route Companion - Route weather hour by hour" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <div class="phone-frame visible" data-slot="right" data-group="0">
+                    <picture>
+                        <source srcset="screenshots/3.webp" type="image/webp">
+                        <img src="screenshots/3.png" alt="Route Companion - Plan your fuel" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <!-- Group 2: Navigate (left), Import (center), Export (right) -->
+                <div class="phone-frame" data-slot="left" data-group="1">
+                    <picture>
+                        <source srcset="screenshots/4.webp" type="image/webp">
+                        <img src="screenshots/4.png" alt="Route Companion - Navigate with alerts" loading="lazy" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <div class="phone-frame" data-slot="center" data-group="1">
+                    <picture>
+                        <source srcset="screenshots/5.webp" type="image/webp">
+                        <img src="screenshots/5.png" alt="Route Companion - Import or plan any route" loading="lazy" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <div class="phone-frame" data-slot="right" data-group="1">
+                    <picture>
+                        <source srcset="screenshots/6.webp" type="image/webp">
+                        <img src="screenshots/6.png" alt="Route Companion - Export to Garmin and Wahoo" loading="lazy" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+            </div>
+
+            <div class="carousel-captions" id="carousel-captions">
+                <div class="carousel-captions-row visible" data-group="0">
+                    <span>Find stops along the way</span>
+                    <span>Weather hour by hour</span>
+                    <span>Plan your fuel and hydration</span>
+                </div>
+                <div class="carousel-captions-row" data-group="1">
+                    <span>Navigate with stop alerts</span>
+                    <span>Import from Strava and more</span>
+                    <span>Export to Garmin and Wahoo</span>
+                </div>
+            </div>
+            <p class="carousel-caption-mobile" id="carousel-caption-mobile">Route weather</p>
+
+            <div class="carousel-dots">
+                <button class="carousel-dot active" data-group="0" aria-label="Show screenshots 1-3"></button>
+                <button class="carousel-dot" data-group="1" aria-label="Show screenshots 4-6"></button>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="https://apps.apple.com/app/id6758202473" class="btn btn-primary">
+                    <svg viewBox="0 0 384 512" width="20" height="20" fill="currentColor" style="margin-right: 8px; margin-bottom: -2px;">
+                        <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/>
+                    </svg>
+                    Download on the App Store
+                </a>
+                <a href="#" class="btn btn-secondary disabled">
+                    <svg viewBox="0 0 576 512" width="20" height="20" fill="currentColor" style="margin-right: 8px; margin-bottom: -2px;">
+                        <path d="M420.55,301.93a24,24,0,1,1,24-24,24,24,0,0,1-24,24m-265.1,0a24,24,0,1,1,24-24,24,24,0,0,1-24,24m273.7-144.48,47.94-83a10,10,0,1,0-17.27-9.94l-48.35,84a302.3,302.3,0,0,0-246.94,0l-48.35-84a10,10,0,1,0-17.27,9.94l47.94,83C64.53,202.22,8.24,285.55,0,384H576c-8.24-98.45-64.54-181.78-146.85-226.55"/>
+                    </svg>
+                    Coming Soon to Google Play
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="section-divider"></div>
+
+    <!-- How it works -->
+    <section class="workflow-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">How It Works</p>
+                <div class="workflow-mascots" aria-hidden="true">
+                    <img src="assets/mascot/runner.svg" alt="" height="72" decoding="async">
+                    <img src="assets/mascot/cyclist.svg" alt="" height="72" decoding="async">
+                </div>
+                <h2 class="section-title">One loop, from route to ride</h2>
+                <p class="section-subtitle">Bring a route in, check conditions, find stops before and during your ride, and navigate with alerts.</p>
+            </div>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="workflow-number">1</div>
+                    <h3>Import or plan</h3>
+                    <p>Load a GPX, pull from Strava, or plan a route from scratch.</p>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">2</div>
+                    <h3>Check conditions</h3>
+                    <p>See weather, wind, precipitation, and air quality along the route.</p>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">3</div>
+                    <h3>Find stops</h3>
+                    <p>Search for water, food, bike shops, and many more stop types on-route.</p>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">4</div>
+                    <h3>Ride</h3>
+                    <p>Navigate with alerts, find stops on the fly, and track your progress on the Lock Screen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Features -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Features</p>
+                <h2 class="section-title">Everything centers on the route</h2>
+            </div>
+
+            <div class="features">
+                <div class="feature-card" data-glow="teal">
+                    <div class="feature-icon" style="background-color: rgba(30, 111, 194, 0.15); color: #1E6FC2;">
+                        <span class="material-icons">thunderstorm</span>
+                    </div>
+                    <h2>Weather along the route</h2>
+                    <p>See hourly weather, wind, precipitation, AQI, and outfit guidance mapped to where you'll actually be on the route.</p>
+                </div>
+                <div class="feature-card" data-glow="orange">
+                    <div class="feature-icon" style="background-color: rgba(249, 115, 22, 0.15); color: #F97316;">
+                        <span class="material-icons">local_fire_department</span>
+                    </div>
+                    <h2>Fuel Your Ride</h2>
+                    <p>Estimate carbs per hour, hydration, drink mix, and what to pack based on distance, elevation, and conditions.</p>
+                </div>
+                <div class="feature-card" data-glow="blue">
+                    <div class="feature-icon" style="background-color: rgba(2, 132, 199, 0.15); color: #0284C7;">
+                        <span class="material-icons">alt_route</span>
+                    </div>
+                    <h2>Smart stop search</h2>
+                    <p>Find water, cafes, bike shops, and shelters along the route, before or during your ride. Auto-Mark spaces stops at set intervals; Quick Find jumps to the nearest match from wherever you are.</p>
+                </div>
+                <div class="feature-card" data-glow="green">
+                    <div class="feature-icon" style="background-color: rgba(16, 185, 129, 0.15); color: #10B981;">
+                        <span class="material-icons">upload_file</span>
+                    </div>
+                    <h2>Import or plan</h2>
+                    <p>Load GPX, TCX, or FIT files. Pull routes from Strava, Komoot, and Ride with GPS. Or plan for road, gravel, MTB, running, and hiking.</p>
+                </div>
+                <div class="feature-card" data-glow="purple">
+                    <div class="feature-icon" style="background-color: rgba(139, 92, 246, 0.15); color: #8B5CF6;">
+                        <span class="material-icons">widgets</span>
+                    </div>
+                    <h2>Alerts, Widgets & Live Activity</h2>
+                    <p>Get notified as you approach stops. See weather and what to wear on your home screen. Track your next stop on the lock screen and Dynamic Island.</p>
+                </div>
+                <div class="feature-card" data-glow="pink">
+                    <div class="feature-icon" style="background-color: rgba(236, 72, 153, 0.15); color: #EC4899;">
+                        <span class="material-icons">ios_share</span>
+                    </div>
+                    <h2>Export to devices</h2>
+                    <p>Send course points to Garmin and Wahoo. Export FIT, TCX, and GPX for Garmin Connect, Hammerhead, and other apps.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Integrations -->
+    <section class="integrations-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Import & Export</p>
+                <h2 class="section-title">Bring routes in. Send them out ready</h2>
+                <p class="section-subtitle">Use Route Companion between the route sources you already rely on and the devices you ride with.</p>
+            </div>
+
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <h3>Import from files and services</h3>
+                    <p>Load files directly or connect to the services you already use.</p>
+                    <div class="integration-pills">
+                        <span class="integration-pill">GPX</span>
+                        <span class="integration-pill">TCX</span>
+                        <span class="integration-pill">FIT</span>
+                        <span class="integration-pill">Strava</span>
+                        <span class="integration-pill">Komoot</span>
+                        <span class="integration-pill">Ride with GPS</span>
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h3>Export to devices and apps</h3>
+                    <p>Direct export to Garmin and Wahoo. Standard formats for everything else.</p>
+                    <div class="integration-pills">
+                        <span class="integration-pill">Garmin</span>
+                        <span class="integration-pill">Wahoo</span>
+                        <span class="integration-pill">Garmin Connect</span>
+                        <span class="integration-pill">Hammerhead</span>
+                        <span class="integration-pill">FIT</span>
+                        <span class="integration-pill">TCX</span>
+                        <span class="integration-pill">GPX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <span class="dot">&middot;</span>
+                <a href="terms.html">Terms of Service</a>
+                <span class="dot">&middot;</span>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </p>
+            <p class="footer-copyright">&copy; 2026 Route Companion. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const frames = document.querySelectorAll('.phone-frame');
+            const dots = document.querySelectorAll('.carousel-dot');
+            const captionRows = document.querySelectorAll('.carousel-captions-row');
+            const mobileCaption = document.getElementById('carousel-caption-mobile');
+            const isMobile = window.matchMedia('(max-width: 900px)');
+
+            const MOBILE_CAPTIONS = [
+                'Find stops along the way',
+                'Weather hour by hour',
+                'Plan your fuel and hydration',
+                'Navigate with stop alerts',
+                'Import from Strava and more',
+                'Export to Garmin and Wahoo'
+            ];
+
+            let currentGroup = 0;
+            let currentMobileIndex = 0;
+            let timer = null;
+
+            function updateDesktopCaptions(group) {
+                captionRows.forEach(row => {
+                    row.classList.toggle('visible', parseInt(row.dataset.group) === group);
+                });
+            }
+
+            function updateMobileCaption(index) {
+                if (!mobileCaption) return;
+                mobileCaption.style.opacity = '0';
+                setTimeout(() => {
+                    mobileCaption.textContent = MOBILE_CAPTIONS[index] || '';
+                    mobileCaption.style.opacity = '1';
+                }, 300);
+            }
+
+            function showGroup(group) {
+                frames.forEach(f => {
+                    f.classList.toggle('visible', parseInt(f.dataset.group) === group);
+                });
+                dots.forEach(d => {
+                    d.classList.toggle('active', parseInt(d.dataset.group) === group);
+                });
+                currentGroup = group;
+                updateDesktopCaptions(group);
+            }
+
+            function showMobileSlide(index) {
+                frames.forEach((f, i) => {
+                    f.classList.toggle('visible', i === index);
+                });
+                const dotGroup = index < 3 ? 0 : 1;
+                dots.forEach(d => {
+                    d.classList.toggle('active', parseInt(d.dataset.group) === dotGroup);
+                });
+                updateMobileCaption(index);
+                currentMobileIndex = index;
+            }
+
+            function startDesktopCarousel() {
+                clearInterval(timer);
+                showGroup(currentGroup);
+                timer = setInterval(() => {
+                    showGroup((currentGroup + 1) % 2);
+                }, 8000);
+            }
+
+            function startMobileCarousel() {
+                clearInterval(timer);
+                showMobileSlide(currentMobileIndex);
+                timer = setInterval(() => {
+                    showMobileSlide((currentMobileIndex + 1) % frames.length);
+                }, 6000);
+            }
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const group = parseInt(dot.dataset.group);
+                    if (isMobile.matches) {
+                        showMobileSlide(group * 3);
+                        clearInterval(timer);
+                        timer = setInterval(() => {
+                            showMobileSlide((currentMobileIndex + 1) % frames.length);
+                        }, 6000);
+                    } else {
+                        showGroup(group);
+                        clearInterval(timer);
+                        timer = setInterval(() => {
+                            showGroup((currentGroup + 1) % 2);
+                        }, 8000);
+                    }
+                });
+            });
+
+            function initCarousel() {
+                if (isMobile.matches) {
+                    startMobileCarousel();
+                } else {
+                    startDesktopCarousel();
+                }
+            }
+
+            isMobile.addEventListener('change', initCarousel);
+            initCarousel();
+        });
+    </script>
+</body>
+</html>

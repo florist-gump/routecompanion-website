@@ -1,0 +1,32 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="routeGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="50%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="#0F172A" rx="230"/>
+
+  <!-- Glow layer -->
+  <path d="M180 844 Q 512 844, 512 512 Q 512 180, 844 180"
+        fill="none" stroke="url(#routeGradient)" stroke-width="80" stroke-linecap="round" opacity="0.4" filter="url(#glow)"/>
+
+  <!-- Core path -->
+  <path d="M180 844 Q 512 844, 512 512 Q 512 180, 844 180"
+        fill="none" stroke="url(#routeGradient)" stroke-width="48" stroke-linecap="round"/>
+
+  <!-- Double ring POI marker -->
+  <circle cx="512" cy="512" r="100" fill="none" stroke="#FFFFFF" stroke-width="20" opacity="0.4"/>
+  <circle cx="512" cy="512" r="55" fill="none" stroke="#FFFFFF" stroke-width="24"/>
+  <circle cx="512" cy="512" r="16" fill="#FFFFFF"/>
+</svg>

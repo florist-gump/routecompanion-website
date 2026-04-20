@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Route Companion</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <style>
+        :root {
+            --bg-base: #0F172A;
+            --bg-surface: #1E293B;
+            --border-color: #334155;
+            --primary: #0284C7;
+            --primary-light: #38BDF8;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-base);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 40px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        header a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        section {
+            background: var(--bg-surface);
+            padding: 40px 20px;
+            margin: 20px 0;
+            border-radius: 16px;
+            text-align: left;
+        }
+
+        h2 {
+            color: var(--text-primary);
+            margin-top: 24px;
+        }
+
+        p, li {
+            color: var(--text-secondary);
+        }
+
+        strong {
+            color: var(--text-primary);
+        }
+
+        a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        footer {
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Privacy Policy</h1>
+            <p><a href="index.html">&larr; Back to Home</a></p>
+        </div>
+    </header>
+
+    <section class="container">
+        <p><strong>Effective Date:</strong> April 11, 2026</p>
+
+        <h2>1. Introduction</h2>
+        <p>Route Companion ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we handle your information when you use our mobile application.</p>
+
+        <h2>2. Data We Collect</h2>
+        <p>Route Companion ("we", "us") is operated from Switzerland. The data controller for the purposes of applicable data protection law can be reached at <a href="mailto:support@routecompanion.app">support@routecompanion.app</a>.</p>
+        <p>Route Companion is designed to be privacy-first. Your personal data and content (routes, location, preferences) stay on your device. The only data that reaches our servers is the minimum required to fulfill features you invoke and a small set of anonymous operational counters described in section 7.</p>
+        <ul>
+            <li><strong>Route Data:</strong> Routes you import (GPX, TCX, FIT files, Strava, Komoot, Ride with GPS) or create with the route planner are processed and stored locally on your device only.</li>
+            <li><strong>POI Data:</strong> Points of interest are fetched from our servers (sourced from OpenStreetMap data) and cached locally on your device.</li>
+            <li><strong>Weather Data:</strong> Weather forecasts are fetched from third-party weather services based on coordinates along your route. No personal data is sent with these requests.</li>
+            <li><strong>Authentication Tokens:</strong> If you connect third-party services (Strava, Ride with GPS, Garmin), OAuth access tokens are stored securely on your device using OS-provided secure storage (Keychain on iOS).</li>
+            <li><strong>Location Data:</strong> Your location is used for navigation, proximity alerts, and Live Activity display. Location data is processed on-device and never sent to our servers.</li>
+            <li><strong>Preferences:</strong> App settings such as unit system, map type, route appearance, and fuel plan parameters are stored locally on your device.</li>
+        </ul>
+
+        <h2>3. How We Use Data</h2>
+        <p>All data processing happens on your device. We use data solely to:</p>
+        <ul>
+            <li>Display your routes, points of interest, and weather forecasts on the map.</li>
+            <li>Calculate fuel and hydration estimates based on route parameters.</li>
+            <li>Provide navigation and proximity alerts.</li>
+            <li>Display Live Activity information on your iOS Lock Screen.</li>
+            <li>Export routes with course points to FIT, TCX, and GPX formats for use with GPS devices.</li>
+            <li>Import routes from connected third-party services.</li>
+        </ul>
+
+        <h2>4. Third-Party Services</h2>
+        <p>Route Companion integrates with the following services. When you use these integrations, your data is also subject to their respective privacy policies:</p>
+        <ul>
+            <li><strong>Cloudflare:</strong> Our API gateway and aggregate analytics run on Cloudflare Workers. Cloudflare acts as our data processor and may temporarily log request metadata (including IP addresses) at the network edge for security and abuse prevention. Subject to <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare's Privacy Policy</a>.</li>
+            <li><strong>Apple:</strong> Apple WeatherKit provides weather data on iOS, Apple Maps provides map tiles on iOS, and App Store Connect gives us aggregate installation metrics for our developer account. Subject to <a href="https://www.apple.com/legal/privacy/">Apple's Privacy Policy</a>.</li>
+            <li><strong>OpenStreetMap:</strong> POI data displayed in the app is sourced from OpenStreetMap. We query our own servers using geographic coordinates along your route to retrieve nearby points of interest. No personal data is sent with these requests.</li>
+            <li><strong>Weather Services:</strong> For fetching weather forecasts along your route. We send geographic coordinates to retrieve forecast data. No personal information is included in these requests.</li>
+            <li><strong>Strava API:</strong> For importing your saved routes (optional). We request read-only access to your routes. Subject to <a href="https://www.strava.com/legal/privacy">Strava's Privacy Policy</a>.</li>
+            <li><strong>Komoot:</strong> You can import Komoot routes by sharing them to Route Companion via your device's share sheet. We do not use Komoot's API or connect to Komoot on your behalf. Subject to <a href="https://www.komoot.com/privacy">Komoot's Privacy Policy</a>.</li>
+            <li><strong>Ride with GPS API:</strong> For importing your routes (optional). Subject to <a href="https://ridewithgps.com/privacy">RWGPS Privacy Policy</a>.</li>
+            <li><strong>Garmin Connect:</strong> For exporting routes to your Garmin device (optional). Subject to <a href="https://www.garmin.com/en-US/privacy/connect/">Garmin's Privacy Policy</a>.</li>
+            <li><strong>Apple Maps / Google Maps:</strong> For map tiles and base map display. Subject to Apple's and Google's respective privacy policies.</li>
+        </ul>
+
+        <h2>5. Data Storage & Security</h2>
+        <p>All route data, preferences, and history are stored locally on your device using encrypted storage where available. Requests to our servers contain only the minimum needed to fulfill the feature (e.g. geographic coordinates for POI lookups) and are not stored beyond the immediate response. We do not maintain a database of user accounts or personal profiles on our servers.</p>
+
+        <h2>6. Data Sharing</h2>
+        <p>We do not sell, rent, or share your personal data with any third parties. Network requests are made to our servers and to the third-party services listed above, and only when you explicitly initiate an action (importing a route, searching for stops, checking weather).</p>
+
+        <h2>7. Analytics & Operational Data</h2>
+        <p>We do not use behavioral analytics, advertising SDKs, or tracking pixels. We do not record which buttons you tap, which screens you view, or build a profile of your usage.</p>
+        <p>To keep the service running reliably, the following narrow operational data reaches our API gateway. All of it is anonymous by construction:</p>
+        <ul>
+            <li><strong>Rate-limit counters:</strong> short-lived request counters keyed to a hashed install identifier, used only to prevent abuse. Automatically deleted within at most one hour.</li>
+            <li><strong>Aggregate usage data:</strong> for each request, we record the endpoint name, HTTP status code, response time, and a <em>daily-salted hashed user key</em> derived from an install identifier. The daily salt means today's key and tomorrow's key for the same install are different values, we can count distinct users per day and measure endpoint popularity, but we cannot track any individual device across days or reconstruct a usage history. Under GDPR Recital 26 this qualifies as anonymous data.</li>
+            <li><strong>Third-party service quota counters:</strong> the app periodically reports aggregate counts of calls to providers that have monthly quotas (e.g. WeatherKit) so we can monitor our provider budgets. No content, coordinates, or individual request data is reported, only a count.</li>
+        </ul>
+        <p>This data is stored on Cloudflare Workers Analytics Engine for up to 90 days and is used exclusively for operating and troubleshooting the service. Processing is based on legitimate interest under Art. 6(1)(f) GDPR and Art. 31 of the revised Swiss Federal Act on Data Protection.</p>
+
+        <h2>8. Children's Privacy</h2>
+        <p>Route Companion does not knowingly collect data from children under the age of 13. The app does not require account creation or personal information to function.</p>
+
+        <h2>9. Your Rights</h2>
+        <p>Under GDPR and the revised Swiss FADP, you have the right to access, rectify, erase, restrict, or object to the processing of personal data about you, and the right to data portability. Because almost all Route Companion data is stored on your device, these rights are primarily satisfied by deleting the app or clearing its storage. For the narrow operational data in section 7, individual access and erasure cannot be technically fulfilled for the anonymous categories because we have no identifier to look up. To exercise your rights or ask questions about your data, contact us at <a href="mailto:support@routecompanion.app">support@routecompanion.app</a></p>
+
+        <h2>10. Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated effective date.</p>
+
+        <h2>11. Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy or our data practices, please contact us at <a href="mailto:support@routecompanion.app">support@routecompanion.app</a>.</p>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Route Companion. All rights reserved. <a href="index.html">Home</a> | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+        </div>
+    </footer>
+</body>
+</html>
