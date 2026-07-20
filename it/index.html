@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Companion | Meteo, soste e nutrizione per ogni percorso</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="description" content="Conosci il percorso prima di partire. Controlla il meteo, trova soste utili, pianifica la nutrizione ed esporta su Garmin, Wahoo e Hammerhead. Per ciclismo, corsa ed escursionismo.">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="canonical" href="https://routecompanion.app/it/">
+    <link rel="alternate" hreflang="en" href="https://routecompanion.app/">
+    <link rel="alternate" hreflang="de" href="https://routecompanion.app/de/">
+    <link rel="alternate" hreflang="fr" href="https://routecompanion.app/fr/">
+    <link rel="alternate" hreflang="es" href="https://routecompanion.app/es/">
+    <link rel="alternate" hreflang="it" href="https://routecompanion.app/it/">
+    <link rel="alternate" hreflang="pt-BR" href="https://routecompanion.app/pt-br/">
+    <link rel="alternate" hreflang="pt-PT" href="https://routecompanion.app/pt-pt/">
+    <meta name="theme-color" content="#0D1417">
+    <!-- Native App Store banner on iOS Safari (invisible elsewhere) -->
+    <meta name="apple-itunes-app" content="app-id=6758202473">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Route Companion">
+    <meta property="og:title" content="Route Companion | Meteo, soste e nutrizione per ogni percorso">
+    <meta property="og:description" content="Conosci il percorso prima di partire. Controlla il meteo, trova soste utili, pianifica la nutrizione ed esporta su Garmin, Wahoo e Hammerhead.">
+    <meta property="og:url" content="https://routecompanion.app/">
+    <meta property="og:image" content="https://routecompanion.app/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Route Companion | Meteo, soste e nutrizione per ogni percorso">
+    <meta name="twitter:description" content="Conosci il percorso prima di partire. Controlla il meteo, trova soste utili, pianifica la nutrizione ed esporta su Garmin, Wahoo e Hammerhead.">
+    <meta name="twitter:image" content="https://routecompanion.app/assets/og-image.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Route Companion",
+      "operatingSystem": "iOS, Android",
+      "applicationCategory": "SportsApplication",
+      "applicationSubCategory": "Cycling, running and hiking route planning",
+      "url": "https://routecompanion.app/",
+      "downloadUrl": "https://apps.apple.com/app/id6758202473",
+      "installUrl": "https://apps.apple.com/app/id6758202473",
+      "image": "https://routecompanion.app/assets/og-image.png",
+      "screenshot": [
+        "https://routecompanion.app/screenshots/1.png",
+        "https://routecompanion.app/screenshots/2.png",
+        "https://routecompanion.app/screenshots/3.png"
+      ],
+      "description": "Check weather along the route, find useful stops, plan your fuel, and export to Garmin, Wahoo, and Hammerhead. For cycling, running, and hiking.",
+      "featureList": [
+        "Hourly weather along your route",
+        "Carb and hydration fuel planning",
+        "On-route stop search for water, cafes, bike shops and more",
+        "Import GPX, TCX and FIT files or from Strava, Komoot and Ride with GPS",
+        "Export to Garmin, Wahoo and Hammerhead",
+        "Proximity alerts and iOS Live Activity"
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "Route Companion",
+        "url": "https://routecompanion.app/"
+      },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+    <style>
+        :root {
+            --bg-base: #0D1417;
+            --bg-surface: #172227;
+            --border-color: #243239;
+            --primary: #0E7490;
+            --primary-light: #35B5C9;
+            --cyan: #3BC2D6;
+            --purple: #0E94BA;
+            --pink: #FF6A3C;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --text-muted: #64748B;
+            --success: #10B981;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-base);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--bg-base);
+            padding: 40px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(ellipse, rgba(59, 194, 214, 0.06) 0%, rgba(14, 148, 186, 0.03) 35%, transparent 65%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .logo img {
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            margin: 0;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .hero-kicker {
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            color: var(--primary-light);
+            margin: 0 0 8px 0;
+        }
+
+        .workflow-mascots {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 56px;
+            margin: 14px auto 6px;
+        }
+
+        .workflow-mascots img {
+            height: 72px;
+            width: auto;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            -ms-interpolation-mode: nearest-neighbor;
+            opacity: 0.92;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--cyan), var(--primary-light), var(--purple), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sub-tagline {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 580px;
+            margin: 0 auto;
+        }
+
+        /* Hero Visual - Screenshot Carousel */
+        .hero-visual-row {
+            position: relative;
+            width: 100%;
+            max-width: 860px;
+            height: 620px;
+            margin: 20px auto 0;
+        }
+
+        .hero-visual-row::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 110%;
+            height: 70%;
+            background: radial-gradient(ellipse, rgba(59, 194, 214, 0.06) 0%, rgba(14, 148, 186, 0.03) 40%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .phone-frame {
+            position: absolute;
+            bottom: 0;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            aspect-ratio: 1284 / 2778;
+            pointer-events: none;
+            background: #000;
+            padding: 6px;
+            border-radius: 40px;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.08);
+            z-index: 1;
+        }
+
+        .phone-frame img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 34px;
+        }
+
+        .phone-frame.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .phone-frame[data-slot="left"] {
+            width: 240px;
+            left: 30px;
+        }
+
+        .phone-frame[data-slot="center"] {
+            width: 280px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                0 0 60px rgba(59, 194, 214, 0.08);
+        }
+
+        .phone-frame[data-slot="right"] {
+            width: 240px;
+            right: 30px;
+        }
+
+        .carousel-captions {
+            width: 100%;
+            max-width: 860px;
+            position: relative;
+            min-height: 1.6em;
+        }
+
+        .carousel-captions-row {
+            display: grid;
+            grid-template-columns: 270px 280px 270px;
+            justify-content: center;
+            gap: 0;
+            max-width: 860px;
+            width: 100%;
+            padding: 0 30px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .carousel-captions-row.visible {
+            opacity: 1;
+            position: relative;
+        }
+
+        .carousel-captions-row span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .carousel-caption-mobile {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin: 18px 0 0 0;
+            transition: opacity 0.4s ease;
+            min-height: 1.6em;
+            display: none;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #475569;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .carousel-dot.active {
+            background-color: var(--primary-light);
+            transform: scale(1.25);
+        }
+
+        /* Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--text-primary);
+            color: var(--bg-base);
+            box-shadow: 0 0 20px rgba(59, 194, 214, 0.15), 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(59, 194, 214, 0.25), 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--border-color);
+            color: var(--text-secondary);
+            border: 1px solid #475569;
+        }
+
+        .btn-secondary:hover {
+            background-color: #3B4963;
+            border-color: var(--text-muted);
+            transform: translateY(-2px);
+        }
+
+        .btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: var(--bg-surface);
+            color: var(--text-muted);
+            box-shadow: none;
+            transform: none !important;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Section shared */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(51, 65, 85, 0.4) 30%, rgba(51, 65, 85, 0.4) 70%, transparent);
+            border: none;
+            margin: 0;
+        }
+
+        .section-intro {
+            max-width: 760px;
+            margin: 0 auto 28px;
+            padding: 0 20px;
+        }
+
+        .section-kicker {
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            color: var(--primary-light);
+            margin: 0 0 8px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            line-height: 1.1;
+            letter-spacing: -0.8px;
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 660px;
+            margin: 12px auto 0;
+        }
+
+        /* Funzioni */
+        .features-section {
+            background: var(--bg-base);
+            padding: 56px 0;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .feature-card {
+            background: var(--bg-surface);
+            padding: 24px 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: #475569;
+        }
+
+        .feature-card[data-glow="blue"]:hover {
+            box-shadow: 0 0 40px rgba(14, 116, 144, 0.35), 0 0 80px rgba(14, 116, 144, 0.12), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="green"]:hover {
+            box-shadow: 0 0 40px rgba(16, 185, 129, 0.35), 0 0 80px rgba(16, 185, 129, 0.12), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="orange"]:hover {
+            box-shadow: 0 0 40px rgba(249, 115, 22, 0.35), 0 0 80px rgba(249, 115, 22, 0.12), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="purple"]:hover {
+            box-shadow: 0 0 40px rgba(14, 148, 186, 0.35), 0 0 80px rgba(14, 148, 186, 0.12), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="pink"]:hover {
+            box-shadow: 0 0 40px rgba(255, 106, 60, 0.35), 0 0 80px rgba(255, 106, 60, 0.12), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .feature-card[data-glow="teal"]:hover {
+            box-shadow: 0 0 40px rgba(30, 111, 194, 0.35), 0 0 80px rgba(30, 111, 194, 0.12), 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+        }
+
+        .feature-icon .material-icons {
+            font-size: 28px;
+        }
+
+        .feature-card h2 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin: 0 0 8px 0;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* How it works */
+        .workflow-section {
+            padding: 56px 0;
+        }
+
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            padding: 0 20px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .workflow-step {
+            text-align: center;
+            padding: 20px 12px;
+            position: relative;
+        }
+
+        .workflow-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(53, 181, 201, 0.12);
+            border: 1px solid rgba(53, 181, 201, 0.25);
+            color: var(--primary-light);
+            font-weight: 800;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .workflow-step h3 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin: 0 0 6px 0;
+        }
+
+        .workflow-step p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.45;
+        }
+
+        /* Integrations */
+        .integrations-section {
+            padding: 56px 0;
+        }
+
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .integration-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .integration-card h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            color: var(--text-primary);
+        }
+
+        .integration-card p {
+            margin: 10px 0 0 0;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .integration-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(71, 85, 105, 0.9);
+            background: rgba(15, 23, 42, 0.55);
+            color: var(--text-primary);
+            font-size: 0.86rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Guide */
+        .guides-section {
+            padding: 56px 0;
+            background: var(--bg-base);
+        }
+
+        .guide-list {
+            max-width: 840px;
+            margin: 0 auto;
+            padding: 0 20px;
+            border-top: 1px solid rgba(51, 65, 85, 0.75);
+        }
+
+        .guide-row {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 24px;
+            padding: 22px 0;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.75);
+            text-align: left;
+            text-decoration: none;
+        }
+
+        .guide-row h3 {
+            color: var(--text-primary);
+            font-size: 1.08rem;
+            margin: 0;
+            transition: color 0.2s ease;
+        }
+
+        .guide-row p {
+            color: var(--text-secondary);
+            font-size: 0.94rem;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        .guide-row:hover h3 {
+            color: var(--primary-light);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-links {
+            margin: 0 0 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-links .dot {
+            color: var(--text-muted);
+            margin: 0 12px;
+        }
+
+        .footer-copyright {
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero {
+                padding-top: 20px;
+                padding-bottom: 30px;
+            }
+
+            .hero::before {
+                width: 500px;
+                height: 500px;
+            }
+
+            .hero-container {
+                gap: 15px;
+            }
+
+            .logo {
+                margin-bottom: 5px;
+            }
+
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+
+            .workflow-mascots {
+                gap: 40px;
+                margin: 2px auto 10px;
+            }
+
+            .workflow-mascots img {
+                height: 56px;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+                margin-top: 0;
+                margin-bottom: 5px;
+                padding: 0 10px;
+            }
+
+            .sub-tagline {
+                font-size: 0.9rem;
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .workflow-steps {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .integration-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .guide-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .section-title {
+                font-size: 1.55rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .feature-card:hover {
+                transform: translateY(-2px);
+            }
+            .feature-card[data-glow="blue"]:hover,
+            .feature-card[data-glow="green"]:hover,
+            .feature-card[data-glow="orange"]:hover,
+            .feature-card[data-glow="purple"]:hover,
+            .feature-card[data-glow="pink"]:hover,
+            .feature-card[data-glow="teal"]:hover {
+                box-shadow: 0 0 25px rgba(59, 194, 214, 0.2), 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            .hero-visual-row {
+                max-width: 260px;
+                height: 575px;
+                margin: 10px auto 0;
+            }
+
+            .hero-visual-row::before {
+                display: none;
+            }
+
+            .phone-frame,
+            .phone-frame[data-slot="left"],
+            .phone-frame[data-slot="center"],
+            .phone-frame[data-slot="right"] {
+                width: 100% !important;
+                left: 0 !important;
+                right: auto !important;
+                transform: none !important;
+                z-index: auto !important;
+                padding: 5px !important;
+                border-radius: 36px !important;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+            }
+
+            .phone-frame img {
+                border-radius: 31px !important;
+            }
+
+            .carousel-captions {
+                display: none;
+            }
+
+            .carousel-caption-mobile {
+                display: block;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="logo">
+                    <img src="assets/icon.png" alt="Route Companion Logo" width="64" height="64">
+                    <h1>Route Companion</h1>
+                </div>
+                <p class="hero-kicker">Ciclismo, Corsa & Trekking</p>
+                <p class="tagline">Conosci il tuo percorso. Trova ciò di cui hai bisogno lungo di esso.</p>
+            </div>
+
+            <div class="hero-visual-row">
+                <!-- Group 1: Weather (center), Stops on map (left), Fuel (right) -->
+                <div class="phone-frame visible" data-slot="left" data-group="0">
+                    <picture>
+                        <source srcset="screenshots/2.webp" type="image/webp">
+                        <img src="screenshots/2.png" alt="Route Companion - Trova le soste along your route" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <div class="phone-frame visible" data-slot="center" data-group="0">
+                    <picture>
+                        <source srcset="screenshots/1.webp" type="image/webp">
+                        <img src="screenshots/1.png" alt="Route Companion - Previsioni meteo del percorso hour by hour" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <div class="phone-frame visible" data-slot="right" data-group="0">
+                    <picture>
+                        <source srcset="screenshots/3.webp" type="image/webp">
+                        <img src="screenshots/3.png" alt="Route Companion - Plan your fuel" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <!-- Group 2: Navigate (left), Import (center), Export (right) -->
+                <div class="phone-frame" data-slot="left" data-group="1">
+                    <picture>
+                        <source srcset="screenshots/4.webp" type="image/webp">
+                        <img src="screenshots/4.png" alt="Route Companion - Navigate with alerts" loading="lazy" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <div class="phone-frame" data-slot="center" data-group="1">
+                    <picture>
+                        <source srcset="screenshots/5.webp" type="image/webp">
+                        <img src="screenshots/5.png" alt="Route Companion - Importa o pianifica any route" loading="lazy" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+                <div class="phone-frame" data-slot="right" data-group="1">
+                    <picture>
+                        <source srcset="screenshots/6.webp" type="image/webp">
+                        <img src="screenshots/6.png" alt="Route Companion - Esporta per Garmin, Wahoo e Hammerhead" loading="lazy" decoding="async" width="640" height="1386">
+                    </picture>
+                </div>
+            </div>
+
+            <div class="carousel-captions" id="carousel-captions">
+                <div class="carousel-captions-row visible" data-group="0">
+                    <span>Trova le fermate lungo il tragitto</span>
+                    <span>Meteo ora per ora</span>
+                    <span>Pianifica nutrizione e idratazione</span>
+                </div>
+                <div class="carousel-captions-row" data-group="1">
+                    <span>Naviga con gli avvisi per le soste</span>
+                    <span>Importa da Strava e altro ancora</span>
+                    <span>Esporta per Garmin, Wahoo e Hammerhead</span>
+                </div>
+            </div>
+            <p class="carousel-caption-mobile" id="carousel-caption-mobile">Previsioni meteo del percorso</p>
+
+            <div class="carousel-dots">
+                <button class="carousel-dot active" data-group="0" aria-label="Show screenshots 1-3"></button>
+                <button class="carousel-dot" data-group="1" aria-label="Show screenshots 4-6"></button>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="https://apps.apple.com/app/id6758202473" class="btn btn-primary">
+                    <svg viewBox="0 0 384 512" width="20" height="20" fill="currentColor" style="margin-right: 8px; margin-bottom: -2px;">
+                        <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/>
+                    </svg>
+                    Scarica dall'App Store
+                </a>
+                <a href="android-beta.html" class="btn btn-secondary">
+                    <svg viewBox="0 0 576 512" width="20" height="20" fill="currentColor" style="margin-right: 8px; margin-bottom: -2px;">
+                        <path d="M420.55,301.93a24,24,0,1,1,24-24,24,24,0,0,1-24,24m-265.1,0a24,24,0,1,1,24-24,24,24,0,0,1-24,24m273.7-144.48,47.94-83a10,10,0,1,0-17.27-9.94l-48.35,84a302.3,302.3,0,0,0-246.94,0l-48.35-84a10,10,0,1,0-17.27,9.94l47.94,83C64.53,202.22,8.24,285.55,0,384H576c-8.24-98.45-64.54-181.78-146.85-226.55"/>
+                    </svg>
+                    Unisciti alla Beta Android
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="section-divider"></div>
+
+    <!-- How it works -->
+    <section class="workflow-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Come Funziona</p>
+                <div class="workflow-mascots" aria-hidden="true">
+                    <img src="assets/mascot/runner.svg" alt="" height="72" decoding="async">
+                    <img src="assets/mascot/cyclist.svg" alt="" height="72" decoding="async">
+                </div>
+                <h2 class="section-title">Un solo flusso, dal percorso alla pedalata</h2>
+                <p class="section-subtitle">Importa un percorso, controlla le condizioni, trova soste prima e durante la pedalata e naviga con gli avvisi.</p>
+            </div>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="workflow-number">1</div>
+                    <h3>Importa o pianifica</h3>
+                    <p>Carica un GPX, importa da Strava o pianifica un percorso da zero.</p>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">2</div>
+                    <h3>Controlla le condizioni</h3>
+                    <p>Visualizza meteo, vento, pioggia e qualità dell'aria lungo il percorso.</p>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">3</div>
+                    <h3>Trova le soste</h3>
+                    <p>Cerca punti acqua, ristoranti, negozi di biciclette e molti altri tipi di sosta durante l'escursione.</p>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">4</div>
+                    <h3>Pedala</h3>
+                    <p>Naviga con gli avvisi, trova soste al volo e segui i progressi sulla schermata di blocco.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Funzioni -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Funzioni</p>
+                <h2 class="section-title">Tutto ruota attorno all'itinerario</h2>
+            </div>
+
+            <div class="features">
+                <div class="feature-card" data-glow="teal">
+                    <div class="feature-icon" style="background-color: rgba(30, 111, 194, 0.15); color: #1E6FC2;">
+                        <span class="material-icons">thunderstorm</span>
+                    </div>
+                    <h2>Previsioni meteo lungo l'itinerario</h2>
+                    <p>Guarda le previsioni orarie, il vento, la pioggia, l'AQI e le indicazioni sull'abbigliamento mappate esattamente dove sarai sull'itinerario.</p>
+                </div>
+                <div class="feature-card" data-glow="orange">
+                    <div class="feature-icon" style="background-color: rgba(245, 158, 11, 0.15); color: #F59E0B;">
+                        <span class="material-icons">local_fire_department</span>
+                    </div>
+                    <h2>Nutri la tua pedalata</h2>
+                    <p>Stima i carboidrati all'ora, l'idratazione, le bevande energetiche e cosa portare in base alla distanza, all'altimetria e alle condizioni.</p>
+                </div>
+                <div class="feature-card" data-glow="blue">
+                    <div class="feature-icon" style="background-color: rgba(14, 116, 144, 0.15); color: #0E7490;">
+                        <span class="material-icons">alt_route</span>
+                    </div>
+                    <h2>Ricerca intelligente di punti di sosta</h2>
+                    <p>Trova acqua, bar, officine e rifugi prima o durante la pedalata. Auto-Mark distribuisce le soste a intervalli definiti e Quick Find passa all’opzione più vicina alla tua posizione.</p>
+                </div>
+                <div class="feature-card" data-glow="green">
+                    <div class="feature-icon" style="background-color: rgba(16, 185, 129, 0.15); color: #10B981;">
+                        <span class="material-icons">upload_file</span>
+                    </div>
+                    <h2>Importa o pianifica</h2>
+                    <p>Carica file GPX, TCX o FIT. Importa percorsi da Strava, Komoot e Ride with GPS. Oppure pianifica per bici da strada, gravel, MTB, corsa ed escursionismo.</p>
+                </div>
+                <div class="feature-card" data-glow="purple">
+                    <div class="feature-icon" style="background-color: rgba(14, 148, 186, 0.15); color: #0E94BA;">
+                        <span class="material-icons">widgets</span>
+                    </div>
+                    <h2>Avvisi, Widget e Attività Live</h2>
+                    <p>Ricevi notifiche quando ti avvicini alle tappe. Visualizza il meteo e cosa indossare sulla tua schermata home. Traccia la prossima tappa sullo schermo di blocco e sul Dynamic Island.</p>
+                </div>
+                <div class="feature-card" data-glow="pink">
+                    <div class="feature-icon" style="background-color: rgba(255, 106, 60, 0.15); color: #FF6A3C;">
+                        <span class="material-icons">ios_share</span>
+                    </div>
+                    <h2>Esporta sui dispositivi</h2>
+                    <p>Invia i punti del percorso a Garmin e Wahoo. Carica file GPX su Hammerhead, Garmin Connect e altre app.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Integrations -->
+    <section class="integrations-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Importa ed Esporta</p>
+                <h2 class="section-title">Percorsi dentro. Pronti per partire.</h2>
+                <p class="section-subtitle">Usa Route Companion tra le fonti di percorso che già utilizzi e i dispositivi con cui pedali.</p>
+            </div>
+
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <h3>Importa da file e servizi</h3>
+                    <p>Carica direttamente i file o connettiti ai servizi che già usi.</p>
+                    <div class="integration-pills">
+                        <span class="integration-pill">GPX</span>
+                        <span class="integration-pill">TCX</span>
+                        <span class="integration-pill">FIT</span>
+                        <span class="integration-pill">Strava</span>
+                        <span class="integration-pill">Komoot</span>
+                        <span class="integration-pill">Ride with GPS</span>
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h3>Esporta su dispositivi e app</h3>
+                    <p>Esportazione diretta su Garmin, Wahoo e Hammerhead. Formati standard per tutto il resto.</p>
+                    <div class="integration-pills">
+                        <span class="integration-pill">Garmin</span>
+                        <span class="integration-pill">Wahoo</span>
+                        <span class="integration-pill">Garmin Connect</span>
+                        <span class="integration-pill">Hammerhead</span>
+                        <span class="integration-pill">FIT</span>
+                        <span class="integration-pill">TCX</span>
+                        <span class="integration-pill">GPX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Free tools -->
+    <section class="guides-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Strumenti Web Gratuiti</p>
+                <h2 class="section-title">Prova i motori nel tuo browser</h2>
+                <p class="section-subtitle">Tre dei motori di preparazione percorso dell'app, gratuiti da usare nel tuo browser.</p>
+            </div>
+
+            <div class="guide-list">
+                <a class="guide-row" href="tools/route-weather.html">
+                    <h3>Previsioni meteo del percorso da file GPX</h3>
+                    <p>Temperatura, pioggia e vento contrario o favorevole lungo il percorso e alla tua velocità. Il file non lascia mai il browser.</p>
+                </a>
+                <a class="guide-row" href="tools/tyre-pressure.html">
+                    <h3>Calcolatore pressione pneumatici</h3>
+                    <p>Pressione anteriore e posteriore in base a peso, larghezza degli pneumatici, fondo e configurazione. Per strada, gravel, MTB e cicloturismo con carico.</p>
+                </a>
+                <a class="guide-row" href="tools/fueling.html">
+                    <h3>Calcolatore alimentazione</h3>
+                    <p>Carboidrati all'ora, idratazione e una lista di equipaggiamento concreta in base a distanza, salita, sforzo e temperatura.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Guide -->
+    <section class="guides-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Guide per la preparazione del percorso</p>
+                <h2 class="section-title">Il ragionamento dietro l'app</h2>
+                <p class="section-subtitle">Route Companion trasforma un percorso in decisioni pratiche: cosa indossare, quanto portare con sé, dove fare il rifornimento e quali soste sono effettivamente in arrivo. Queste pagine spiegano la logica senza nasconderla nell'app.</p>
+            </div>
+
+            <div class="guide-list">
+                <a class="guide-row" href="guides/cycling-weather-clothing.html">
+                    <h3>Cosa indossare per andare in bici</h3>
+                    <p>Perché discese, orario della pioggia, vento e tragitto di ritorno contano più di un solo numero nelle previsioni.</p>
+                </a>
+                <a class="guide-row" href="guides/running-weather-clothing.html">
+                    <h3>Cosa indossare per correre</h3>
+                    <p>Perché i corridori hanno bisogno di un kit più leggero e come sforzo, pioggia, vento e oscurità cambiano la decisione.</p>
+                </a>
+                <a class="guide-row" href="guides/cycling-fueling.html">
+                    <h3>Alimentazione e idratazione</h3>
+                    <p>Carboidrati, borracce, preparato economico, intervalli tra i rifornimenti e come portare il necessario senza riempire ogni tasca.</p>
+                </a>
+                <a class="guide-row" href="guides/cycling-tyre-pressure.html">
+                    <h3>Pressione pneumatici bici</h3>
+                    <p>Perché larghezza misurata, peso complessivo, fondo, carcassa e terreno misto contano più del numero stampato sullo pneumatico.</p>
+                </a>
+                <a class="guide-row" href="guides/route-stops.html">
+                    <h3>Trova punti di sosta lungo un percorso</h3>
+                    <p>Acqua, cibo, distributori di benzina, servizi igienici, opzioni di riparazione e perché una sosta dietro di te non è una vera sosta.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-links">
+                <a href="tools/">Strumenti Gratuiti</a>
+                <span class="dot">&middot;</span>
+                <a href="guides/">Guide</a>
+                <span class="dot">&middot;</span>
+                <a href="privacy.html">Informativa sulla Privacy</a>
+                <span class="dot">&middot;</span>
+                <a href="terms.html">Termini di Servizio</a>
+                <span class="dot">&middot;</span>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </p>
+            <p class="footer-languages"><a href="/">English</a> &middot; <a href="/de/">Deutsch</a> &middot; <a href="/fr/">Français</a> &middot; <a href="/es/">Español</a> &middot; <a href="/it/">Italiano</a> &middot; <a href="/pt-br/">Português (Brasil)</a> &middot; <a href="/pt-pt/">Português (Portugal)</a></p>
+            <p class="footer-copyright">&copy; 2026 Route Companion. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const frames = document.querySelectorAll('.phone-frame');
+            const dots = document.querySelectorAll('.carousel-dot');
+            const captionRows = document.querySelectorAll('.carousel-captions-row');
+            const mobileCaption = document.getElementById('carousel-caption-mobile');
+            const isMobile = window.matchMedia('(max-width: 900px)');
+
+            const MOBILE_CAPTIONS = [
+                'Trova le fermate lungo il tragitto',
+                'Meteo ora per ora',
+                'Pianifica nutrizione e idratazione',
+                'Naviga con gli avvisi per le soste',
+                'Importa da Strava e altro ancora',
+                'Esporta per Garmin, Wahoo e Hammerhead'
+            ];
+
+            let currentGroup = 0;
+            let currentMobileIndex = 0;
+            let timer = null;
+
+            function updateDesktopCaptions(group) {
+                captionRows.forEach(row => {
+                    row.classList.toggle('visible', parseInt(row.dataset.group) === group);
+                });
+            }
+
+            function updateMobileCaption(index) {
+                if (!mobileCaption) return;
+                mobileCaption.style.opacity = '0';
+                setTimeout(() => {
+                    mobileCaption.textContent = MOBILE_CAPTIONS[index] || '';
+                    mobileCaption.style.opacity = '1';
+                }, 300);
+            }
+
+            function showGroup(group) {
+                frames.forEach(f => {
+                    f.classList.toggle('visible', parseInt(f.dataset.group) === group);
+                });
+                dots.forEach(d => {
+                    d.classList.toggle('active', parseInt(d.dataset.group) === group);
+                });
+                currentGroup = group;
+                updateDesktopCaptions(group);
+            }
+
+            function showMobileSlide(index) {
+                frames.forEach((f, i) => {
+                    f.classList.toggle('visible', i === index);
+                });
+                const dotGroup = index < 3 ? 0 : 1;
+                dots.forEach(d => {
+                    d.classList.toggle('active', parseInt(d.dataset.group) === dotGroup);
+                });
+                updateMobileCaption(index);
+                currentMobileIndex = index;
+            }
+
+            function startDesktopCarousel() {
+                clearInterval(timer);
+                showGroup(currentGroup);
+                timer = setInterval(() => {
+                    showGroup((currentGroup + 1) % 2);
+                }, 8000);
+            }
+
+            function startMobileCarousel() {
+                clearInterval(timer);
+                showMobileSlide(currentMobileIndex);
+                timer = setInterval(() => {
+                    showMobileSlide((currentMobileIndex + 1) % frames.length);
+                }, 6000);
+            }
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const group = parseInt(dot.dataset.group);
+                    if (isMobile.matches) {
+                        showMobileSlide(group * 3);
+                        clearInterval(timer);
+                        timer = setInterval(() => {
+                            showMobileSlide((currentMobileIndex + 1) % frames.length);
+                        }, 6000);
+                    } else {
+                        showGroup(group);
+                        clearInterval(timer);
+                        timer = setInterval(() => {
+                            showGroup((currentGroup + 1) % 2);
+                        }, 8000);
+                    }
+                });
+            });
+
+            function initCarousel() {
+                if (isMobile.matches) {
+                    startMobileCarousel();
+                } else {
+                    startDesktopCarousel();
+                }
+            }
+
+            isMobile.addEventListener('change', initCarousel);
+            initCarousel();
+        });
+    </script>
+</body>
+</html>

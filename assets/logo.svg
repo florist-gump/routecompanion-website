@@ -1,0 +1,33 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="routeGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3BC2D6"/>
+      <stop offset="50%" stop-color="#0E94BA"/>
+      <stop offset="100%" stop-color="#0B5B71"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background (matches AppLogo.tsx LAUNCH_COLORS.backgroundDark / splash #0D1417) -->
+  <rect width="1024" height="1024" fill="#0D1417" rx="230"/>
+
+  <!-- Glow layer -->
+  <path d="M180 844 Q 512 844, 512 512 Q 512 180, 844 180"
+        fill="none" stroke="url(#routeGradient)" stroke-width="128" stroke-linecap="round" opacity="0.4" filter="url(#glow)"/>
+
+  <!-- Core path -->
+  <path d="M180 844 Q 512 844, 512 512 Q 512 180, 844 180"
+        fill="none" stroke="url(#routeGradient)" stroke-width="77" stroke-linecap="round"/>
+
+  <!-- Double ring POI marker -->
+  <circle cx="512" cy="512" r="160" fill="none" stroke="#FFFFFF" stroke-width="32" opacity="0.4"/>
+  <circle cx="512" cy="512" r="88" fill="none" stroke="#FFFFFF" stroke-width="38"/>
+  <!-- Signal-orange core matches AppLogo.tsx DarkTheme.live -->
+  <circle cx="512" cy="512" r="28" fill="#FF6A3C"/>
+</svg>

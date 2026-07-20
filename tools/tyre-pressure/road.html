@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road Bike Tyre Pressure Calculator (25 / 28 / 30 mm) | Route Companion</title>
+    <meta name="description" content="Free road bike tyre pressure calculator. Front and rear psi and bar for 25, 28, and 30 mm tyres from rider weight and setup — based on the 15% tyre-drop method, not the sidewall maximum.">
+    <link rel="canonical" href="https://routecompanion.app/tools/tyre-pressure/road.html">
+    <meta property="og:title" content="Road Bike Tyre Pressure Calculator (25 / 28 / 30 mm)">
+    <meta property="og:description" content="The pressure printed on your sidewall is a limit, not a recommendation, and it is almost always too high. Get a front and rear number matched to your weight and tyre width instead.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://routecompanion.app/tools/tyre-pressure/road.html">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" href="../../assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="../../guides/styles.css">
+    <link rel="stylesheet" href="../tools.css">
+    <style>
+      .ref-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.98rem; }
+      .ref-table th, .ref-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+      .ref-table thead th { color: var(--text-secondary); font-weight: 600; }
+      .ref-table .bar-unit { color: var(--text-secondary); }
+      .breadcrumb { font-size: 0.9rem; color: var(--text-secondary); margin: 0 0 4px; }
+      .breadcrumb a { color: var(--text-secondary); }
+      .sibling-tools { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+      .sibling-tools a { padding: 8px 14px; border: 1px solid var(--border-color); border-radius: 999px; text-decoration: none; }
+    </style>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Road bike tyre pressure calculator","url":"https://routecompanion.app/tools/tyre-pressure/road.html","applicationCategory":"SportsApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Route Companion","logo":{"@type":"ImageObject","url":"https://routecompanion.app/assets/icon.png"}}}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What pressure should I run in 28 mm road tyres?","acceptedAnswer":{"@type":"Answer","text":"For a 70 kg rider on 28 mm tubeless tyres, around 64 psi front and 68 psi rear on normal pavement is a good starting point. Heavier riders need more, wider tyres need less. Use the calculator for your exact weight and width."}},{"@type":"Question","name":"Is 100 psi too high for road tyres?","acceptedAnswer":{"@type":"Answer","text":"For most riders on 28 mm or wider tyres, yes. 100 psi is above the point where the tyre stops absorbing the road and starts skipping, which is slower and harsher. It only makes sense for very heavy riders on narrow tyres."}},{"@type":"Question","name":"Should road tyre pressure be different front and rear?","acceptedAnswer":{"@type":"Answer","text":"Yes. Your rear wheel carries more of your weight — roughly 51–52% on a road bike — so it needs a few psi more than the front to reach the same tyre drop. Equal pressures leave the front slightly over-inflated."}},{"@type":"Question","name":"25 vs 28 vs 30 mm — how much does width change pressure?","acceptedAnswer":{"@type":"Answer","text":"Meaningfully. Each step up in width adds air volume, so the same rider drops several psi moving from 25 to 28 to 30 mm. That is much of why wider tubeless road tyres feel fast and smooth. Enter your real width for an accurate number."}},{"@type":"Question","name":"Tubeless vs tubes on the road — does it matter?","acceptedAnswer":{"@type":"Answer","text":"A little. Tubeless setups can run slightly lower since there is no tube to pinch, and supple casings deform more easily than reinforced ones. Select your setup in the calculator and it adjusts."}}]}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://routecompanion.app/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://routecompanion.app/tools/"},{"@type":"ListItem","position":3,"name":"Tyre pressure","item":"https://routecompanion.app/tools/tyre-pressure.html"},{"@type":"ListItem","position":4,"name":"Road bike tyre pressure calculator","item":"https://routecompanion.app/tools/tyre-pressure/road.html"}]}
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <nav class="site-nav" aria-label="Site navigation">
+            <a class="brand-link" href="../../index.html">
+                <img src="../../assets/icon.png" alt="Route Companion">
+                <span>Route Companion</span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html">Tools</a>
+                <a href="../../guides/index.html">Guides</a>
+                <a href="https://apps.apple.com/app/id6758202473">App Store</a>
+            </div>
+        </nav>
+
+        <p class="breadcrumb"><a href="../index.html">Tools</a> &rsaquo; <a href="../tyre-pressure.html">Tyre pressure</a> &rsaquo; Road bike</p>
+        <header class="tool-hero">
+            <div>
+                <h1>Road bike tyre pressure calculator</h1>
+                <p class="hero-copy">The pressure printed on your sidewall is a limit, not a recommendation, and it is almost always too high. Get a front and rear number matched to your weight and tyre width instead.</p>
+            </div>
+            <div class="tool-mascot" id="tool-mascot" aria-hidden="true"></div>
+        </header>
+
+        <main>
+            <div class="tool-app">
+                <div id="tool-root">
+                    <div class="tool-loading">Loading calculator…</div>
+                </div>
+                <noscript><p class="tool-error">This calculator needs JavaScript. Everything runs in your browser. Nothing is uploaded.</p></noscript>
+            </div>
+
+            <section class="section">
+                <h2>How much pressure for the road?</h2>
+                <p>If you learned to inflate road tyres in the era of 23&nbsp;mm tyres and 120&nbsp;psi, your pump habits are out of date. Modern road tyres are wider — 28&nbsp;and 30&nbsp;mm are now standard — and the evidence is clear that lower pressures roll faster on real pavement, not slower. Above the optimal pressure a tyre stops absorbing surface texture and starts bouncing, which scrubs speed and hammers your hands and back.</p>
+                <p>This calculator picks the pressure at which each tyre compresses by about 15% under the load it carries, the balance point between rolling resistance, grip, and pinch protection. Front and rear get different numbers because they carry different loads. It is the same engine used in the Route Companion app, tested against published tyre measurements, and it errs slightly low on purpose: on real roads a few psi soft costs almost nothing, while a few psi hard costs comfort and speed.</p>
+            </section>
+
+            <section class="section">
+                <h2>Typical road pressures by rider weight</h2>
+                <table class="ref-table">
+                    <thead>
+                        <tr><th>Rider (incl. bike + kit)</th><th>Front</th><th>Rear</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>60 kg</td><td>56 psi <span class="bar-unit">/ 3.9 bar</span></td><td>59.5 psi <span class="bar-unit">/ 4.1 bar</span></td></tr>
+                        <tr><td>70 kg</td><td>64 psi <span class="bar-unit">/ 4.4 bar</span></td><td>68 psi <span class="bar-unit">/ 4.7 bar</span></td></tr>
+                        <tr><td>80 kg</td><td>72.5 psi <span class="bar-unit">/ 5.0 bar</span></td><td>76.5 psi <span class="bar-unit">/ 5.3 bar</span></td></tr>
+                        <tr><td>90 kg</td><td>80.5 psi <span class="bar-unit">/ 5.6 bar</span></td><td>85.5 psi <span class="bar-unit">/ 5.9 bar</span></td></tr>
+                        <tr><td>100 kg</td><td>88.5 psi <span class="bar-unit">/ 6.1 bar</span></td><td>94 psi <span class="bar-unit">/ 6.5 bar</span></td></tr>
+                    </tbody>
+                </table>
+                <p class="field-hint" style="margin-top:10px;">Starting points for a 28 mm tubeless tyre on normal pavement, steady pace, 700c wheels. Wider tyres and rougher roads want less; use the calculator above for your exact setup.</p>
+            </section>
+
+            <section class="section">
+                <h2>Adjust for the road</h2>
+                <table class="ref-table">
+                    <tbody>
+                        <tr><td><strong>Smooth, fresh tarmac</strong></td><td>You can add a couple of psi over the baseline if you prefer a firmer feel.</td></tr>
+                        <tr><td><strong>Typical, patched roads</strong></td><td>Use the calculator number as-is.</td></tr>
+                        <tr><td><strong>Rough, chip-seal, wet</strong></td><td>Drop 2–4 psi for grip and comfort; lower pressure is faster once the surface gets rough.</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section" id="faq">
+                <h2>Common questions</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>What pressure should I run in 28&nbsp;mm road tyres?</summary>
+                        <p>For a 70&nbsp;kg rider on 28&nbsp;mm tubeless tyres, around 64&nbsp;psi front and 68&nbsp;psi rear on normal pavement is a good starting point. Heavier riders need more, wider tyres need less. Use the calculator for your exact weight and width.</p>
+                    </details>
+                    <details>
+                        <summary>Is 100&nbsp;psi too high for road tyres?</summary>
+                        <p>For most riders on 28&nbsp;mm or wider tyres, yes. 100&nbsp;psi is above the point where the tyre stops absorbing the road and starts skipping, which is slower and harsher. It only makes sense for very heavy riders on narrow tyres.</p>
+                    </details>
+                    <details>
+                        <summary>Should road tyre pressure be different front and rear?</summary>
+                        <p>Yes. Your rear wheel carries more of your weight — roughly 51–52% on a road bike — so it needs a few psi more than the front to reach the same tyre drop. Equal pressures leave the front slightly over-inflated.</p>
+                    </details>
+                    <details>
+                        <summary>25 vs 28 vs 30&nbsp;mm — how much does width change pressure?</summary>
+                        <p>Meaningfully. Each step up in width adds air volume, so the same rider drops several psi moving from 25 to 28 to 30&nbsp;mm. That is much of why wider tubeless road tyres feel fast and smooth. Enter your real width for an accurate number.</p>
+                    </details>
+                    <details>
+                        <summary>Tubeless vs tubes on the road — does it matter?</summary>
+                        <p>A little. Tubeless setups can run slightly lower since there is no tube to pinch, and supple casings deform more easily than reinforced ones. Select your setup in the calculator and it adjusts.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Other disciplines</h2>
+                <div class="sibling-tools">
+                    <a href="road.html">Road</a>
+                    <a href="gravel.html">Gravel</a>
+                    <a href="mtb.html">MTB</a>
+                    <a href="../tyre-pressure.html">All setups &amp; touring</a>
+                </div>
+            </section>
+
+            <section class="tool-cta">
+                <div>
+                    <h2>Dial it in for the route, not just the bike.</h2>
+                    <p>The Route Companion app runs this same engine on the routes you actually ride, and puts the number in your pre-ride checklist alongside weather, clothing, and fueling — so you set your tyres for the day, then ride.</p>
+                </div>
+                <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">Get the app</a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="../../index.html">Home</a>
+                <a href="../index.html">Tools</a>
+                <a href="../../guides/index.html">Guides</a>
+                <a href="../../privacy.html">Privacy</a>
+                <a href="../../terms.html">Terms</a>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </div>
+            <div>&copy; 2026 Route Companion. All rights reserved.</div>
+        </footer>
+    </div>
+    <script>
+      // Pre-set the shared calculator to this discipline (canonical stays clean).
+      if (!location.search) history.replaceState(null, '', location.pathname + '?cat=road&fw=28&surf=z1');
+    </script>
+    <script type="module" src="../assets/tyre-pressure.js"></script>
+</body>
+</html>

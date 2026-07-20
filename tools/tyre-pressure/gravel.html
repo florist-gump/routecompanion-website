@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravel Tyre Pressure Calculator (Tubeless, by Rider Weight) | Route Companion</title>
+    <meta name="description" content="Free gravel bike tyre pressure calculator. Front and rear psi and bar for hardpack, loose, and chunky gravel from rider weight, tyre width, and setup — based on the 15% tyre-drop method.">
+    <link rel="canonical" href="https://routecompanion.app/tools/tyre-pressure/gravel.html">
+    <meta property="og:title" content="Gravel Tyre Pressure Calculator (by Rider Weight)">
+    <meta property="og:description" content="The right gravel pressure is lower than most riders run, and different front to rear. Get a starting number for your weight, tyre width, and how loose the surface is, then fine-tune from there.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://routecompanion.app/tools/tyre-pressure/gravel.html">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" href="../../assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="../../guides/styles.css">
+    <link rel="stylesheet" href="../tools.css">
+    <style>
+      .ref-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.98rem; }
+      .ref-table th, .ref-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+      .ref-table thead th { color: var(--text-secondary); font-weight: 600; }
+      .ref-table .bar-unit { color: var(--text-secondary); }
+      .breadcrumb { font-size: 0.9rem; color: var(--text-secondary); margin: 0 0 4px; }
+      .breadcrumb a { color: var(--text-secondary); }
+      .sibling-tools { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+      .sibling-tools a { padding: 8px 14px; border: 1px solid var(--border-color); border-radius: 999px; text-decoration: none; }
+    </style>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Gravel tyre pressure calculator","url":"https://routecompanion.app/tools/tyre-pressure/gravel.html","applicationCategory":"SportsApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Route Companion","logo":{"@type":"ImageObject","url":"https://routecompanion.app/assets/icon.png"}}}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What tyre pressure should I run on gravel?","acceptedAnswer":{"@type":"Answer","text":"It depends on rider weight, tyre width, and how loose the surface is. As an anchor, a 75 kg rider on 40 mm tubeless tyres runs roughly 30–34 psi on hardpack, and lower on loose or chunky gravel. Use the calculator for a number matched to your setup, then fine-tune ±2 psi over a few rides."}},{"@type":"Question","name":"Should gravel pressure be lower with tubeless?","acceptedAnswer":{"@type":"Answer","text":"Yes, a little. Without a tube there is nothing to pinch-flat, so tubeless setups can safely run a few psi lower, which is much of why they corner and roll so well on rough ground. Pick your setup in the calculator and it adjusts."}},{"@type":"Question","name":"How much lower for loose or chunky gravel?","acceptedAnswer":{"@type":"Answer","text":"Roughly 2 psi for loose-over-hard and 2–4 psi more for chunky or rocky terrain, versus a hardpack baseline. Lower pressure lets the tyre conform to the surface for grip, but go too far and you invite rim strikes and burping."}},{"@type":"Question","name":"Does tyre width change the pressure a lot?","acceptedAnswer":{"@type":"Answer","text":"A lot. A wider tyre holds more air volume, so it needs less pressure for the same support: a 45 mm tyre runs noticeably lower than a 38 mm one at the same weight. Enter your real measured width, which is often 1–2 mm wider than the label on a modern rim."}},{"@type":"Question","name":"Do hookless gravel rims limit pressure?","acceptedAnswer":{"@type":"Answer","text":"Yes. Hookless (straight-side) rims are capped at 72.5 psi (5 bar) per ETRTO guidance, and many combinations specify lower. On gravel you are usually well under that, but tick the hookless option and the calculator caps and warns you."}}]}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://routecompanion.app/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://routecompanion.app/tools/"},{"@type":"ListItem","position":3,"name":"Tyre pressure","item":"https://routecompanion.app/tools/tyre-pressure.html"},{"@type":"ListItem","position":4,"name":"Gravel tyre pressure calculator","item":"https://routecompanion.app/tools/tyre-pressure/gravel.html"}]}
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <nav class="site-nav" aria-label="Site navigation">
+            <a class="brand-link" href="../../index.html">
+                <img src="../../assets/icon.png" alt="Route Companion">
+                <span>Route Companion</span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html">Tools</a>
+                <a href="../../guides/index.html">Guides</a>
+                <a href="https://apps.apple.com/app/id6758202473">App Store</a>
+            </div>
+        </nav>
+
+        <p class="breadcrumb"><a href="../index.html">Tools</a> &rsaquo; <a href="../tyre-pressure.html">Tyre pressure</a> &rsaquo; Gravel</p>
+        <header class="tool-hero">
+            <div>
+                <h1>Gravel tyre pressure calculator</h1>
+                <p class="hero-copy">The right gravel pressure is lower than most riders run, and different front to rear. Get a starting number for your weight, tyre width, and how loose the surface is, then fine-tune from there.</p>
+            </div>
+            <div class="tool-mascot" id="tool-mascot" aria-hidden="true"></div>
+        </header>
+
+        <main>
+            <div class="tool-app">
+                <div id="tool-root">
+                    <div class="tool-loading">Loading calculator…</div>
+                </div>
+                <noscript><p class="tool-error">This calculator needs JavaScript. Everything runs in your browser. Nothing is uploaded.</p></noscript>
+            </div>
+
+            <section class="section">
+                <h2>How much pressure for gravel?</h2>
+                <p>Gravel is where tyre pressure matters most, and where the number printed on the sidewall helps you least. Run it too hard and the tyre skips across washboard, corners vaguely on loose surfaces, and beats you up for hours. Run it too soft and you risk burping air in corners, denting rims, and squirming under power. The sweet spot is a surprisingly narrow band, and it moves with your weight, your tyre width, and how loose the ground is.</p>
+                <p>This calculator sizes each tyre to compress by about 15% under the load it actually carries. Your front and rear wheels take different shares of your weight, so they get different pressures: matching the drop on both keeps the bike planted and predictable. It is the same engine that runs in the Route Companion app, tested against published tyre load-deflection data, and it deliberately errs a touch low, because on gravel a slightly soft tyre rolls faster and grips better than a hard one.</p>
+            </section>
+
+            <section class="section">
+                <h2>Typical gravel pressures by rider weight</h2>
+                <table class="ref-table">
+                    <thead>
+                        <tr><th>Rider (incl. bike + kit)</th><th>Front</th><th>Rear</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>60 kg</td><td>26 psi <span class="bar-unit">/ 1.8 bar</span></td><td>29 psi <span class="bar-unit">/ 2.0 bar</span></td></tr>
+                        <tr><td>70 kg</td><td>30 psi <span class="bar-unit">/ 2.1 bar</span></td><td>33 psi <span class="bar-unit">/ 2.3 bar</span></td></tr>
+                        <tr><td>80 kg</td><td>33.5 psi <span class="bar-unit">/ 2.3 bar</span></td><td>37 psi <span class="bar-unit">/ 2.6 bar</span></td></tr>
+                        <tr><td>90 kg</td><td>37 psi <span class="bar-unit">/ 2.6 bar</span></td><td>41 psi <span class="bar-unit">/ 2.8 bar</span></td></tr>
+                        <tr><td>100 kg</td><td>41 psi <span class="bar-unit">/ 2.8 bar</span></td><td>45 psi <span class="bar-unit">/ 3.1 bar</span></td></tr>
+                    </tbody>
+                </table>
+                <p class="field-hint" style="margin-top:10px;">Starting points for a 40 mm tubeless tyre on hardpack gravel, steady pace, 700c wheels. Drop a few psi for loose or chunky surfaces, and use the calculator above for your exact tyre width and setup.</p>
+            </section>
+
+            <section class="section">
+                <h2>Adjust for the surface</h2>
+                <table class="ref-table">
+                    <tbody>
+                        <tr><td><strong>Hardpack / smooth dirt</strong></td><td>Start at the calculator number. Fast-rolling, predictable.</td></tr>
+                        <tr><td><strong>Loose over hard, mixed</strong></td><td>Drop about 2 psi front and rear for grip on the loose top layer.</td></tr>
+                        <tr><td><strong>Chunky, rocky, technical</strong></td><td>Drop 2–4 psi more, but watch for rim strikes; add a casing insert if you keep bottoming out.</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section" id="faq">
+                <h2>Common questions</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>What tyre pressure should I run on gravel?</summary>
+                        <p>It depends on rider weight, tyre width, and how loose the surface is. As an anchor, a 75&nbsp;kg rider on 40&nbsp;mm tubeless tyres runs roughly 30–34&nbsp;psi on hardpack, and lower on loose or chunky gravel. Use the calculator for a number matched to your setup, then fine-tune ±2&nbsp;psi over a few rides.</p>
+                    </details>
+                    <details>
+                        <summary>Should gravel pressure be lower with tubeless?</summary>
+                        <p>Yes, a little. Without a tube there is nothing to pinch-flat, so tubeless setups can safely run a few psi lower, which is much of why they corner and roll so well on rough ground. Pick your setup in the calculator and it adjusts.</p>
+                    </details>
+                    <details>
+                        <summary>How much lower for loose or chunky gravel?</summary>
+                        <p>Roughly 2&nbsp;psi for loose-over-hard and 2–4&nbsp;psi more for chunky or rocky terrain, versus a hardpack baseline. Lower pressure lets the tyre conform to the surface for grip, but go too far and you invite rim strikes and burping.</p>
+                    </details>
+                    <details>
+                        <summary>Does tyre width change the pressure a lot?</summary>
+                        <p>A lot. A wider tyre holds more air volume, so it needs less pressure for the same support: a 45&nbsp;mm tyre runs noticeably lower than a 38&nbsp;mm one at the same weight. Enter your real measured width, which is often 1–2&nbsp;mm wider than the label on a modern rim.</p>
+                    </details>
+                    <details>
+                        <summary>Do hookless gravel rims limit pressure?</summary>
+                        <p>Yes. Hookless (straight-side) rims are capped at 72.5&nbsp;psi (5&nbsp;bar) per ETRTO guidance, and many combinations specify lower. On gravel you are usually well under that, but tick the hookless option and the calculator caps and warns you.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Other disciplines</h2>
+                <div class="sibling-tools">
+                    <a href="road.html">Road</a>
+                    <a href="gravel.html">Gravel</a>
+                    <a href="mtb.html">MTB</a>
+                    <a href="../tyre-pressure.html">All setups &amp; touring</a>
+                </div>
+            </section>
+
+            <section class="tool-cta">
+                <div>
+                    <h2>Your gravel pressure changes with the route.</h2>
+                    <p>The Route Companion app reads the surface mix along your actual route — pavement, hardpack, loose gravel — and suggests a pressure for the ground you will really cover, right in the pre-ride checklist next to weather, clothing, and fueling.</p>
+                </div>
+                <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">Get the app</a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="../../index.html">Home</a>
+                <a href="../index.html">Tools</a>
+                <a href="../../guides/index.html">Guides</a>
+                <a href="../../privacy.html">Privacy</a>
+                <a href="../../terms.html">Terms</a>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </div>
+            <div>&copy; 2026 Route Companion. All rights reserved.</div>
+        </footer>
+    </div>
+    <script>
+      // Pre-set the shared calculator to this discipline (canonical stays clean).
+      if (!location.search) history.replaceState(null, '', location.pathname + '?cat=gravel&fw=40&surf=z3');
+    </script>
+    <script type="module" src="../assets/tyre-pressure.js"></script>
+</body>
+</html>

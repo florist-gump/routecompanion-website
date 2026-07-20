@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Tyre Pressure Calculator (Road, Gravel, MTB) | Route Companion</title>
+    <meta name="description" content="Free tyre pressure calculator for road, gravel, and MTB. Front and rear psi and bar from rider weight, tyre width, surface, and setup, based on the 15% tyre-drop method.">
+    <link rel="canonical" href="https://routecompanion.app/tools/tyre-pressure.html">
+    <meta property="og:title" content="Bike Tyre Pressure Calculator (Road, Gravel, MTB)">
+    <meta property="og:description" content="Front and rear pressures from rider weight, tyre width, surface, and setup. Free, runs in your browser.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="../guides/styles.css">
+    <link rel="stylesheet" href="tools.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Route Companion Tyre Pressure Calculator",
+      "url": "https://routecompanion.app/tools/tyre-pressure.html",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "publisher": { "@type": "Organization", "name": "Route Companion", "logo": { "@type": "ImageObject", "url": "https://routecompanion.app/assets/icon.png" } }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What tyre pressure should I run on gravel?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It depends on rider weight, tyre width, and how loose the surface is. As a rough anchor, a 75 kg rider on 40 mm tyres runs around 28–34 psi on hardpack and lower on loose or chunky gravel. Use the calculator above for a number matched to your setup, then fine-tune ±2 psi." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why are front and rear pressures different?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Your weight is not split evenly between the wheels. The rear typically carries 51 to 56% of the load, depending on bike type and luggage. Matching pressure to per-wheel load gives both tyres the same tyre drop, so the bike corners and rolls consistently." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is lower tyre pressure really faster?",
+          "acceptedAnswer": { "@type": "Answer", "text": "On real roads, usually yes, up to a point. Above the optimal pressure a tyre stops absorbing vibration and starts bouncing, which costs speed and comfort. That is why this calculator errs slightly low rather than high: a bit soft rolls faster on rough surfaces than a bit hard." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the 15% tyre drop method?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Tyre drop is how much the tyre compresses under load. Published load-deflection measurements of bicycle tyres found that around 15% drop balances rolling resistance, comfort, and pinch-flat protection. This calculator is tested against those measurements, with adjustments for surface, casing, and pace." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do hookless rims change the recommendation?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Hookless (straight-side) rims are limited to a maximum of 72.5 psi (5 bar) per ETRTO guidance, and many rim/tyre combinations specify lower limits. Tick the hookless option and the calculator caps the result and warns you." }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <nav class="site-nav" aria-label="Site navigation">
+            <a class="brand-link" href="../index.html">
+                <img src="../assets/icon.png" alt="Route Companion">
+                <span>Route Companion</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Tools</a>
+                <a href="../guides/index.html">Guides</a>
+                <a href="https://apps.apple.com/app/id6758202473">App Store</a>
+            </div>
+        </nav>
+
+        <header class="tool-hero">
+            <div>
+                <h1>Tyre pressure calculator</h1>
+                <p class="hero-copy">Front and rear pressure from the things that actually matter: your weight, your tyre width, and the surface you ride. Built on published tyre-drop measurements, not the number printed on the sidewall.</p>
+            </div>
+            <div class="tool-mascot" id="tool-mascot" aria-hidden="true"></div>
+        </header>
+
+        <main>
+            <div class="tool-app">
+                <div id="tool-root">
+                    <div class="tool-loading">Loading calculator…</div>
+                </div>
+                <noscript><p class="tool-error">This calculator needs JavaScript. Everything runs in your browser. Nothing is uploaded.</p></noscript>
+            </div>
+
+            <section class="section" id="how">
+                <h2>What the number is based on</h2>
+                <p class="lead">Most riders inherit a pressure from habit or from the maximum printed on the sidewall. Both are usually too high.</p>
+                <p>The model works in three steps. First it takes your total system weight (you, bike, gear) and splits it between the wheels the way your bike type actually carries it: a road bike puts roughly 48/52 front/rear, a loaded touring rig closer to 44/56. Then each wheel gets the pressure at which its tyre compresses by about 15% under that load. That target comes from published load-deflection measurements of bicycle tyres, the reference data most serious pressure calculators are built on, and this calculator is tested against those measurement curves. Finally it corrects for surface, casing type, wheel size, and pace, and caps the result at ETRTO limits when you select hookless rims.</p>
+                <p>Why 15% drop? Below it the tyre bounces over every imperfection and loses speed; above it the tyre squirms, corners vaguely, and risks pinch flats and rim strikes. The sweet spot balances rolling resistance, grip, and protection.</p>
+                <p>Where judgment calls were needed, this calculator errs slightly low on purpose: on real roads a few psi too soft costs you almost nothing, while a few psi too hard costs comfort and speed. It is the same engine that runs in the Route Companion app, where it also reads the surfaces along your planned route.</p>
+            </section>
+
+            <section class="section">
+                <h2>Pressure by discipline</h2>
+                <p>Want a page tuned to your kind of riding, with a typical-pressure table for your weight? Jump to the calculator pre-set for your discipline:</p>
+                <div class="sibling-tools" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;">
+                    <a href="tyre-pressure/road.html" style="padding:8px 14px;border:1px solid var(--border-color);border-radius:999px;text-decoration:none;">Road bike tyre pressure</a>
+                    <a href="tyre-pressure/gravel.html" style="padding:8px 14px;border:1px solid var(--border-color);border-radius:999px;text-decoration:none;">Gravel tyre pressure</a>
+                    <a href="tyre-pressure/mtb.html" style="padding:8px 14px;border:1px solid var(--border-color);border-radius:999px;text-decoration:none;">MTB tyre pressure</a>
+                </div>
+            </section>
+
+            <section class="section" id="faq">
+                <h2>Common questions</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>What tyre pressure should I run on gravel?</summary>
+                        <p>It depends on rider weight, tyre width, and how loose the surface is. As a rough anchor, a 75 kg rider on 40 mm tyres runs around 28–34 psi on hardpack, and lower on loose or chunky gravel. Use the calculator for a number matched to your setup, then fine-tune ±2 psi over a few rides.</p>
+                    </details>
+                    <details>
+                        <summary>Why are front and rear pressures different?</summary>
+                        <p>Your weight is not split evenly between the wheels. The rear typically carries 51 to 56% of the load, depending on bike type and luggage. Matching pressure to per-wheel load gives both tyres the same tyre drop, so the bike corners and rolls consistently.</p>
+                    </details>
+                    <details>
+                        <summary>Is lower pressure really faster?</summary>
+                        <p>On real roads, usually yes, up to a point. Above the optimal pressure a tyre stops absorbing vibration and starts bouncing, which costs speed and comfort. A bit soft rolls faster on rough surfaces than a bit hard, which is why this calculator errs low.</p>
+                    </details>
+                    <details>
+                        <summary>What is the 15% tyre drop method?</summary>
+                        <p>Tyre drop is how much the tyre compresses under load. Systematic load-deflection measurements of bicycle tyres (published by engineer Frank Berto and used as the reference by most serious calculators since) found that around 15% drop balances rolling resistance, comfort, and pinch-flat protection. This calculator is tested against those measurement curves, with adjustments for surface and casing layered on top.</p>
+                    </details>
+                    <details>
+                        <summary>Do hookless rims change the recommendation?</summary>
+                        <p>Yes. Hookless (straight-side) rims are limited to a maximum of 72.5 psi (5 bar) per ETRTO guidance, and many rim/tyre combinations specify lower limits. Tick the hookless option and the calculator caps the result and warns you. Always check your rim and tyre manufacturer limits.</p>
+                    </details>
+                    <details>
+                        <summary>Does tubeless vs. tubes matter?</summary>
+                        <p>A little. Tubeless setups can safely run slightly lower pressure since there is no tube to pinch, and supple fast casings deform more easily than reinforced touring casings. Pick your setup in the calculator and it adjusts.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="tool-cta">
+                <div>
+                    <h2>Your pressure changes with the route.</h2>
+                    <p>The Route Companion app reads the surfaces along your actual route (pavement, hardpack, loose gravel) and suggests pressure for the mix you'll really ride, right in the pre-ride checklist next to weather, clothing, and fueling.</p>
+                </div>
+                <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">Get the app</a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="index.html">Tools</a>
+                <a href="../guides/index.html">Guides</a>
+                <a href="../privacy.html">Privacy</a>
+                <a href="../terms.html">Terms</a>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </div>
+            <div>&copy; 2026 Route Companion. All rights reserved.</div>
+        </footer>
+    </div>
+    <script type="module" src="assets/tyre-pressure.js"></script>
+</body>
+</html>

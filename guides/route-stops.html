@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Water, Food, and Stops Along a Cycling Route | Route Companion</title>
+    <meta name="description" content="How to plan water, food, repair, toilet, train, and bailout stops along a GPX or Strava route instead of searching only near your current location.">
+    <link rel="canonical" href="https://routecompanion.app/guides/route-stops.html">
+    <meta property="og:title" content="Find Water, Food, and Stops Along a Cycling Route">
+    <meta property="og:description" content="Plan water, food, gas stations, toilets, and repair stops in the order you will reach them, not just whatever is nearest right now.">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Find Water, Food, and Stops Along a Cycling Route",
+      "description": "How to plan water, food, repair, toilet, train, and bailout stops along a GPX or Strava route.",
+      "author": { "@type": "Organization", "name": "Route Companion" },
+      "publisher": { "@type": "Organization", "name": "Route Companion", "logo": { "@type": "ImageObject", "url": "https://routecompanion.app/assets/icon.png" } },
+      "mainEntityOfPage": "https://routecompanion.app/guides/route-stops.html"
+    }
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <nav class="site-nav" aria-label="Site navigation">
+            <a class="brand-link" href="../index.html">
+                <img src="../assets/icon.png" alt="Route Companion">
+                <span>Route Companion</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Guides</a>
+                <a href="../tools/">Tools</a>
+                <a href="cycling-fueling.html">Fueling</a>
+                <a href="https://apps.apple.com/app/id6758202473">App Store</a>
+            </div>
+        </nav>
+
+        <header class="hero">
+            <div>
+                <p class="kicker">Route Stops Guide</p>
+                <h1>A stop behind you is not a stop.</h1>
+                <p class="hero-copy">On a bike, "near me" is often the wrong question. The stop that matters is ahead, reachable without wrecking the route, and early enough that you are not already out of water when you find it.</p>
+            </div>
+            <div class="phone-stage">
+                <div class="phone-frame">
+                    <img src="../screenshots/2.png" alt="Route Companion map showing water, cafe, and food stops along a cycling route" width="640" height="1387">
+                </div>
+            </div>
+        </header>
+
+        <main class="guide-grid">
+            <aside class="toc" aria-label="Guide sections">
+                <p class="toc-title">On this page</p>
+                <a href="#why">Why nearby fails</a>
+                <a href="#types">Useful stop types</a>
+                <a href="#trust">Trust and verification</a>
+                <a href="#app">How the app searches</a>
+                <a href="#sources">Sources</a>
+            </aside>
+
+            <article class="article">
+                <section class="section" id="why">
+                    <h2>Nearby search is point-based. Riding is line-based.</h2>
+                    <p class="lead">That difference matters once you are tired, low on water, or trying to stay on a planned route. The nearest cafe might be behind you. The right one might be 18 km ahead, just before the long exposed section.</p>
+                    <p>The best stop is not always the closest one. It is the place that solves the next real problem with the smallest real detour:</p>
+                    <ul class="editorial-list">
+                        <li>Water before heat.</li>
+                        <li>Food before a long gap.</li>
+                        <li>Repair before remote roads.</li>
+                        <li>A station before the weather turns ugly.</li>
+                    </ul>
+                </section>
+
+                <section class="section" id="types">
+                    <h2>Stop types that earn the detour</h2>
+                    <p>Different places reward different habits. In parts of Europe, public fountains and village taps can be excellent. In much of the US, gas stations are often the most dependable water, snack, and bathroom stop.</p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Need</th>
+                                    <th>Good stop types</th>
+                                    <th>What to verify</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="Need">Water</td>
+                                    <td data-label="Good stop types">Drinking water, public taps, cemeteries, parks, cafes, gas stations.</td>
+                                    <td data-label="What to verify">Seasonal closure, potable signage, access, whether it is inside a building.</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Need">Food</td>
+                                    <td data-label="Good stop types">Cafes, bakeries, supermarkets, convenience stores, gas stations.</td>
+                                    <td data-label="What to verify">Opening hours, Sunday closures, payment, rural gaps.</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Need">Mechanical help</td>
+                                    <td data-label="Good stop types">Bike shops, repair stations, pumps, train stations.</td>
+                                    <td data-label="What to verify">Opening hours, pump type, whether tools are actually present.</td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Need">Bailout</td>
+                                    <td data-label="Good stop types">Train stations, bus stops, towns, hotels, shelters.</td>
+                                    <td data-label="What to verify">Bike rules, last train, weather shelter, mobile signal.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="section" id="trust">
+                    <h2>Trust the map enough to investigate.</h2>
+                    <p>Public POI data is only as good as local mapping. OpenStreetMap can be excellent in one region and patchy in the next. For critical stops, treat the result as a lead, not a promise.</p>
+                    <ul class="editorial-list">
+                        <li>Use street-level imagery or photos if available.</li>
+                        <li>Check opening hours for shops and cafes.</li>
+                        <li>Prefer clusters of options before long remote sections.</li>
+                        <li>Carry a backup if the next reliable water source is far away.</li>
+                        <li>When you find a missing or wrong place, update OpenStreetMap if you can.</li>
+                    </ul>
+                    <p>For water, Route Companion keeps the search focused on drinking-water and public-tap style places, not random lakes, rivers, or generic water points.</p>
+                </section>
+
+                <section class="section" id="app">
+                    <h2>How Route Companion searches stops along a route</h2>
+                    <p>Route Companion imports or plans a route, searches a corridor around it, and orders matching places by where you will reach them. You choose the stop types and how far off-route you are willing to go.</p>
+                    <p>Water, cafes, shops, gas stations, toilets, bike shops, repair stations, shelters, camping, pharmacies, ATMs, parking, hospitals, and train stations are checked in the context that matters: ahead, on-route, or worth the detour.</p>
+                    <p>Marked stops can then go into Garmin, Wahoo, GPX, TCX, or FIT workflows instead of staying as mental notes you hope to remember.</p>
+                    <div class="button-row">
+                        <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">Try route stop search</a>
+                        <a class="btn btn-secondary" href="cycling-weather-clothing.html">Next: what to wear</a>
+                    </div>
+                </section>
+
+                <section class="section" id="sources">
+                    <h2>What the app uses</h2>
+                    <p>Stop search is built on OpenStreetMap data. Route Companion searches a corridor around your route, filters by the stop types you selected, then orders results by where you will reach them.</p>
+                    <p>For water, the search is focused on drinking-water and public-tap style mapping, not generic lakes, rivers, or every object tagged with water nearby.</p>
+                    <p class="reference-note">Reference notes: coverage depends on local OpenStreetMap tagging. The most relevant tags for water include <a href="https://wiki.openstreetmap.org/wiki/Tag:amenity%3Ddrinking_water">amenity=drinking_water</a>, <a href="https://wiki.openstreetmap.org/wiki/Key:drinking_water">drinking_water</a>, and <a href="https://wiki.openstreetmap.org/wiki/Tag:man_made%3Dwater_tap">man_made=water_tap</a>.</p>
+                </section>
+            </article>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="index.html">Guides</a>
+                <a href="../privacy.html">Privacy</a>
+                <a href="../terms.html">Terms</a>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </div>
+            <div>&copy; 2026 Route Companion. All rights reserved.</div>
+        </footer>
+    </div>
+</body>
+</html>

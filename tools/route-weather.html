@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPX Route Weather: Forecast Along Your Route, Not Just the Start | Route Companion</title>
+    <meta name="description" content="Drop a GPX file and see the weather where you'll actually be: temperature, rain, and headwind or tailwind along the route at your riding speed, plus what to wear. Free, runs in your browser.">
+    <link rel="canonical" href="https://routecompanion.app/tools/route-weather.html">
+    <meta property="og:title" content="GPX Route Weather: Forecast Along Your Route, Not Just the Start">
+    <meta property="og:description" content="Temperature, rain, and headwind along your GPX route at your speed, plus what to wear. Free, runs in your browser.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="../guides/styles.css">
+    <link rel="stylesheet" href="assets/leaflet.css">
+    <link rel="stylesheet" href="tools.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Route Companion GPX Route Weather",
+      "url": "https://routecompanion.app/tools/route-weather.html",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "publisher": { "@type": "Organization", "name": "Route Companion", "logo": { "@type": "ImageObject", "url": "https://routecompanion.app/assets/icon.png" } }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why check weather along the route instead of at the start?",
+          "acceptedAnswer": { "@type": "Answer", "text": "On a longer ride you can be hours and many kilometers away from your start point. A single city forecast misses the rain cell over the pass at 2 pm, the temperature drop on the plateau, and whether the wind on the exposed section is a headwind or a tailwind for your direction of travel." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my GPX file uploaded anywhere?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. The file is parsed entirely in your browser. Only a handful of sampled coordinates along the route are sent to the weather API to fetch forecasts. The route itself never leaves your device." }
+        },
+        {
+          "@type": "Question",
+          "name": "How is headwind or tailwind determined?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The tool computes your direction of travel at each sampled point and compares it with the forecast wind direction at your arrival time there. Wind only counts as a headwind or tailwind when the component along your direction of travel is strong enough to actually feel. A light breeze is reported as calm." }
+        },
+        {
+          "@type": "Question",
+          "name": "How far ahead can I check?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Up to 16 days, though like any forecast the useful accuracy drops beyond about a week. For rides more than a few days out, treat it as a trend check and look again the evening before." }
+        },
+        {
+          "@type": "Question",
+          "name": "Where does the clothing recommendation come from?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It uses the same engine as the Route Companion app: effective temperature including the extra wind chill of riding speed, rain likelihood, daylight, and UV, dressed for the coldest stretch of the route rather than the average." }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <nav class="site-nav" aria-label="Site navigation">
+            <a class="brand-link" href="../index.html">
+                <img src="../assets/icon.png" alt="Route Companion">
+                <span>Route Companion</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Tools</a>
+                <a href="../guides/index.html">Guides</a>
+                <a href="https://apps.apple.com/app/id6758202473">App Store</a>
+            </div>
+        </nav>
+
+        <header class="tool-hero">
+            <div>
+                <h1>Route weather from a GPX</h1>
+                <p class="hero-copy">Drop in a GPX and see the forecast where you'll actually be: temperature, rain, and whether the wind is with you or against you, point by point at your speed. With a clothing suggestion for the coldest stretch of the ride.</p>
+            </div>
+            <div class="tool-mascot" id="tool-mascot" aria-hidden="true"></div>
+        </header>
+
+        <main>
+            <div class="tool-app">
+                <div id="tool-root">
+                    <div class="tool-loading">Loading tool…</div>
+                </div>
+                <noscript><p class="tool-error">This tool needs JavaScript. Everything runs in your browser. Your GPX is never uploaded.</p></noscript>
+            </div>
+
+            <section class="section" id="how">
+                <h2>Why check weather along the route?</h2>
+                <p class="lead">On a longer ride you can be hours and half a region away from the place your weather app checked.</p>
+                <p>This tool samples points along your route, works out when you'll reach each one at your average speed, and fetches the forecast for that place at that time. Wind is compared against your direction of travel at each point, so you can tell whether the exposed section is a grind or a push, and whether the loop rides better clockwise.</p>
+                <p>The clothing suggestion comes from the same engine as the Route Companion app. It accounts for the wind chill of riding speed (a mild forecast can feel cold at 30 km/h) and dresses you for the coldest stretch of the ride, not the average.</p>
+            </section>
+
+            <section class="section" id="faq">
+                <h2>Common questions</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>Is my GPX file uploaded anywhere?</summary>
+                        <p>No. The file is parsed entirely in your browser. Only a handful of sampled coordinates are sent to the weather API to fetch forecasts. The route itself never leaves your device.</p>
+                    </details>
+                    <details>
+                        <summary>How is headwind or tailwind determined?</summary>
+                        <p>The tool computes your direction of travel at each sampled point and compares it with the forecast wind direction at your arrival time. Wind only counts as headwind or tailwind when the component along your travel direction is strong enough to feel. A light breeze reads as calm, exactly like in the app.</p>
+                    </details>
+                    <details>
+                        <summary>How far ahead can I check?</summary>
+                        <p>Up to 16 days, though useful accuracy drops beyond about a week. For rides further out, treat it as a trend check and look again the evening before.</p>
+                    </details>
+                    <details>
+                        <summary>Which file formats work?</summary>
+                        <p>GPX on the web tool. The app also imports TCX and FIT, and pulls routes directly from Strava, Komoot, Ride with GPS, and Garmin.</p>
+                    </details>
+                    <details>
+                        <summary>What should I wear at 10°C? At 5°C?</summary>
+                        <p>Load your route and the tool answers for your exact conditions. As a rule of thumb: at 10°C most cyclists want long sleeves, leg warmers, and light gloves; at 5°C add a thermal layer, winter gloves, and shoe covers. Wind and rain move those thresholds; the <a href="../guides/cycling-weather-clothing.html">what-to-wear guide</a> covers how.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="tool-cta">
+                <div>
+                    <h2>In the app, this is part of every route.</h2>
+                    <p>Route Companion runs this check for each route you import, alongside fueling and stops along the way, and exports to your Garmin or Wahoo with the stops included.</p>
+                </div>
+                <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">Get the app</a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="index.html">Tools</a>
+                <a href="../guides/index.html">Guides</a>
+                <a href="../privacy.html">Privacy</a>
+                <a href="../terms.html">Terms</a>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </div>
+            <div>&copy; 2026 Route Companion. All rights reserved.</div>
+        </footer>
+    </div>
+    <script type="module" src="assets/route-weather.js"></script>
+</body>
+</html>

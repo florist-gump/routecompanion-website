@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cycling & Running Fueling Calculator: Carbs per Hour & Hydration | Route Companion</title>
+    <meta name="description" content="Free fueling calculator for rides and runs: carbs per hour, hydration, and a concrete pack list (gels, bars, bananas, bottles) from distance, elevation, effort, and temperature.">
+    <link rel="canonical" href="https://routecompanion.app/tools/fueling.html">
+    <meta property="og:title" content="Cycling & Running Fueling Calculator: Carbs per Hour & Hydration">
+    <meta property="og:description" content="How much to eat and drink on your next ride or run, plus a pack list you can grab off the shelf. Free, no sign-up.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="../guides/styles.css">
+    <link rel="stylesheet" href="tools.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Route Companion Fueling Calculator",
+      "url": "https://routecompanion.app/tools/fueling.html",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "publisher": { "@type": "Organization", "name": "Route Companion", "logo": { "@type": "ImageObject", "url": "https://routecompanion.app/assets/icon.png" } }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How many carbs per hour should I eat on a ride?",
+          "acceptedAnswer": { "@type": "Answer", "text": "For easy rides 25 to 35 g/h is plenty; moderate endurance rides sit around 45 to 55 g/h; hard rides 60 to 80 g/h; race efforts 80 to 100 g/h. Above roughly 60 g/h your gut needs a mix of glucose and fructose (about 2:1) to absorb it, so use dual-source products at higher intakes." }
+        },
+        {
+          "@type": "Question",
+          "name": "How much should I drink per hour?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Around 0.4 to 0.8 L/h in mild conditions, more in heat. Sweat rates vary a lot between people, so drink to thirst rather than forcing a schedule. On long or hot days include sodium, not just plain water." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to eat on a one-hour ride?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Usually not. Your glycogen stores comfortably cover about 60 to 90 minutes of moderate work if you started fed. Bring a bottle, and something small if the effort is hard. Fueling starts to matter from about 90 minutes onward." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does elevation gain change the plan?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Climbing adds work and time. The calculator converts elevation gain into an equivalent extra distance to estimate your real moving time, which raises both total carbs and total fluids for the same map distance." }
+        },
+        {
+          "@type": "Question",
+          "name": "Gels or real food?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Both work. Gels and chews absorb fastest and suit high intensity; solid food is cheaper, sits better on long steady rides, and fights flavor fatigue. The calculator lets you pick gels-only, real-food-only, or a mix, and splits your pack list accordingly." }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <nav class="site-nav" aria-label="Site navigation">
+            <a class="brand-link" href="../index.html">
+                <img src="../assets/icon.png" alt="Route Companion">
+                <span>Route Companion</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Tools</a>
+                <a href="../guides/index.html">Guides</a>
+                <a href="https://apps.apple.com/app/id6758202473">App Store</a>
+            </div>
+        </nav>
+
+        <header class="tool-hero">
+            <div>
+                <h1>Fueling calculator</h1>
+                <p class="hero-copy">How much to eat and drink on your next ride or run, with a pack list you can grab off the shelf. Built from your distance, climbing, effort, and the weather.</p>
+            </div>
+            <div class="tool-mascot" id="tool-mascot" aria-hidden="true"></div>
+        </header>
+
+        <main>
+            <div class="tool-app">
+                <div id="tool-root">
+                    <div class="tool-loading">Loading calculator…</div>
+                </div>
+                <noscript><p class="tool-error">This calculator needs JavaScript. Everything runs in your browser. Nothing is uploaded.</p></noscript>
+            </div>
+
+            <section class="section" id="how">
+                <h2>How the plan is built</h2>
+                <p class="lead">"Eat before you're hungry, drink before you're thirsty" is good advice. It just doesn't say how much, or what to put in your pockets.</p>
+                <p>The calculator first estimates your real moving time: distance plus a climbing surcharge (every meter of elevation gain effectively adds distance), at your average speed or a sensible default. Effort sets the carb target, from 25 to 35 g/h on easy days up to 80 to 100 g/h at race intensity, in line with current sports nutrition guidance. Temperature and duration set the fluid plan, deliberately capped at a sane ceiling because over-drinking plain water is riskier than mild thirst.</p>
+                <p>Then it turns targets into things: how many gels, bars, or bananas that actually is, how much comes from your drink mix, and how many bottle refills you'll need along the way. That last number is where route planning starts to matter; the <a href="../guides/route-stops.html">route stops guide</a> covers finding water along a route instead of hoping.</p>
+                <p>For the reasoning behind the numbers, read the full <a href="../guides/cycling-fueling.html">cycling fueling guide</a>.</p>
+            </section>
+
+            <section class="section" id="faq">
+                <h2>Common questions</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>How many carbs per hour should I eat?</summary>
+                        <p>For easy rides 25 to 35 g/h is plenty; moderate endurance rides sit around 45 to 55 g/h; hard rides 60 to 80 g/h; race efforts 80 to 100 g/h. Above roughly 60 g/h your gut needs a glucose and fructose mix (about 2:1) to absorb it. Single-sugar products stop helping past that point.</p>
+                    </details>
+                    <details>
+                        <summary>How much should I drink per hour?</summary>
+                        <p>Around 0.4 to 0.8 L/h in mild conditions, more in heat. Sweat rates vary hugely between people, so treat the number as a baseline and drink to thirst. On long or hot days include sodium, not just plain water.</p>
+                    </details>
+                    <details>
+                        <summary>Do I need to eat on a one-hour ride?</summary>
+                        <p>Usually not. Glycogen stores cover roughly 60 to 90 minutes of moderate work if you started fed. Bring a bottle, and something small if the effort is hard. Fueling starts to matter from about 90 minutes.</p>
+                    </details>
+                    <details>
+                        <summary>Why does elevation gain change the plan?</summary>
+                        <p>Climbing adds work and time. The calculator converts elevation gain into equivalent extra distance to estimate real moving time, which raises both total carbs and total fluids for the same map distance.</p>
+                    </details>
+                    <details>
+                        <summary>Gels or real food?</summary>
+                        <p>Both work. Gels and chews absorb fastest and suit high intensity; solid food is cheaper, sits better on long steady rides, and fights flavor fatigue. Pick your style above and the pack list splits accordingly.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="tool-cta">
+                <div>
+                    <h2>The app fuels the actual route.</h2>
+                    <p>Route Companion builds this plan from your imported route, with real distance, real climbing, and the forecast temperature. It reminds you to eat at the right time while you navigate, and finds water stops along the way when the bottles run low.</p>
+                </div>
+                <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">Get the app</a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="index.html">Tools</a>
+                <a href="../guides/index.html">Guides</a>
+                <a href="../privacy.html">Privacy</a>
+                <a href="../terms.html">Terms</a>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </div>
+            <div>&copy; 2026 Route Companion. All rights reserved.</div>
+        </footer>
+    </div>
+    <script type="module" src="assets/fueling.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mountain Bike Tyre Pressure Calculator (Trail, by Rider Weight) | Route Companion</title>
+    <meta name="description" content="Free MTB tyre pressure calculator. Front and rear psi and bar for trail and technical riding from rider weight and tyre width — based on the 15% tyre-drop method.">
+    <link rel="canonical" href="https://routecompanion.app/tools/tyre-pressure/mtb.html">
+    <meta property="og:title" content="Mountain Bike Tyre Pressure Calculator (Trail)">
+    <meta property="og:description" content="MTB pressures live in the teens, and a couple of psi changes everything. Get a front and rear starting point for your weight and tyre width, then fine-tune by feel.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://routecompanion.app/tools/tyre-pressure/mtb.html">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" href="../../assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="../../guides/styles.css">
+    <link rel="stylesheet" href="../tools.css">
+    <style>
+      .ref-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.98rem; }
+      .ref-table th, .ref-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+      .ref-table thead th { color: var(--text-secondary); font-weight: 600; }
+      .ref-table .bar-unit { color: var(--text-secondary); }
+      .breadcrumb { font-size: 0.9rem; color: var(--text-secondary); margin: 0 0 4px; }
+      .breadcrumb a { color: var(--text-secondary); }
+      .sibling-tools { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+      .sibling-tools a { padding: 8px 14px; border: 1px solid var(--border-color); border-radius: 999px; text-decoration: none; }
+    </style>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Mountain bike tyre pressure calculator","url":"https://routecompanion.app/tools/tyre-pressure/mtb.html","applicationCategory":"SportsApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Route Companion","logo":{"@type":"ImageObject","url":"https://routecompanion.app/assets/icon.png"}}}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why is MTB tyre pressure so low?","acceptedAnswer":{"@type":"Answer","text":"Mountain bike tyres have several times the air volume of road tyres, so they reach the same support at much lower pressure. Low pressure lets the big tyre deform around obstacles for grip and comfort, which is the whole point off-road."}},{"@type":"Question","name":"What pressure should I run in MTB tyres?","acceptedAnswer":{"@type":"Answer","text":"For an 80 kg rider on a 2.25 in tubeless trail tyre, roughly 14 psi front and 16 psi rear is a sensible start. Lighter riders and bigger tyres go lower; use the calculator for your weight and width."}},{"@type":"Question","name":"Should the front MTB tyre be lower than the rear?","acceptedAnswer":{"@type":"Answer","text":"Usually yes. The rear carries more weight and takes the drive and braking forces, so it needs a bit more pressure. A slightly softer front adds cornering grip and traction where you steer."}},{"@type":"Question","name":"Do I need tubeless for low MTB pressures?","acceptedAnswer":{"@type":"Answer","text":"Effectively, yes. The pressures that make an MTB tyre grip would pinch-flat a tube almost immediately. Tubeless also lets sealant close small punctures, which is why nearly all trail riders run it."}},{"@type":"Question","name":"When should I use a tyre insert?","acceptedAnswer":{"@type":"Answer","text":"If you keep striking the rim or burping at the pressure that gives you the grip you want, an insert lets you run lower safely by protecting the rim and supporting the sidewall. It is the usual fix for heavier or more aggressive riders."}}]}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://routecompanion.app/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://routecompanion.app/tools/"},{"@type":"ListItem","position":3,"name":"Tyre pressure","item":"https://routecompanion.app/tools/tyre-pressure.html"},{"@type":"ListItem","position":4,"name":"Mountain bike tyre pressure calculator","item":"https://routecompanion.app/tools/tyre-pressure/mtb.html"}]}
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <nav class="site-nav" aria-label="Site navigation">
+            <a class="brand-link" href="../../index.html">
+                <img src="../../assets/icon.png" alt="Route Companion">
+                <span>Route Companion</span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html">Tools</a>
+                <a href="../../guides/index.html">Guides</a>
+                <a href="https://apps.apple.com/app/id6758202473">App Store</a>
+            </div>
+        </nav>
+
+        <p class="breadcrumb"><a href="../index.html">Tools</a> &rsaquo; <a href="../tyre-pressure.html">Tyre pressure</a> &rsaquo; Mountain bike</p>
+        <header class="tool-hero">
+            <div>
+                <h1>Mountain bike tyre pressure calculator</h1>
+                <p class="hero-copy">MTB pressures live in the teens, and a couple of psi changes everything. Get a front and rear starting point for your weight and tyre width, then fine-tune by feel.</p>
+            </div>
+            <div class="tool-mascot" id="tool-mascot" aria-hidden="true"></div>
+        </header>
+
+        <main>
+            <div class="tool-app">
+                <div id="tool-root">
+                    <div class="tool-loading">Loading calculator…</div>
+                </div>
+                <noscript><p class="tool-error">This calculator needs JavaScript. Everything runs in your browser. Nothing is uploaded.</p></noscript>
+            </div>
+
+            <section class="section">
+                <h2>How much pressure for MTB?</h2>
+                <p>Mountain bike tyres run at a fraction of road pressure because they are doing a different job: a big-volume tyre at low pressure wraps around roots and rocks for grip and soaks up hits your suspension misses. The trade-off is protection — go too low and you get tyre roll in corners, rim strikes, and burping. The right number is the lowest pressure that still supports the tyre under you.</p>
+                <p>This calculator sets each tyre to about 15% drop under its share of your weight, then accounts for the huge air volume of a modern MTB tyre. The front runs a touch lower than the rear for cornering grip, since it carries less load and is not driving. It is the same engine as the Route Companion app, and like everywhere it errs slightly low — but on the trail, casing support and inserts matter, so treat the number as a floor to fine-tune upward if you feel the rim.</p>
+            </section>
+
+            <section class="section">
+                <h2>Typical MTB pressures by rider weight</h2>
+                <table class="ref-table">
+                    <thead>
+                        <tr><th>Rider (incl. bike + kit)</th><th>Front</th><th>Rear</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>60 kg</td><td>12 psi <span class="bar-unit">/ 0.8 bar</span></td><td>12.5 psi <span class="bar-unit">/ 0.9 bar</span></td></tr>
+                        <tr><td>70 kg</td><td>12.5 psi <span class="bar-unit">/ 0.9 bar</span></td><td>14 psi <span class="bar-unit">/ 1.0 bar</span></td></tr>
+                        <tr><td>80 kg</td><td>14 psi <span class="bar-unit">/ 1.0 bar</span></td><td>16 psi <span class="bar-unit">/ 1.1 bar</span></td></tr>
+                        <tr><td>90 kg</td><td>15 psi <span class="bar-unit">/ 1.0 bar</span></td><td>17.5 psi <span class="bar-unit">/ 1.2 bar</span></td></tr>
+                        <tr><td>100 kg</td><td>16.5 psi <span class="bar-unit">/ 1.1 bar</span></td><td>19.5 psi <span class="bar-unit">/ 1.3 bar</span></td></tr>
+                    </tbody>
+                </table>
+                <p class="field-hint" style="margin-top:10px;">Starting points for a 2.25 in (57 mm) tubeless trail tyre, steady pace, 29 in wheels. Bigger tyres and inserts let you go lower; use the calculator above for your exact width.</p>
+            </section>
+
+            <section class="section">
+                <h2>Adjust for the terrain and setup</h2>
+                <table class="ref-table">
+                    <tbody>
+                        <tr><td><strong>Smooth, flowy trail</strong></td><td>The calculator number, or a touch lower for maximum grip.</td></tr>
+                        <tr><td><strong>Rocky, rooty, technical</strong></td><td>Add 1–2 psi, or fit a casing insert so you can keep it low without rim strikes.</td></tr>
+                        <tr><td><strong>Bigger tyre (2.4&nbsp;in+) or inserts</strong></td><td>You can run lower than a 2.25&nbsp;in tyre at the same weight; enter your real width.</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section" id="faq">
+                <h2>Common questions</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>Why is MTB tyre pressure so low?</summary>
+                        <p>Mountain bike tyres have several times the air volume of road tyres, so they reach the same support at much lower pressure. Low pressure lets the big tyre deform around obstacles for grip and comfort, which is the whole point off-road.</p>
+                    </details>
+                    <details>
+                        <summary>What pressure should I run in MTB tyres?</summary>
+                        <p>For an 80&nbsp;kg rider on a 2.25&nbsp;in tubeless trail tyre, roughly 14&nbsp;psi front and 16&nbsp;psi rear is a sensible start. Lighter riders and bigger tyres go lower; use the calculator for your weight and width.</p>
+                    </details>
+                    <details>
+                        <summary>Should the front MTB tyre be lower than the rear?</summary>
+                        <p>Usually yes. The rear carries more weight and takes the drive and braking forces, so it needs a bit more pressure. A slightly softer front adds cornering grip and traction where you steer.</p>
+                    </details>
+                    <details>
+                        <summary>Do I need tubeless for low MTB pressures?</summary>
+                        <p>Effectively, yes. The pressures that make an MTB tyre grip would pinch-flat a tube almost immediately. Tubeless also lets sealant close small punctures, which is why nearly all trail riders run it.</p>
+                    </details>
+                    <details>
+                        <summary>When should I use a tyre insert?</summary>
+                        <p>If you keep striking the rim or burping at the pressure that gives you the grip you want, an insert lets you run lower safely by protecting the rim and supporting the sidewall. It is the usual fix for heavier or more aggressive riders.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Other disciplines</h2>
+                <div class="sibling-tools">
+                    <a href="road.html">Road</a>
+                    <a href="gravel.html">Gravel</a>
+                    <a href="mtb.html">MTB</a>
+                    <a href="../tyre-pressure.html">All setups &amp; touring</a>
+                </div>
+            </section>
+
+            <section class="tool-cta">
+                <div>
+                    <h2>Set your tyres for the trail ahead.</h2>
+                    <p>The Route Companion app runs this engine on your planned rides and surfaces it in the pre-ride checklist with weather, clothing, and fueling — so your setup matches the day before you roll.</p>
+                </div>
+                <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">Get the app</a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="../../index.html">Home</a>
+                <a href="../index.html">Tools</a>
+                <a href="../../guides/index.html">Guides</a>
+                <a href="../../privacy.html">Privacy</a>
+                <a href="../../terms.html">Terms</a>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </div>
+            <div>&copy; 2026 Route Companion. All rights reserved.</div>
+        </footer>
+    </div>
+    <script>
+      // Pre-set the shared calculator to this discipline (canonical stays clean).
+      if (!location.search) history.replaceState(null, '', location.pathname + '?cat=mtb&fw=57&surf=z6');
+    </script>
+    <script type="module" src="../assets/tyre-pressure.js"></script>
+</body>
+</html>

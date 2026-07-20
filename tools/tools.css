@@ -1,0 +1,963 @@
+/* Shared styles for the interactive tool pages. Loaded after guides/styles.css
+   and reuses its CSS variables + page chrome (.page-shell, .site-nav, .footer). */
+
+.tool-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.55fr);
+    gap: 36px;
+    align-items: center;
+    padding: 26px 0 34px;
+}
+
+.tool-hero h1 {
+    font-size: clamp(2.1rem, 5.4vw, 3.6rem);
+}
+
+.tool-hero .hero-copy {
+    margin-top: 16px;
+}
+
+.tool-mascot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tool-mascot svg {
+    width: min(300px, 70vw);
+    height: auto;
+    image-rendering: pixelated;
+    shape-rendering: crispEdges;
+    filter: drop-shadow(0 22px 34px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 38px rgba(56, 189, 248, 0.14));
+}
+
+/* ─── Tool layout ─────────────────────────────────────────── */
+
+.tool-app {
+    margin: 8px 0 44px;
+}
+
+.tool-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 22px;
+    align-items: start;
+}
+
+/* Keep the results in view while the (taller) input column scrolls. */
+@media (min-width: 861px) {
+    .tool-grid > .tool-panel:nth-child(2) {
+        position: sticky;
+        top: 24px;
+    }
+}
+
+.tool-panel-chart {
+    margin-top: 22px;
+}
+
+@media (max-width: 860px) {
+    .tool-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tool-hero {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .tool-mascot svg {
+        width: min(240px, 62vw);
+    }
+}
+
+.tool-panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 22px;
+    min-width: 0;
+}
+
+/* Grid/flex children default to min-width:auto, which refuses to shrink below
+   their content and pushes the layout wider than the viewport on narrow
+   screens. Let every level of the form collapse to its track instead. */
+.field,
+.field-row,
+.input-wrap {
+    min-width: 0;
+}
+
+.tool-panel-title {
+    margin: 0 0 16px;
+    font-size: 0.82rem;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.tool-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    color: var(--text-muted);
+    border: 1px dashed var(--border-color);
+    border-radius: 18px;
+}
+
+/* ─── Fields ──────────────────────────────────────────────── */
+
+.field {
+    display: block;
+    margin: 0 0 15px;
+}
+
+.field:last-child {
+    margin-bottom: 0;
+}
+
+.field-label {
+    display: block;
+    font-size: 0.86rem;
+    font-weight: 800;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.field-hint {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-faint);
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.input-wrap {
+    display: flex;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid var(--border-color);
+    border-radius: 11px;
+    transition: border-color 0.15s ease;
+}
+
+.input-wrap:focus-within {
+    border-color: var(--primary-light);
+}
+
+.input-wrap input,
+.input-wrap select {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: var(--text-primary);
+    font: inherit;
+    font-weight: 700;
+    padding: 10px 12px;
+    appearance: none;
+    -moz-appearance: textfield;
+}
+
+.input-wrap input::-webkit-outer-spin-button,
+.input-wrap input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-wrap select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 30px;
+}
+
+.input-suffix {
+    color: var(--text-faint);
+    font-size: 0.84rem;
+    font-weight: 700;
+    padding: 0 12px 0 4px;
+    white-space: nowrap;
+}
+
+.field-checkbox {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.field-checkbox input {
+    margin-top: 3px;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary);
+}
+
+.field-checkbox .field-label {
+    margin-bottom: 0;
+}
+
+/* ─── Segmented control ───────────────────────────────────── */
+
+.seg {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 4px;
+}
+
+.seg-btn {
+    flex: 1 1 auto;
+    border: 0;
+    background: transparent;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 750;
+    padding: 8px 10px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+}
+
+.seg-btn:hover {
+    color: var(--text-primary);
+}
+
+.seg-btn.active {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* ─── Results ─────────────────────────────────────────────── */
+
+.result-hero {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.stat {
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.stat-accent {
+    border-color: rgba(56, 189, 248, 0.5);
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.08) inset;
+}
+
+.stat-value {
+    font-size: 1.65rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.stat-label {
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+}
+
+.stat-sub {
+    font-size: 0.82rem;
+    color: var(--text-faint);
+    font-weight: 600;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 850;
+    letter-spacing: 0.4px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    text-transform: uppercase;
+}
+
+.badge-ok {
+    color: #34D399;
+    background: rgba(16, 185, 129, 0.14);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.badge-warn {
+    color: #FBBF24;
+    background: rgba(245, 158, 11, 0.13);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.badge-alert {
+    color: #FB923C;
+    background: rgba(249, 115, 22, 0.14);
+    border: 1px solid rgba(249, 115, 22, 0.4);
+}
+
+.result-summary {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 16px;
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+/* ─── Outfit chips ────────────────────────────────────────── */
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    padding: 7px 13px;
+    font-size: 0.9rem;
+    font-weight: 750;
+    color: var(--text-secondary);
+}
+
+.chip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-faint);
+    flex: none;
+}
+
+.chip-icon {
+    width: 13px;
+    height: 13px;
+    flex: none;
+    color: var(--text-faint);
+}
+
+.chip-clothing .chip-dot { background: #3BC2D6; }
+.chip-weather .chip-dot { background: #60A5FA; }
+.chip-warmth .chip-dot { background: #FF6A3C; }
+.chip-safety .chip-dot { background: #FDE047; }
+
+.chip-clothing .chip-icon { color: #3BC2D6; }
+.chip-weather .chip-icon { color: #60A5FA; }
+.chip-warmth .chip-icon { color: #FF6A3C; }
+.chip-safety .chip-icon { color: #FDE047; }
+
+.chip-tentative {
+    border-style: dashed;
+    color: var(--text-muted);
+}
+
+.chip-opt {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ─── Advanced options fold ───────────────────────────────── */
+
+.advanced-fields {
+    margin-top: 4px;
+    border-top: 1px solid rgba(71, 85, 105, 0.5);
+    padding-top: 12px;
+}
+
+.advanced-fields summary {
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-weight: 750;
+    margin-bottom: 14px;
+}
+
+.advanced-fields summary:hover {
+    color: var(--text-primary);
+}
+
+/* ─── Warnings + assumptions ──────────────────────────────── */
+
+.tool-warnings {
+    display: grid;
+    gap: 8px;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tool-warnings li {
+    background: rgba(249, 115, 22, 0.09);
+    border: 1px solid rgba(249, 115, 22, 0.3);
+    border-radius: 11px;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.assumptions {
+    margin-top: 16px;
+    border-top: 1px solid rgba(71, 85, 105, 0.5);
+    padding-top: 12px;
+}
+
+.assumptions summary {
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-weight: 750;
+}
+
+.assumptions ul {
+    margin: 10px 0 0;
+    padding-left: 18px;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    display: grid;
+    gap: 6px;
+}
+
+/* ─── Pack list (fueling) ─────────────────────────────────── */
+
+.pack-list {
+    display: grid;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pack-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.pack-count {
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: var(--primary-light);
+    white-space: nowrap;
+}
+
+/* ─── Food editor (fueling) ───────────────────────────────── */
+
+.food-list {
+    display: grid;
+    gap: 6px;
+}
+
+.food-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 10px;
+}
+
+.food-row > input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary);
+    flex: none;
+}
+
+.food-name {
+    color: var(--text-secondary);
+    font-weight: 700;
+    font-size: 0.92rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.food-off .food-name {
+    color: var(--text-faint);
+}
+
+.food-carbs {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid var(--border-color);
+    border-radius: 9px;
+    padding: 0 8px 0 4px;
+}
+
+.food-carbs:focus-within {
+    border-color: var(--primary-light);
+}
+
+.food-carbs input {
+    width: 42px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: var(--text-primary);
+    font: inherit;
+    font-weight: 700;
+    text-align: right;
+    padding: 6px 2px;
+    appearance: none;
+    -moz-appearance: textfield;
+}
+
+.food-carbs input::-webkit-outer-spin-button,
+.food-carbs input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.food-carbs span {
+    color: var(--text-faint);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.food-remove,
+.food-remove-spacer {
+    width: 24px;
+    height: 24px;
+    flex: none;
+}
+
+.food-remove {
+    border: 0;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.food-remove:hover {
+    color: #fca5a5;
+    background: rgba(239, 68, 68, 0.12);
+}
+
+.food-add {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(71, 85, 105, 0.5);
+}
+
+.food-add-name {
+    flex: 1 1 160px;
+    min-width: 0;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid var(--border-color);
+    border-radius: 9px;
+    color: var(--text-primary);
+    font: inherit;
+    font-weight: 600;
+    padding: 8px 10px;
+    outline: 0;
+}
+
+.food-add-name:focus {
+    border-color: var(--primary-light);
+}
+
+.food-add .seg {
+    padding: 3px;
+}
+
+.food-add .seg-btn {
+    padding: 6px 10px;
+    font-size: 0.82rem;
+}
+
+.food-add-btn {
+    border: 0;
+    background: var(--primary);
+    color: #fff;
+    font: inherit;
+    font-weight: 800;
+    padding: 9px 16px;
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+.food-add-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ─── GPX dropzone (route weather) ────────────────────────── */
+
+.dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    border: 2px dashed rgba(56, 189, 248, 0.4);
+    border-radius: 18px;
+    background: rgba(2, 132, 199, 0.06);
+    padding: 38px 20px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.dropzone:hover,
+.dropzone.drag-over {
+    border-color: var(--primary-light);
+    background: rgba(2, 132, 199, 0.12);
+}
+
+.dropzone strong {
+    color: var(--text-primary);
+    font-size: 1.05rem;
+}
+
+.dropzone span {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.dropzone input[type='file'] {
+    display: none;
+}
+
+.privacy-note {
+    margin-top: 10px;
+    font-size: 0.82rem;
+    color: var(--text-faint);
+    text-align: center;
+}
+
+.route-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    align-items: baseline;
+    margin: 0 0 14px;
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.route-meta .route-name {
+    color: var(--text-primary);
+    font-size: 1.08rem;
+    font-weight: 850;
+}
+
+.route-meta button {
+    background: none;
+    border: 0;
+    color: var(--primary-light);
+    font: inherit;
+    font-size: 0.86rem;
+    font-weight: 750;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* ─── Route map + weather pills ───────────────────────────── */
+
+.route-map {
+    height: 400px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    margin-bottom: 18px;
+    background: #0B1220;
+    z-index: 0;
+}
+
+/* Mute the (daylight) cartography a touch so it sits comfortably on the dark
+   page; pills and the route line keep full contrast above it. */
+.route-map .leaflet-tile-pane {
+    filter: saturate(0.78) contrast(0.97) brightness(0.94);
+}
+
+@media (max-width: 700px) {
+    .route-map {
+        height: 300px;
+    }
+}
+
+.weather-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transform: translate(-50%, -130%);
+    background: rgba(2, 6, 23, 0.88);
+    border: 1px solid rgba(148, 163, 184, 0.45);
+    border-radius: 999px;
+    padding: 3px 9px;
+    font-size: 12px;
+    font-weight: 800;
+    color: #F1F5F9;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.weather-pill::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -9px;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: rgba(2, 6, 23, 0.88);
+}
+
+.weather-pill-rain {
+    border-color: rgba(96, 165, 250, 0.75);
+}
+
+.weather-pill-below {
+    transform: translate(-50%, 40%);
+}
+
+.weather-pill-below::after {
+    top: -9px;
+    bottom: auto;
+    border-top-color: transparent;
+    border-bottom-color: rgba(2, 6, 23, 0.88);
+}
+
+.pill-flag {
+    font-size: 8.5px;
+    letter-spacing: 0.8px;
+    color: #3BC2D6;
+    margin-right: 2px;
+}
+
+.leaflet-tooltip {
+    background: rgba(2, 6, 23, 0.94);
+    border: 1px solid #334155;
+    color: #CBD5E1;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.leaflet-tooltip-top:before {
+    border-top-color: rgba(2, 6, 23, 0.94);
+}
+
+/* ─── Weather chart + table ───────────────────────────────── */
+
+.weather-chart {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.weather-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-width: 520px;
+}
+
+.weather-table-wrap {
+    overflow-x: auto;
+    margin-top: 16px;
+}
+
+.weather-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    min-width: 560px;
+}
+
+.weather-table th {
+    text-align: left;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    font-weight: 850;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.weather-table td {
+    padding: 9px 10px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid rgba(51, 65, 85, 0.45);
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+.chart-tooltip {
+    position: absolute;
+    top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    background: rgba(2, 6, 23, 0.94);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 2;
+}
+
+.chart-tooltip strong {
+    color: var(--text-primary);
+    font-size: 0.82rem;
+}
+
+.chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 0 0 10px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.chart-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-swatch {
+    display: inline-block;
+    width: 16px;
+    height: 0;
+    border-top: 2px solid #38BDF8;
+}
+
+.legend-swatch.dashed {
+    border-top-style: dashed;
+    opacity: 0.6;
+}
+
+.legend-swatch.bar {
+    width: 10px;
+    height: 10px;
+    border: 0;
+    border-radius: 3px;
+    background: #60A5FA;
+}
+
+.legend-swatch.head { border-color: #FB923C; }
+.legend-swatch.tail { border-color: #34D399; }
+
+.weather-table .wind-head { color: #FB923C; }
+.weather-table .wind-cross { color: var(--text-secondary); }
+.weather-table .wind-tail { color: #34D399; }
+.weather-table .wind-calm { color: var(--text-faint); }
+
+.wind-arrow {
+    display: inline-block;
+    margin-right: 6px;
+}
+
+/* ─── Error + CTA ─────────────────────────────────────────── */
+
+.tool-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: #FCA5A5;
+    font-weight: 700;
+    margin: 14px 0;
+}
+
+.tool-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 20px;
+    align-items: center;
+    background: linear-gradient(135deg, rgba(2, 132, 199, 0.16), rgba(16, 185, 129, 0.1));
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    border-radius: 18px;
+    padding: 24px;
+    margin: 34px 0 8px;
+}
+
+.tool-cta h2 {
+    margin: 0 0 8px;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+}
+
+.tool-cta p {
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 700px) {
+    .tool-cta {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ─── FAQ ─────────────────────────────────────────────────── */
+
+.faq-list details {
+    border-bottom: 1px solid rgba(71, 85, 105, 0.5);
+    padding: 14px 0;
+}
+
+.faq-list summary {
+    cursor: pointer;
+    font-weight: 800;
+    color: var(--text-primary);
+    font-size: 1.02rem;
+}
+
+.faq-list p {
+    margin: 10px 0 0;
+    color: var(--text-secondary);
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Cycling & Running Tools: Tyre Pressure, Fueling, Route Weather | Route Companion</title>
+    <meta name="description" content="Free ride-prep tools from Route Companion: a tyre pressure calculator, a fueling and hydration calculator, and route weather from any GPX file. Everything runs in your browser.">
+    <link rel="canonical" href="https://routecompanion.app/tools/">
+    <meta property="og:title" content="Free Cycling & Running Tools by Route Companion">
+    <meta property="og:description" content="Tyre pressure, fueling, and GPX route weather: the app's ride-prep engines, free on the web.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="../guides/styles.css">
+    <link rel="stylesheet" href="tools.css">
+</head>
+<body>
+    <div class="page-shell">
+        <nav class="site-nav" aria-label="Site navigation">
+            <a class="brand-link" href="../index.html">
+                <img src="../assets/icon.png" alt="Route Companion">
+                <span>Route Companion</span>
+            </a>
+            <div class="nav-links">
+                <a href="../guides/index.html">Guides</a>
+                <a href="https://apps.apple.com/app/id6758202473">App Store</a>
+            </div>
+        </nav>
+
+        <header class="tool-hero">
+            <div>
+                <h1>Ride-prep tools, free on the web.</h1>
+                <p class="hero-copy">The engines behind Route Companion's pre-ride checklist, free to use in your browser: tyre pressure, fueling, and weather along your route.</p>
+            </div>
+            <div class="tool-mascot" id="tool-mascot" aria-hidden="true"></div>
+        </header>
+
+        <main>
+            <div class="guide-list" style="display: grid; gap: 14px;">
+                <a class="guide-row" href="route-weather.html" style="display: block; padding: 22px; border: 1px solid var(--border-color); border-radius: 16px; background: var(--bg-panel);">
+                    <h3 style="margin: 0 0 6px;">Route weather from a GPX</h3>
+                    <p style="margin: 0; color: var(--text-secondary);">Drop a GPX and see temperature, rain, and headwind or tailwind along the route at your speed, plus what to wear. The file never leaves your browser.</p>
+                </a>
+                <a class="guide-row" href="tyre-pressure.html" style="display: block; padding: 22px; border: 1px solid var(--border-color); border-radius: 16px; background: var(--bg-panel);">
+                    <h3 style="margin: 0 0 6px;">Tyre pressure calculator</h3>
+                    <p style="margin: 0; color: var(--text-secondary);">Front and rear pressure from rider weight, tyre width, surface, and setup. For road, gravel, MTB, and loaded touring.</p>
+                </a>
+                <a class="guide-row" href="fueling.html" style="display: block; padding: 22px; border: 1px solid var(--border-color); border-radius: 16px; background: var(--bg-panel);">
+                    <h3 style="margin: 0 0 6px;">Fueling calculator</h3>
+                    <p style="margin: 0; color: var(--text-secondary);">Carbs per hour, hydration, and a pack list of gels, bars, and bottles, from distance, climbing, effort, and temperature. For rides and runs.</p>
+                </a>
+            </div>
+
+            <section class="tool-cta">
+                <div>
+                    <h2>All of this, on the route you're actually riding.</h2>
+                    <p>The Route Companion app runs these engines on your imported routes, with stops along the way, device export to Garmin and Wahoo, and reminders while you ride.</p>
+                </div>
+                <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">Get the app</a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../guides/index.html">Guides</a>
+                <a href="../privacy.html">Privacy</a>
+                <a href="../terms.html">Terms</a>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </div>
+            <div>&copy; 2026 Route Companion. All rights reserved.</div>
+        </footer>
+    </div>
+    <script type="module">
+        import { renderHeroMascot } from './assets/hero-mascot.js';
+        renderHeroMascot();
+    </script>
+</body>
+</html>
