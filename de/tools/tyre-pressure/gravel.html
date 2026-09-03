@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="de"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravel-Reifendruckrechner (Tubeless, nach Fahrergewicht) | Route Companion</title>
+    <meta name="description" content="Kostenloser Reifendruckrechner für Gravelbikes. Werte für Vorder- und Hinterrad in psi und bar, passend zu Gewicht, Reifenbreite, Setup und festem, losem oder grobem Gravel. Grundlage ist die 15-%-Einfederungsmethode.">
+    <link rel="canonical" href="https://routecompanion.app/de/tools/tyre-pressure/gravel.html">
+    <link rel="alternate" hreflang="en" href="https://routecompanion.app/tools/tyre-pressure/gravel.html">
+    <link rel="alternate" hreflang="de" href="https://routecompanion.app/de/tools/tyre-pressure/gravel.html">
+    <link rel="alternate" hreflang="fr" href="https://routecompanion.app/fr/tools/tyre-pressure/gravel.html">
+    <link rel="alternate" hreflang="x-default" href="https://routecompanion.app/tools/tyre-pressure/gravel.html">
+    <meta property="og:title" content="Gravel-Reifendruckrechner (nach Fahrergewicht)">
+    <meta property="og:description" content="Der passende Gravel-Druck ist niedriger, als viele fahren, und vorne anders als hinten. Berechne einen Ausgangswert aus deinem Gewicht, der Reifenbreite und dem Untergrund und stimme ihn dann nach Gefühl ab.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://routecompanion.app/de/tools/tyre-pressure/gravel.html">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="/guides/styles.css">
+    <link rel="stylesheet" href="/tools/tools.css">
+    <style>
+      .ref-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.98rem; }
+      .ref-table th, .ref-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+      .ref-table thead th { color: var(--text-secondary); font-weight: 600; }
+      .ref-table .bar-unit { color: var(--text-secondary); }
+      .sibling-tools { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+      .sibling-tools a { padding: 8px 14px; border: 1px solid var(--border-color); border-radius: 999px; text-decoration: none; }
+    </style>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Reifendruckrechner für Gravel-Reifen","url":"https://routecompanion.app/de/tools/tyre-pressure/gravel.html","applicationCategory":"SportsApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Route Companion","logo":{"@type":"ImageObject","url":"https://routecompanion.app/assets/icon.png"}}}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Welchen Reifendruck sollte ich auf Gravel fahren?","acceptedAnswer":{"@type":"Answer","text":"Es hängt von Fahrergewicht, Reifenbreite und Untergrund ab. Als Ausgangspunkt fährt ein 75-kg-Fahrer mit 40-mm-Tubeless-Reifen etwa 30–34 psi auf festem Gravel und weniger auf losem oder grobem Schotter. Nutze den Rechner für einen Wert passend zu deinem Setup und stimme ihn über einige Fahrten in Schritten von etwa 2 psi ab."}},{"@type":"Question","name":"Kann ich Tubeless auf Gravel mit weniger Druck fahren?","acceptedAnswer":{"@type":"Answer","text":"Ja, etwas. Ohne Schlauch gibt es keinen klassischen Durchschlag, deshalb kannst du Tubeless-Reifen sicher mit einigen psi weniger fahren. Das verbessert Grip und Rollverhalten auf rauem Untergrund. Wähle dein Setup im Rechner, dann wird der Wert angepasst."}},{"@type":"Question","name":"Wie viel weniger Druck passt auf losem oder grobem Gravel?","acceptedAnswer":{"@type":"Answer","text":"Gegenüber festem Gravel passen etwa 2 psi weniger auf einer losen Deckschicht und 2 bis 4 psi weniger auf grobem oder felsigem Gelände. Weniger Druck lässt den Reifen für mehr Grip am Untergrund arbeiten. Geh aber nicht zu weit, sonst drohen Felgenschläge und Luftverlust."}},{"@type":"Question","name":"Ändert die Reifenbreite den Druck stark?","acceptedAnswer":{"@type":"Answer","text":"Eine Menge. Ein breiterer Reifen fasst mehr Luft und braucht deshalb bei gleichem Halt weniger Druck: Ein 45-mm-Reifen fährt bei gleichem Gewicht deutlich weicher als ein 38-mm-Reifen. Gib deine tatsächlich gemessene Breite ein. Auf modernen Felgen liegt sie oft 1–2 mm über der Angabe auf dem Reifen."}},{"@type":"Question","name":"Begrenzen hakenlose Gravelfelgen den Druck?","acceptedAnswer":{"@type":"Answer","text":"Ja. Für Hookless-Felgen gilt nach ETRTO eine Obergrenze von 72,5 psi beziehungsweise 5 bar, viele Kombinationen liegen darunter. Auf Gravel bleibst du meist deutlich unter diesem Wert. Aktiviere trotzdem die Hookless-Option, damit der Rechner begrenzt und warnt."}}]}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Start","item":"https://routecompanion.app/de/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://routecompanion.app/de/tools/"},{"@type":"ListItem","position":3,"name":"Reifendruck","item":"https://routecompanion.app/de/tools/tyre-pressure.html"},{"@type":"ListItem","position":4,"name":"Reifendruckrechner für Gravel-Reifen","item":"https://routecompanion.app/de/tools/tyre-pressure/gravel.html"}]}
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- nav:start -->
+        <nav class="site-nav" aria-label="Seitennavigation">
+            <div class="site-nav-inner">
+                <a class="brand-link" href="/de/">
+                    <img src="/assets/icon.png" alt="" width="30" height="30">
+                    <span>Route Companion</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/de/tools/" aria-current="page">Tools</a>
+                    <a href="/de/guides/">Ratgeber</a>
+                    <a class="nav-cta" href="https://apps.apple.com/app/id6758202473">App Store</a>
+                </div>
+            </div>
+        </nav>
+        <!-- nav:end -->
+
+        <p class="breadcrumb"><a href="/de/tools/">Tools</a><a href="/de/tools/tyre-pressure.html">Reifendruck</a><span>Gravel</span></p>
+        <header class="tool-hero">
+            <div>
+                <h1>Reifendruckrechner für Gravel-Reifen</h1>
+                <p class="hero-copy">Der passende Gravel-Druck ist niedriger, als viele fahren, und vorne anders als hinten. Berechne einen Ausgangswert aus deinem Gewicht, der Reifenbreite und dem Untergrund und stimme ihn dann nach Gefühl ab.</p>
+            </div>
+            <div class="tool-mascot" id="tool-mascot" aria-hidden="true"></div>
+        </header>
+
+        <main>
+            <div class="tool-app">
+                <div id="tool-root">
+                    <div class="tool-loading">Rechner wird geladen…</div>
+                </div>
+                <noscript><p class="tool-error">Dieser Rechner benötigt JavaScript. Alles läuft in deinem Browser. Es wird nichts hochgeladen.</p></noscript>
+            </div>
+
+            <section class="section">
+                <h2>Wie viel Druck für Gravel?</h2>
+                <p>Auf Gravel zählt der richtige Reifendruck besonders. Die Zahl auf der Reifenflanke hilft dabei kaum. Zu viel Druck lässt den Reifen über Waschbrettpisten springen, auf losem Untergrund unpräzise einlenken und macht die Fahrt unnötig hart. Zu wenig Druck erhöht das Risiko für Luftverlust in Kurven, Felgenschläge und ein schwammiges Fahrgefühl. Der optimale Bereich ist überraschend schmal und hängt von deinem Gewicht, deiner Reifenbreite und dem Untergrund ab.</p>
+                <p>Der Rechner setzt den Druck so an, dass jeder Reifen unter seiner tatsächlichen Last etwa 15 % einfedert. Vorder- und Hinterrad tragen unterschiedliche Gewichtsanteile und brauchen deshalb verschiedene Drücke. Die ausgeglichene Einfederung sorgt für ruhiges, berechenbares Fahrverhalten. Route Companion verwendet dieselbe, mit veröffentlichten Reifendaten abgeglichene Berechnung und liegt bewusst eher etwas niedriger, weil ein leicht weicher Reifen auf Gravel meist schneller rollt und besser greift als ein harter.</p>
+            </section>
+
+            <section class="section">
+                <h2>Typischer Gravel-Reifendruck nach Gesamtgewicht</h2>
+                <table class="ref-table">
+                    <thead>
+                        <tr><th>Gesamtgewicht</th><th>Vorn</th><th>Hinten</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>60 kg</td><td>26 psi <span class="bar-unit">/ 1.8 bar</span></td><td>29 psi <span class="bar-unit">/ 2.0 bar</span></td></tr>
+                        <tr><td>70 kg</td><td>30 psi <span class="bar-unit">/ 2.1 bar</span></td><td>33 psi <span class="bar-unit">/ 2.3 bar</span></td></tr>
+                        <tr><td>80 kg</td><td>33.5 psi <span class="bar-unit">/ 2.3 bar</span></td><td>37 psi <span class="bar-unit">/ 2.6 bar</span></td></tr>
+                        <tr><td>90 kg</td><td>37 psi <span class="bar-unit">/ 2.6 bar</span></td><td>41 psi <span class="bar-unit">/ 2.8 bar</span></td></tr>
+                        <tr><td>100 kg</td><td>41 psi <span class="bar-unit">/ 2.8 bar</span></td><td>45 psi <span class="bar-unit">/ 3.1 bar</span></td></tr>
+                    </tbody>
+                </table>
+                <p class="field-hint" style="margin-top:10px;">Ausgangswerte für einen 40-mm-Tubeless-Reifen auf festem Gravel bei ruhigem Tempo und 700C-Laufrädern. Senke den Druck auf losem oder grobem Schotter um einige psi und nutze oben den Rechner für deine tatsächliche Reifenbreite und dein Setup.</p>
+            </section>
+
+            <section class="section">
+                <h2>Auf den Untergrund abstimmen</h2>
+                <table class="ref-table">
+                    <tbody>
+                        <tr><td><strong>Fester Naturboden / glatter Schotter</strong></td><td>Starte mit dem berechneten Wert. Schnell rollend und berechenbar.</td></tr>
+                        <tr><td><strong>Lose Deckschicht auf festem Untergrund</strong></td><td>Senke vorne und hinten um etwa 2 psi, damit der Reifen auf der losen Deckschicht besser greift.</td></tr>
+                        <tr><td><strong>Grob, felsig, technisch</strong></td><td>Senke den Druck um weitere 2–4 psi, aber achte auf Felgenschläge. Wenn du häufig durchschlägst, hilft ein Reifeneinsatz.</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section" id="faq">
+                <h2>Häufige Fragen</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>Welchen Reifendruck sollte ich auf Gravel fahren?</summary>
+                        <p>Es hängt von Fahrergewicht, Reifenbreite und Untergrund ab. Als Ausgangspunkt fährt ein 75-kg-Fahrer mit 40-mm-Tubeless-Reifen etwa 30–34 psi auf festem Gravel und weniger auf losem oder grobem Schotter. Nutze den Rechner für einen Wert passend zu deinem Setup und stimme ihn über einige Fahrten in Schritten von etwa 2 psi ab.</p>
+                    </details>
+                    <details>
+                        <summary>Kann ich Tubeless auf Gravel mit weniger Druck fahren?</summary>
+                        <p>Ja, etwas. Ohne Schlauch gibt es keinen klassischen Durchschlag, deshalb kannst du Tubeless-Reifen sicher mit einigen psi weniger fahren. Das verbessert Grip und Rollverhalten auf rauem Untergrund. Wähle dein Setup im Rechner, dann wird der Wert angepasst.</p>
+                    </details>
+                    <details>
+                        <summary>Wie viel weniger Druck passt auf losem oder grobem Gravel?</summary>
+                        <p>Gegenüber festem Gravel passen etwa 2 psi weniger auf einer losen Deckschicht und 2 bis 4 psi weniger auf grobem oder felsigem Gelände. Weniger Druck lässt den Reifen für mehr Grip am Untergrund arbeiten. Geh aber nicht zu weit, sonst drohen Felgenschläge und Luftverlust.</p>
+                    </details>
+                    <details>
+                        <summary>Ändert die Reifenbreite den Druck stark?</summary>
+                        <p>Eine Menge. Ein breiterer Reifen fasst mehr Luft und braucht deshalb bei gleichem Halt weniger Druck: Ein 45-mm-Reifen fährt bei gleichem Gewicht deutlich weicher als ein 38-mm-Reifen. Gib deine tatsächlich gemessene Breite ein. Auf modernen Felgen liegt sie oft 1–2 mm über der Angabe auf dem Reifen.</p>
+                    </details>
+                    <details>
+                        <summary>Begrenzen hakenlose Gravelfelgen den Druck?</summary>
+                        <p>Ja. Für Hookless-Felgen gilt nach ETRTO eine Obergrenze von 72,5 psi beziehungsweise 5 bar, viele Kombinationen liegen darunter. Auf Gravel bleibst du meist deutlich unter diesem Wert. Aktiviere trotzdem die Hookless-Option, damit der Rechner begrenzt und warnt.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Andere Disziplinen</h2>
+                <div class="sibling-tools">
+                    <a href="/de/tools/tyre-pressure/road.html">Rennrad</a>
+                    <a href="/de/tools/tyre-pressure/gravel.html">Gravel</a>
+                    <a href="/de/tools/tyre-pressure/mtb.html">MTB</a>
+                    <a href="/de/tools/tyre-pressure.html">Alle Setups und Touren</a>
+                </div>
+            </section>
+
+            <section class="tool-cta">
+                <div>
+                    <h2>Dein Gravel-Druck ändert sich mit der Route.</h2>
+                    <p>Route Companion erkennt den Untergrund auf deiner tatsächlichen Route, von Asphalt über festen Gravel bis zu losem Schotter, und empfiehlt den passenden Druck direkt in der Tourvorbereitung neben Wetter, Kleidung und Verpflegung.</p>
+                </div>
+                <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">App laden</a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="/de/">Start</a>
+                <a href="/de/tools/">Tools</a>
+                <a href="/de/guides/">Ratgeber</a>
+                <a href="/privacy.html">Datenschutz</a>
+                <a href="/terms.html">Nutzungsbedingungen</a>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </div>
+            <div>© 2026 Route Companion. Alle Rechte vorbehalten.</div>
+        </footer>
+    </div>
+    <script>
+      // Pre-set the shared calculator to this discipline (canonical stays clean).
+      if (!location.search) history.replaceState(null, '', location.pathname + '?cat=gravel&fw=40&surf=hardpack-gravel');
+    </script>
+    <script type="module" src="/tools/assets/tyre-pressure.js"></script>
+
+
+</body></html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="de"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mountainbike-Reifendruckrechner (Trail, nach Fahrergewicht) | Route Companion</title>
+    <meta name="description" content="Kostenloser MTB-Reifendruckrechner. Werte für Vorder- und Hinterrad in psi und bar, passend zu Gewicht, Reifenbreite und Trail. Grundlage ist die 15-%-Einfederungsmethode.">
+    <link rel="canonical" href="https://routecompanion.app/de/tools/tyre-pressure/mtb.html">
+    <link rel="alternate" hreflang="en" href="https://routecompanion.app/tools/tyre-pressure/mtb.html">
+    <link rel="alternate" hreflang="de" href="https://routecompanion.app/de/tools/tyre-pressure/mtb.html">
+    <link rel="alternate" hreflang="fr" href="https://routecompanion.app/fr/tools/tyre-pressure/mtb.html">
+    <link rel="alternate" hreflang="x-default" href="https://routecompanion.app/tools/tyre-pressure/mtb.html">
+    <meta property="og:title" content="Mountainbike-Reifendruckrechner (Trail)">
+    <meta property="og:description" content="Beim MTB liegt der Reifendruck oft unter 20 psi, und schon wenige psi machen einen deutlichen Unterschied. Berechne einen Ausgangswert für vorne und hinten und stimme ihn anschließend nach Gefühl ab.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://routecompanion.app/de/tools/tyre-pressure/mtb.html">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="/guides/styles.css">
+    <link rel="stylesheet" href="/tools/tools.css">
+    <style>
+      .ref-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.98rem; }
+      .ref-table th, .ref-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+      .ref-table thead th { color: var(--text-secondary); font-weight: 600; }
+      .ref-table .bar-unit { color: var(--text-secondary); }
+      .sibling-tools { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+      .sibling-tools a { padding: 8px 14px; border: 1px solid var(--border-color); border-radius: 999px; text-decoration: none; }
+    </style>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Reifendruckrechner für Mountainbikes","url":"https://routecompanion.app/de/tools/tyre-pressure/mtb.html","applicationCategory":"SportsApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Route Companion","logo":{"@type":"ImageObject","url":"https://routecompanion.app/assets/icon.png"}}}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Warum ist der MTB-Reifendruck so niedrig?","acceptedAnswer":{"@type":"Answer","text":"MTB-Reifen haben ein Vielfaches des Luftvolumens von Rennradreifen und tragen deshalb schon bei deutlich weniger Druck. So kann sich der Reifen um Hindernisse legen und bietet im Gelände mehr Grip und Komfort."}},{"@type":"Question","name":"Welchen Druck sollte ich mit MTB-Reifen fahren?","acceptedAnswer":{"@type":"Answer","text":"Für einen 80-kg-Fahrer mit einem 2,25-Zoll-Tubeless-Trailreifen sind etwa 14 psi vorne und 16 psi hinten ein sinnvoller Start. Leichtere Fahrer und größere Reifen können weniger Druck fahren. Nutze den Rechner für dein Gewicht und deine Reifenbreite."}},{"@type":"Question","name":"Sollte der vordere MTB-Reifen niedriger sein als der hintere?","acceptedAnswer":{"@type":"Answer","text":"Normalerweise ja. Das Hinterrad trägt mehr Gewicht und nimmt Antriebs- und Bremskräfte auf, deshalb braucht es etwas mehr Druck. Ein leicht weicherer Vorderreifen bietet mehr Grip beim Einlenken."}},{"@type":"Question","name":"Brauche ich Tubeless für niedrigen MTB-Reifendruck?","acceptedAnswer":{"@type":"Answer","text":"Eigentlich ja. Der Druck, der dafür sorgt, dass ein MTB-Reifen haftet, würde einen Schlauch fast sofort platt machen. Tubeless ermöglicht es außerdem, kleine Löcher mit Dichtmittel zu schließen, weshalb fast alle Trail-Fahrer damit fahren."}},{"@type":"Question","name":"Wann sollte ich eine Reifeneinlage verwenden?","acceptedAnswer":{"@type":"Answer","text":"Wenn du beim gewünschten Grip häufig Felgenschläge oder Luftverlust in Kurven hast, schützt ein Reifeneinsatz die Felge und stützt die Seitenwand. So kannst du den niedrigen Druck sicherer fahren. Das ist besonders bei höherem Gewicht oder aggressiver Fahrweise sinnvoll."}}]}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Start","item":"https://routecompanion.app/de/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://routecompanion.app/de/tools/"},{"@type":"ListItem","position":3,"name":"Reifendruck","item":"https://routecompanion.app/de/tools/tyre-pressure.html"},{"@type":"ListItem","position":4,"name":"Reifendruckrechner für Mountainbikes","item":"https://routecompanion.app/de/tools/tyre-pressure/mtb.html"}]}
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- nav:start -->
+        <nav class="site-nav" aria-label="Seitennavigation">
+            <div class="site-nav-inner">
+                <a class="brand-link" href="/de/">
+                    <img src="/assets/icon.png" alt="" width="30" height="30">
+                    <span>Route Companion</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/de/tools/" aria-current="page">Tools</a>
+                    <a href="/de/guides/">Ratgeber</a>
+                    <a class="nav-cta" href="https://apps.apple.com/app/id6758202473">App Store</a>
+                </div>
+            </div>
+        </nav>
+        <!-- nav:end -->
+
+        <p class="breadcrumb"><a href="/de/tools/">Tools</a><a href="/de/tools/tyre-pressure.html">Reifendruck</a><span>Mountainbike</span></p>
+        <header class="tool-hero">
+            <div>
+                <h1>Reifendruckrechner für Mountainbikes</h1>
+                <p class="hero-copy">Beim MTB liegt der Reifendruck oft unter 20 psi, und schon wenige psi machen einen deutlichen Unterschied. Berechne einen Ausgangswert für vorne und hinten und stimme ihn anschließend nach Gefühl ab.</p>
+            </div>
+            <div class="tool-mascot" id="tool-mascot" aria-hidden="true"></div>
+        </header>
+
+        <main>
+            <div class="tool-app">
+                <div id="tool-root">
+                    <div class="tool-loading">Rechner wird geladen…</div>
+                </div>
+                <noscript><p class="tool-error">Dieser Rechner benötigt JavaScript. Alles läuft in deinem Browser. Es wird nichts hochgeladen.</p></noscript>
+            </div>
+
+            <section class="section">
+                <h2>Wie viel Druck für MTB?</h2>
+                <p>MTB-Reifen fahren mit einem Bruchteil des Rennraddrucks, weil sie eine andere Aufgabe haben. Ein großvolumiger Reifen legt sich mit wenig Druck um Wurzeln und Steine, sorgt für Grip und schluckt Schläge, die die Federung nicht abfängt. Zu wenig Druck führt allerdings zu wegknickenden Reifen in Kurven, Felgenschlägen und Luftverlust. Der richtige Wert ist der niedrigste Druck, bei dem der Reifen dich noch zuverlässig trägt.</p>
+                <p>Der Rechner setzt den Druck so an, dass jeder Reifen unter seinem Anteil am Gesamtgewicht etwa 15 % einfedert, und berücksichtigt dabei das große Luftvolumen moderner MTB-Reifen. Für mehr Kurvengrip liegt der Druck vorne etwas niedriger als hinten. Route Companion verwendet dieselbe Berechnung. Der Wert ist als eher niedriger Ausgangspunkt gedacht: Wenn du Felgenkontakte spürst, erhöhe den Druck schrittweise oder verwende einen Reifeneinsatz.</p>
+            </section>
+
+            <section class="section">
+                <h2>Typischer MTB-Reifendruck nach Fahrergewicht</h2>
+                <table class="ref-table">
+                    <thead>
+                        <tr><th>Gesamtgewicht</th><th>Vorn</th><th>Hinten</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>60 kg</td><td>12 psi <span class="bar-unit">/ 0.8 bar</span></td><td>12.5 psi <span class="bar-unit">/ 0.9 bar</span></td></tr>
+                        <tr><td>70 kg</td><td>12.5 psi <span class="bar-unit">/ 0.9 bar</span></td><td>14 psi <span class="bar-unit">/ 1.0 bar</span></td></tr>
+                        <tr><td>80 kg</td><td>14 psi <span class="bar-unit">/ 1.0 bar</span></td><td>16 psi <span class="bar-unit">/ 1.1 bar</span></td></tr>
+                        <tr><td>90 kg</td><td>15 psi <span class="bar-unit">/ 1.0 bar</span></td><td>17.5 psi <span class="bar-unit">/ 1.2 bar</span></td></tr>
+                        <tr><td>100 kg</td><td>16.5 psi <span class="bar-unit">/ 1.1 bar</span></td><td>19.5 psi <span class="bar-unit">/ 1.3 bar</span></td></tr>
+                    </tbody>
+                </table>
+                <p class="field-hint" style="margin-top:10px;">Ausgangswerte für einen 57-mm-Tubeless-Trailreifen bei ruhigem Tempo auf 29-Zoll-Laufrädern. Mit breiteren Reifen oder Inserts kannst du den Druck weiter senken. Gib oben deine tatsächliche Reifenbreite ein.</p>
+            </section>
+
+            <section class="section">
+                <h2>Auf Gelände und Setup abstimmen</h2>
+                <table class="ref-table">
+                    <tbody>
+                        <tr><td><strong>Glatter, flowiger Trail</strong></td><td>Den berechneten Wert oder für maximalen Grip eine Spur weniger Druck.</td></tr>
+                        <tr><td><strong>Felsig, wurzelig, technisch</strong></td><td>Erhöhe um 1–2 psi oder montiere einen Reifeneinsatz. So kannst du den Druck niedrig halten, ohne Felgenschläge zu riskieren.</td></tr>
+                        <tr><td><strong>Breiterer Reifen (ab 2,4 Zoll) oder Reifeneinsätze</strong></td><td>Mit einem breiteren Reifen als 2,25 Zoll kannst du bei gleichem Gewicht weniger Druck fahren. Gib deine tatsächliche Breite ein.</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section" id="faq">
+                <h2>Häufige Fragen</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>Warum ist der MTB-Reifendruck so niedrig?</summary>
+                        <p>MTB-Reifen haben ein Vielfaches des Luftvolumens von Rennradreifen und tragen deshalb schon bei deutlich weniger Druck. So kann sich der Reifen um Hindernisse legen und bietet im Gelände mehr Grip und Komfort.</p>
+                    </details>
+                    <details>
+                        <summary>Welchen Druck sollte ich mit MTB-Reifen fahren?</summary>
+                        <p>Für einen 80-kg-Fahrer mit einem 2,25-Zoll-Tubeless-Trailreifen sind etwa 14 psi vorne und 16 psi hinten ein sinnvoller Start. Leichtere Fahrer und größere Reifen können weniger Druck fahren. Nutze den Rechner für dein Gewicht und deine Reifenbreite.</p>
+                    </details>
+                    <details>
+                        <summary>Sollte der vordere MTB-Reifen niedriger sein als der hintere?</summary>
+                        <p>Normalerweise ja. Das Hinterrad trägt mehr Gewicht und nimmt Antriebs- und Bremskräfte auf, deshalb braucht es etwas mehr Druck. Ein leicht weicherer Vorderreifen bietet mehr Grip beim Einlenken.</p>
+                    </details>
+                    <details>
+                        <summary>Brauche ich Tubeless für niedrigen MTB-Reifendruck?</summary>
+                        <p>Eigentlich ja. Der Druck, der dafür sorgt, dass ein MTB-Reifen haftet, würde einen Schlauch fast sofort platt machen. Tubeless ermöglicht es außerdem, kleine Löcher mit Dichtmittel zu schließen, weshalb fast alle Trail-Fahrer damit fahren.</p>
+                    </details>
+                    <details>
+                        <summary>Wann sollte ich eine Reifeneinlage verwenden?</summary>
+                        <p>Wenn du beim gewünschten Grip häufig Felgenschläge oder Luftverlust in Kurven hast, schützt ein Reifeneinsatz die Felge und stützt die Seitenwand. So kannst du den niedrigen Druck sicherer fahren. Das ist besonders bei höherem Gewicht oder aggressiver Fahrweise sinnvoll.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Andere Disziplinen</h2>
+                <div class="sibling-tools">
+                    <a href="/de/tools/tyre-pressure/road.html">Rennrad</a>
+                    <a href="/de/tools/tyre-pressure/gravel.html">Gravel</a>
+                    <a href="/de/tools/tyre-pressure/mtb.html">MTB</a>
+                    <a href="/de/tools/tyre-pressure.html">Alle Setups und Touren</a>
+                </div>
+            </section>
+
+            <section class="tool-cta">
+                <div>
+                    <h2>Stimme deine Reifen auf den Trail ab.</h2>
+                    <p>Route Companion berechnet den passenden Reifendruck für deine geplante Tour und zeigt ihn zusammen mit Wetter, Kleidung und Verpflegung in der Tourvorbereitung. So passt dein Setup zu den Bedingungen des Tages.</p>
+                </div>
+                <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">App laden</a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="/de/">Start</a>
+                <a href="/de/tools/">Tools</a>
+                <a href="/de/guides/">Ratgeber</a>
+                <a href="/privacy.html">Datenschutz</a>
+                <a href="/terms.html">Nutzungsbedingungen</a>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </div>
+            <div>© 2026 Route Companion. Alle Rechte vorbehalten.</div>
+        </footer>
+    </div>
+    <script>
+      // Pre-set the shared calculator to this discipline (canonical stays clean).
+      if (!location.search) history.replaceState(null, '', location.pathname + '?cat=mtb&fw=57&surf=mtb-trail');
+    </script>
+    <script type="module" src="/tools/assets/tyre-pressure.js"></script>
+
+
+</body></html>

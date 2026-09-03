@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="fr"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Météo d'itinéraire GPX&nbsp;: prévisions le long de votre itinéraire, pas seulement au début | Route Companion</title>
+    <meta name="description" content="Déposez un fichier GPX et consultez la météo là où vous serez réellement&nbsp;: température, pluie et vent contraire ou arrière le long de l'itinéraire à votre vitesse de conduite, ainsi que ce qu'il faut porter. Gratuit, fonctionne dans votre navigateur.">
+    <link rel="canonical" href="https://routecompanion.app/fr/tools/route-weather.html">
+    <link rel="alternate" hreflang="en" href="https://routecompanion.app/tools/route-weather.html">
+    <link rel="alternate" hreflang="de" href="https://routecompanion.app/de/tools/route-weather.html">
+    <link rel="alternate" hreflang="fr" href="https://routecompanion.app/fr/tools/route-weather.html">
+    <link rel="alternate" hreflang="x-default" href="https://routecompanion.app/tools/route-weather.html">
+    <meta property="og:title" content="Météo d'itinéraire GPX&nbsp;: prévisions le long de votre itinéraire, pas seulement au début">
+    <meta property="og:description" content="Température, pluie et vent contraire le long de votre parcours GPX à votre vitesse, ainsi que ce qu'il faut porter. Gratuit, fonctionne dans votre navigateur.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="/guides/styles.css">
+    <link rel="stylesheet" href="/assets/language.css">
+    <link rel="stylesheet" href="/tools/assets/route-weather.css">
+    <link rel="stylesheet" href="/tools/tools.css">
+    <script src="/assets/language.js"></script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Route Companion Météo d'itinéraire GPX","url":"https://routecompanion.app/fr/tools/route-weather.html","applicationCategory":"SportsApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Route Companion","logo":{"@type":"ImageObject","url":"https://routecompanion.app/assets/icon.png"}}}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Pourquoi vérifier la météo le long du parcours plutôt qu'au départ ?","acceptedAnswer":{"@type":"Answer","text":"Sur un trajet plus long, vous pouvez vous trouver à des heures et à plusieurs kilomètres de votre point de départ. Une seule prévision de ville ne prend pas en compte la cellule de pluie au-dessus du col à 14 heures, la baisse de température sur le plateau et le fait que le vent sur la section exposée soit un vent contraire ou arrière pour votre direction de déplacement."}},{"@type":"Question","name":"Mon fichier GPX est-il téléchargé quelque part ?","acceptedAnswer":{"@type":"Answer","text":"Non. Le fichier est entièrement analysé dans votre navigateur. Seule une poignée de coordonnées échantillonnées le long de l'itinéraire sont envoyées à l'API météo pour récupérer les prévisions. L'itinéraire lui-même ne quitte jamais votre appareil."}},{"@type":"Question","name":"Comment est déterminé le vent contraire ou le vent arrière ?","acceptedAnswer":{"@type":"Answer","text":"L'outil calcule votre direction de déplacement à chaque point échantillonné et la compare à la direction du vent prévue à votre heure d'arrivée. Le vent ne compte comme vent de face ou vent arrière que lorsque la composante dans votre direction de déplacement est suffisamment forte pour être réellement ressentie. Une légère brise est signalée comme étant calme."}},{"@type":"Question","name":"Jusqu'à quand puis-je vérifier ?","acceptedAnswer":{"@type":"Answer","text":"Jusqu'à 16 jours, mais comme pour toute prévision, la précision utile diminue au-delà d'une semaine environ. Pour les sorties de plus de quelques jours, traitez-le comme un contrôle de tendance et regardez à nouveau la veille."}},{"@type":"Question","name":"D’où vient la recommandation vestimentaire ?","acceptedAnswer":{"@type":"Answer","text":"Comme l'application Route Companion, cet outil tient compte de la température ressentie, du refroidissement lié à votre vitesse, du risque de pluie, de la lumière du jour et de l'indice UV. La tenue conseillée correspond au passage le plus froid de votre itinéraire, pas à la moyenne."}}]}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://routecompanion.app/fr/"},{"@type":"ListItem","position":2,"name":"Outils","item":"https://routecompanion.app/fr/tools/"},{"@type":"ListItem","position":3,"name":"Outil Météo pour la Course","item":"https://routecompanion.app/fr/tools/route-weather.html"}]}
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- nav:start -->
+        <nav class="site-nav" aria-label="Navigation sur les sites">
+            <div class="site-nav-inner">
+                <a class="brand-link" href="/fr/">
+                    <img src="/assets/icon.png" alt="" width="30" height="30">
+                    <span>Route Companion</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/fr/tools/" aria-current="page">Outils</a>
+                    <a href="/fr/guides/">Guides</a>
+                    <a class="nav-cta" href="https://apps.apple.com/app/id6758202473">App Store</a>
+                </div>
+            </div>
+        </nav>
+        <!-- nav:end -->
+
+        <p class="breadcrumb"><a href="/fr/tools/">Outils</a><span>Outil Météo pour la Course</span></p>
+        <header class="tool-hero">
+            <div>
+                <h1>Météo de l’itinéraire depuis un GPX</h1>
+                <p class="hero-copy">Montez à bord d'un GPX et voyez les prévisions où vous serez réellement : température, pluie, et si le vent est avec vous ou contre vous, point par point en fonction de votre vitesse. Avec une suggestion vestimentaire pour la partie la plus froide du trajet.</p>
+            </div>
+            <div class="tool-mascot" id="tool-mascot" aria-hidden="true"></div>
+        </header>
+
+        <main>
+            <div class="tool-app">
+                <div id="tool-root">
+                    <div class="tool-loading">Outil de chargement…</div>
+                </div>
+                <noscript><p class="tool-error">Cet outil nécessite JavaScript. Tout fonctionne dans votre navigateur. Votre GPX n'est jamais téléchargé.</p></noscript>
+            </div>
+
+            <section class="section" id="how">
+                <h2>Pourquoi vérifier la météo le long du parcours ?</h2>
+                <p class="lead">Sur un trajet plus long, vous pouvez vous trouver à des heures et demie de l'endroit où votre application météo a été vérifiée.</p>
+                <p>Cet outil échantillonne les points le long de votre itinéraire, détermine quand vous atteindrez chacun d'entre eux à votre vitesse moyenne et récupère les prévisions pour cet endroit à ce moment-là. Le vent est comparé à votre direction de déplacement à chaque point, afin que vous puissiez savoir si la section exposée est une mouture ou une poussée, et si la boucle se déroule mieux dans le sens des aiguilles d'une montre.</p>
+                <p>La tenue est calculée comme dans l'application Route Companion. Elle tient compte du refroidissement lié à votre vitesse, car une météo douce peut sembler froide à 30 km/h, et vous prépare au passage le plus froid plutôt qu'à la moyenne du parcours.</p>
+            </section>
+
+            <section class="section" id="faq">
+                <h2>Questions courantes</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>Mon fichier GPX est-il téléchargé quelque part&nbsp;?</summary>
+                        <p>Non. Le fichier est entièrement analysé dans votre navigateur. Seule une poignée de coordonnées échantillonnées sont envoyées à l'API météo pour récupérer les prévisions. L'itinéraire lui-même ne quitte jamais votre appareil.</p>
+                    </details>
+                    <details>
+                        <summary>Comment est déterminé le vent contraire ou le vent arrière ?</summary>
+                        <p>L'outil calcule votre direction de déplacement à chaque point échantillonné et la compare à la direction du vent prévue à votre heure d'arrivée. Le vent ne compte comme vent de face ou vent arrière que lorsque la composante dans la direction de votre déplacement est suffisamment forte pour être ressentie. Une légère brise se lit comme calme, exactement comme dans l'application.</p>
+                    </details>
+                    <details>
+                        <summary>Jusqu'à quand puis-je vérifier ?</summary>
+                        <p>Jusqu'à 16 jours, bien que la précision utile diminue au-delà d'une semaine environ. Pour les sorties plus éloignées, traitez-le comme un contrôle de tendance et regardez à nouveau la veille.</p>
+                    </details>
+                    <details>
+                        <summary>Quels formats de fichiers fonctionnent ?</summary>
+                        <p>GPX sur l'outil web. L'application importe également TCX et FIT et extrait les itinéraires directement depuis Strava, Komoot, Ride with GPS et Garmin.</p>
+                    </details>
+                    <details>
+                        <summary>Que dois-je porter à 10°C ? A 5°C ?</summary>
+                        <p>Chargez votre itinéraire et l'outil répond à vos conditions exactes. En règle générale : à 10°C, la plupart des cyclistes veulent des manches longues, des jambières et des gants légers ; à 5°C, ajoutez une couche thermique, des gants d'hiver et des couvre-chaussures. Le vent et la pluie déplacent ces seuils&nbsp;; le <a href="/fr/guides/cycling-weather-clothing.html">guide quoi porter</a> explique comment.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="tool-cta">
+                <div>
+                    <h2>Dans l'application, cela fait partie de chaque itinéraire.</h2>
+                    <p>Route Companion analyse chaque itinéraire importé pour planifier vos ravitaillements et vos arrêts, puis exporte le tout vers votre Garmin ou Wahoo avec les étapes incluses.</p>
+                </div>
+                <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">Télécharger l’app</a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="/fr/">Accueil</a>
+                <a href="/fr/tools/">Outils</a>
+                <a href="/fr/guides/">Guides</a>
+                <a href="/privacy.html">Confidentialité</a>
+                <a href="/terms.html">Termes</a>
+                <a href="mailto:support@routecompanion.app">Assistance</a>
+            </div>
+            <div>© 2026 Route Companion. Tous droits réservés.</div>
+        </footer>
+    </div>
+    <script type="module" src="/tools/assets/route-weather.js"></script>
+
+
+</body></html>

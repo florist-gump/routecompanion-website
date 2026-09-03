@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="de"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPX-Routenwetter: Vorhersage entlang deiner Route, nicht nur am Start | Route Companion</title>
+    <meta name="description" content="Lade eine GPX-Datei und sieh das Wetter dort, wo du tatsächlich unterwegs bist: Temperatur, Regen sowie Gegen- oder Rückenwind entlang der Route bei deinem Tempo. Dazu bekommst du eine Kleidungsempfehlung. Kostenlos und direkt in deinem Browser.">
+    <link rel="canonical" href="https://routecompanion.app/de/tools/route-weather.html">
+    <link rel="alternate" hreflang="en" href="https://routecompanion.app/tools/route-weather.html">
+    <link rel="alternate" hreflang="de" href="https://routecompanion.app/de/tools/route-weather.html">
+    <link rel="alternate" hreflang="fr" href="https://routecompanion.app/fr/tools/route-weather.html">
+    <link rel="alternate" hreflang="x-default" href="https://routecompanion.app/tools/route-weather.html">
+    <meta property="og:title" content="GPX-Routenwetter: Vorhersage entlang deiner Route, nicht nur am Start">
+    <meta property="og:description" content="Temperatur, Regen und Gegenwind entlang deiner GPX-Route bei deinem Tempo, plus passende Kleidung. Kostenlos und direkt in deinem Browser.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="/guides/styles.css">
+    <link rel="stylesheet" href="/assets/language.css">
+    <link rel="stylesheet" href="/tools/assets/route-weather.css">
+    <link rel="stylesheet" href="/tools/tools.css">
+    <script src="/assets/language.js"></script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Route Companion GPX-Routenwetter","url":"https://routecompanion.app/de/tools/route-weather.html","applicationCategory":"SportsApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Route Companion","logo":{"@type":"ImageObject","url":"https://routecompanion.app/assets/icon.png"}}}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Warum das Wetter entlang der Strecke prüfen statt am Start?","acceptedAnswer":{"@type":"Answer","text":"Auf einer längeren Tour bist du schnell Stunden und viele Kilometer vom Start entfernt. Eine Vorhersage für nur einen Ort verpasst die Regenzelle über dem Pass um 14 Uhr, den Temperatursturz auf dem Plateau und die Frage, ob der Wind im offenen Abschnitt für dich von vorn oder von hinten kommt."}},{"@type":"Question","name":"Wird meine GPX-Datei irgendwo hochgeladen?","acceptedAnswer":{"@type":"Answer","text":"Nein. Die Datei wird vollständig in deinem Browser verarbeitet. Nur wenige Punkte entlang der Route werden für die Vorhersage an den Wetterdienst gesendet. Die Route selbst verlässt dein Gerät nicht."}},{"@type":"Question","name":"Wie wird Gegen- oder Rückenwind ermittelt?","acceptedAnswer":{"@type":"Answer","text":"Das Tool berechnet an jedem Streckenpunkt deine Fahrtrichtung und vergleicht sie mit dem Wind bei deiner Ankunft. Als Gegen- oder Rückenwind zählt nur der Anteil, den du in Fahrtrichtung wirklich spürst. Eine leichte Brise wird als ruhig angezeigt."}},{"@type":"Question","name":"Wie weit im Voraus kann ich prüfen?","acceptedAnswer":{"@type":"Answer","text":"Bis zu 16 Tage. Wie bei jeder Vorhersage nimmt die Verlässlichkeit nach etwa einer Woche ab. Liegt deine Tour noch mehrere Tage entfernt, nutze die Angaben als Trend und prüfe sie am Vorabend erneut."}},{"@type":"Question","name":"Wie entsteht die Kleidungsempfehlung?","acceptedAnswer":{"@type":"Answer","text":"Dahinter steckt dieselbe Berechnung wie in der Route Companion-App. Einbezogen werden die gefühlte Temperatur beim Fahren, Regenwahrscheinlichkeit, Tageslicht und UV-Strahlung. Die Empfehlung richtet sich am kältesten Streckenabschnitt statt am Durchschnitt aus."}}]}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Start","item":"https://routecompanion.app/de/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://routecompanion.app/de/tools/"},{"@type":"ListItem","position":3,"name":"Wetter-Tool für deine Strecke","item":"https://routecompanion.app/de/tools/route-weather.html"}]}
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- nav:start -->
+        <nav class="site-nav" aria-label="Seitennavigation">
+            <div class="site-nav-inner">
+                <a class="brand-link" href="/de/">
+                    <img src="/assets/icon.png" alt="" width="30" height="30">
+                    <span>Route Companion</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/de/tools/" aria-current="page">Tools</a>
+                    <a href="/de/guides/">Ratgeber</a>
+                    <a class="nav-cta" href="https://apps.apple.com/app/id6758202473">App Store</a>
+                </div>
+            </div>
+        </nav>
+        <!-- nav:end -->
+
+        <p class="breadcrumb"><a href="/de/tools/">Tools</a><span>Wetter-Tool für deine Strecke</span></p>
+        <header class="tool-hero">
+            <div>
+                <h1>Routenwetter aus einer GPX-Datei</h1>
+                <p class="hero-copy">Lade eine GPX-Datei hoch und sieh die Vorhersage dort, wo du tatsächlich unterwegs bist: Temperatur, Regen sowie Gegen- oder Rückenwind entlang der Route. Dazu gibt es eine Kleidungsempfehlung für den kältesten Abschnitt.</p>
+            </div>
+            <div class="tool-mascot" id="tool-mascot" aria-hidden="true"></div>
+        </header>
+
+        <main>
+            <div class="tool-app">
+                <div id="tool-root">
+                    <div class="tool-loading">Tool wird geladen…</div>
+                </div>
+                <noscript><p class="tool-error">Dieses Tool benötigt JavaScript. Alles läuft in deinem Browser. Deine GPX-Datei wird nie hochgeladen.</p></noscript>
+            </div>
+
+            <section class="section" id="how">
+                <h2>Warum das Wetter entlang der Route prüfen?</h2>
+                <p class="lead">Auf einer längeren Tour bist du schnell mehrere Stunden und viele Kilometer von dem Ort entfernt, den deine Wetter-App geprüft hat.</p>
+                <p>Das Tool prüft Punkte entlang deiner Route, berechnet aus dem Durchschnittstempo deine Ankunftszeit und holt dafür die lokale Vorhersage. Der Wind wird mit deiner Fahrtrichtung verglichen. So erkennst du, ob ein offener Abschnitt Kraft kostet oder anschiebt und in welcher Richtung sich eine Runde besser fährt.</p>
+                <p>Für die Kleidungsempfehlung nutzt die Website dieselbe Berechnung wie die Route Companion-App. Dabei zählt auch der Fahrtwind, durch den sich selbst mildes Wetter bei 30 km/h kalt anfühlen kann. Maßgeblich ist der kälteste Abschnitt, nicht der Durchschnitt.</p>
+            </section>
+
+            <section class="section" id="faq">
+                <h2>Häufige Fragen</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>Wird meine GPX-Datei irgendwo hochgeladen?</summary>
+                        <p>Nein. Die Datei wird vollständig in deinem Browser verarbeitet. Nur wenige Punkte werden für die Vorhersage an den Wetterdienst gesendet. Die Route selbst verlässt dein Gerät nicht.</p>
+                    </details>
+                    <details>
+                        <summary>Wie wird Gegen- oder Rückenwind ermittelt?</summary>
+                        <p>Das Tool berechnet an jedem Streckenpunkt deine Fahrtrichtung und vergleicht sie mit dem Wind bei deiner Ankunft. Als Gegen- oder Rückenwind zählt nur der Anteil, den du in Fahrtrichtung wirklich spürst. Eine leichte Brise wird wie in der App als ruhig angezeigt.</p>
+                    </details>
+                    <details>
+                        <summary>Wie weit im Voraus kann ich prüfen?</summary>
+                        <p>Bis zu 16 Tage, wobei die Verlässlichkeit nach etwa einer Woche abnimmt. Liegt deine Tour weiter in der Zukunft, nutze die Angaben als Trend und prüfe sie am Vorabend erneut.</p>
+                    </details>
+                    <details>
+                        <summary>Welche Dateiformate funktionieren?</summary>
+                        <p>GPX im Web-Tool. Die App importiert auch TCX und FIT und ruft Routen direkt von Strava, Komoot, Ride with GPS und Garmin ab.</p>
+                    </details>
+                    <details>
+                        <summary>Was soll ich bei 10°C anziehen? Bei 5°C?</summary>
+                        <p>Lade deine Route, dann stimmt das Tool die Empfehlung auf deine Bedingungen ab. Als Faustregel passen bei 10 °C für die meisten lange Ärmel, Beinlinge und leichte Handschuhe. Bei 5 °C kommen Thermoschicht, Winterhandschuhe und Überschuhe dazu. Wind und Regen verschieben diese Grenzen. Der <a href="/de/guides/cycling-weather-clothing.html">Ratgeber zur Radkleidung</a> zeigt dir, wie du die Empfehlung anpasst.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="tool-cta">
+                <div>
+                    <h2>In der App ist dies Bestandteil jeder Route.</h2>
+                    <p>Route Companion prüft jede importierte Route und ergänzt Verpflegung sowie passende Stopps entlang der Strecke. Anschließend kannst du die Route inklusive Stopps an Garmin oder Wahoo exportieren.</p>
+                </div>
+                <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">App laden</a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="/de/">Start</a>
+                <a href="/de/tools/">Tools</a>
+                <a href="/de/guides/">Ratgeber</a>
+                <a href="/privacy.html">Datenschutz</a>
+                <a href="/terms.html">Nutzungsbedingungen</a>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </div>
+            <div>© 2026 Route Companion. Alle Rechte vorbehalten.</div>
+        </footer>
+    </div>
+    <script type="module" src="/tools/assets/route-weather.js"></script>
+
+
+</body></html>

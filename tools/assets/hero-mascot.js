@@ -1,0 +1,1 @@
+function a(t,o="default"){return`/tools/assets/mascots/${t}-${o}.webp`}function i(t,o=a(t)){let n=document.getElementById("tool-mascot");if(!n)return;let e=document.createElement("img");e.src=o,e.alt="",e.decoding="async",e.loading="eager",e.className="tool-mascot-image",e.dataset.activity=t,n.replaceChildren(e)}function g(){i("cycling")}export{g as renderHeroMascot};

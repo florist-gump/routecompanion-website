@@ -1,0 +1,309 @@
+/* Legal pages (privacy, terms): the homepage's Fjord system on an editorial reading surface. */
+:root {
+    --bg-base: #0D1417;
+    --bg-surface: #172227;
+    --bg-panel: rgba(13, 20, 23, 0.82);
+    --border-color: #243239;
+    --primary: #0E7490;
+    --primary-light: #35B5C9;
+    --text-primary: #EAF1F3;
+    --text-secondary: #8DA2AA;
+    --text-muted: #78898F;
+    --text-faint: #64777F;
+    --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    line-height: 1.65;
+    color: var(--text-primary);
+    background: var(--bg-base);
+}
+
+a {
+    color: var(--primary-light);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Navigation (mirrors index.html) */
+.site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    border-bottom: 1px solid transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.site-nav.scrolled {
+    background: var(--bg-panel);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-bottom-color: var(--border-color);
+}
+
+.site-nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-primary);
+    font-weight: 800;
+    font-size: 0.98rem;
+    letter-spacing: -0.2px;
+}
+
+.brand-link:hover {
+    text-decoration: none;
+}
+
+.brand-link img {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+/* The section you are in, so the header answers "where am I". */
+.nav-links a[aria-current="page"] {
+    position: relative;
+    color: var(--text-primary);
+}
+
+.nav-links a[aria-current="page"]::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--primary-light);
+}
+
+.nav-links .nav-cta {
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: rgba(23, 34, 39, 0.9);
+    color: var(--text-primary);
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.nav-links .nav-cta:hover {
+    border-color: rgba(53, 181, 201, 0.5);
+    background: var(--bg-surface);
+}
+
+/* Page header */
+.page-header {
+    position: relative;
+    overflow: hidden;
+    padding: 40px 0 28px;
+    text-align: center;
+}
+
+.page-backdrop {
+    position: absolute;
+    inset: -60px 0 0 0;
+    background-image: url("topo.svg");
+    background-size: cover;
+    background-position: center top;
+    opacity: 0.16;
+    -webkit-mask-image: radial-gradient(ellipse 70% 90% at 50% 0%, #000 0%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 90% at 50% 0%, #000 0%, transparent 100%);
+    pointer-events: none;
+}
+
+.page-header .container {
+    position: relative;
+}
+
+.kicker {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--primary-light);
+    margin: 0 0 8px;
+}
+
+.page-header h1 {
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin: 0;
+}
+
+.page-meta {
+    margin: 12px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Article */
+.legal {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 12px 36px 36px;
+    margin: 12px 0 48px;
+}
+
+.legal h2 {
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin: 34px 0 10px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border-color);
+}
+
+.legal h2:first-of-type {
+    border-top: 0;
+    padding-top: 0;
+    margin-top: 22px;
+}
+
+.legal p,
+.legal li {
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+}
+
+.legal strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.legal ul {
+    padding-left: 20px;
+}
+
+.legal li {
+    margin-bottom: 8px;
+}
+
+.legal li::marker {
+    color: var(--primary-light);
+}
+
+/* Footer (mirrors index.html) */
+.footer {
+    padding: 36px 0 40px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.footer-links {
+    margin: 0 0 8px;
+    font-size: 0.9rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: var(--primary-light);
+    text-decoration: none;
+}
+
+.footer-links .dot {
+    color: var(--text-muted);
+    margin: 0 12px;
+}
+
+.footer-copyright {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.btn:focus-visible,
+.nav-links a:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--primary-light);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+@media (max-width: 900px) {
+    .site-nav-inner {
+        padding: 10px 16px;
+    }
+
+    .nav-links {
+        gap: 14px;
+        font-size: 0.86rem;
+    }
+
+    .brand-link span {
+        display: none;
+    }
+
+    .page-header {
+        padding: 28px 0 20px;
+    }
+
+    .legal {
+        padding: 8px 20px 24px;
+        border-radius: 14px;
+    }
+
+    .footer-links .dot {
+        margin: 0 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}

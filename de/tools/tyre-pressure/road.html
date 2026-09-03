@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="de"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rennrad-Reifendruckrechner (25 / 28 / 30 mm) | Route Companion</title>
+    <meta name="description" content="Kostenloser Reifendruckrechner für Rennräder. Werte für Vorder- und Hinterrad in psi und bar, passend zu Gewicht, Setup und 25-, 28- oder 30-mm-Reifen. Grundlage ist die 15-%-Einfederungsmethode, nicht der Maximaldruck auf der Reifenflanke.">
+    <link rel="canonical" href="https://routecompanion.app/de/tools/tyre-pressure/road.html">
+    <link rel="alternate" hreflang="en" href="https://routecompanion.app/tools/tyre-pressure/road.html">
+    <link rel="alternate" hreflang="de" href="https://routecompanion.app/de/tools/tyre-pressure/road.html">
+    <link rel="alternate" hreflang="fr" href="https://routecompanion.app/fr/tools/tyre-pressure/road.html">
+    <link rel="alternate" hreflang="x-default" href="https://routecompanion.app/tools/tyre-pressure/road.html">
+    <meta property="og:title" content="Rennrad-Reifendruckrechner (25 / 28 / 30 mm)">
+    <meta property="og:description" content="Der Druck auf der Reifenflanke ist eine Obergrenze, keine Empfehlung, und fast immer zu hoch. Lass dir stattdessen passende Werte für Vorder- und Hinterrad aus Gewicht und Reifenbreite berechnen.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://routecompanion.app/de/tools/tyre-pressure/road.html">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="/guides/styles.css">
+    <link rel="stylesheet" href="/tools/tools.css">
+    <style>
+      .ref-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.98rem; }
+      .ref-table th, .ref-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+      .ref-table thead th { color: var(--text-secondary); font-weight: 600; }
+      .ref-table .bar-unit { color: var(--text-secondary); }
+      .sibling-tools { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+      .sibling-tools a { padding: 8px 14px; border: 1px solid var(--border-color); border-radius: 999px; text-decoration: none; }
+    </style>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Reifendruckrechner für Rennräder","url":"https://routecompanion.app/de/tools/tyre-pressure/road.html","applicationCategory":"SportsApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Route Companion","logo":{"@type":"ImageObject","url":"https://routecompanion.app/assets/icon.png"}}}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Welcher Druck passt für 28-mm-Rennradreifen?","acceptedAnswer":{"@type":"Answer","text":"Für einen 70-kg-Fahrer mit 28-mm-Tubeless-Reifen sind etwa 64 psi vorne und 68 psi hinten auf normalem Asphalt ein guter Ausgangspunkt. Schwerere Fahrer brauchen mehr, breitere Reifen weniger. Nutze den Rechner für dein genaues Gewicht und deine Reifenbreite."}},{"@type":"Question","name":"Sind 100 psi für Rennradreifen zu viel?","acceptedAnswer":{"@type":"Answer","text":"Für die meisten mit 28 mm breiten oder breiteren Reifen: ja. Bei 100 psi schluckt der Reifen Unebenheiten kaum noch und beginnt zu springen. Das ist langsamer und unkomfortabler. Sinnvoll ist so viel Druck höchstens bei sehr hohem Gewicht und schmalen Reifen."}},{"@type":"Question","name":"Sollte der Reifendruck vorne und hinten unterschiedlich sein?","acceptedAnswer":{"@type":"Answer","text":"Ja. Dein Hinterrad trägt beim Rennrad ungefähr 51 bis 52 Prozent des Gewichts und braucht deshalb einige psi mehr, damit beide Reifen gleich weit einfedern. Bei gleichem Druck wäre der Vorderreifen etwas zu hart."}},{"@type":"Question","name":"25 vs. 28 vs. 30 mm – wie stark verändert die Breite den Druck?","acceptedAnswer":{"@type":"Answer","text":"Deutlich. Mit jedem Schritt von 25 auf 28 und 30 mm wächst das Luftvolumen, deshalb kann derselbe Fahrer den Druck um mehrere psi senken. Das ist ein Grund, warum breite Tubeless-Rennradreifen schnell und geschmeidig rollen. Gib deine tatsächliche Reifenbreite ein, damit der Wert stimmt."}},{"@type":"Question","name":"Tubeless vs. Schläuche auf der Straße – spielt das eine Rolle?","acceptedAnswer":{"@type":"Answer","text":"Ein wenig. Tubeless-Setups können etwas weniger Druck fahren, weil kein Schlauch eingeklemmt werden kann und sich geschmeidige Karkassen leichter verformen als verstärkte. Wähle dein Setup im Rechner aus, dann wird die Empfehlung angepasst."}}]}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Start","item":"https://routecompanion.app/de/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://routecompanion.app/de/tools/"},{"@type":"ListItem","position":3,"name":"Reifendruck","item":"https://routecompanion.app/de/tools/tyre-pressure.html"},{"@type":"ListItem","position":4,"name":"Reifendruckrechner für Rennräder","item":"https://routecompanion.app/de/tools/tyre-pressure/road.html"}]}
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- nav:start -->
+        <nav class="site-nav" aria-label="Seitennavigation">
+            <div class="site-nav-inner">
+                <a class="brand-link" href="/de/">
+                    <img src="/assets/icon.png" alt="" width="30" height="30">
+                    <span>Route Companion</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/de/tools/" aria-current="page">Tools</a>
+                    <a href="/de/guides/">Ratgeber</a>
+                    <a class="nav-cta" href="https://apps.apple.com/app/id6758202473">App Store</a>
+                </div>
+            </div>
+        </nav>
+        <!-- nav:end -->
+
+        <p class="breadcrumb"><a href="/de/tools/">Tools</a><a href="/de/tools/tyre-pressure.html">Reifendruck</a><span>Rennrad</span></p>
+        <header class="tool-hero">
+            <div>
+                <h1>Reifendruckrechner für Rennräder</h1>
+                <p class="hero-copy">Der Druck auf der Reifenflanke ist eine Obergrenze, keine Empfehlung, und fast immer zu hoch. Lass dir stattdessen passende Werte für Vorder- und Hinterrad aus Gewicht und Reifenbreite berechnen.</p>
+            </div>
+            <div class="tool-mascot" id="tool-mascot" aria-hidden="true"></div>
+        </header>
+
+        <main>
+            <div class="tool-app">
+                <div id="tool-root">
+                    <div class="tool-loading">Rechner wird geladen…</div>
+                </div>
+                <noscript><p class="tool-error">Dieser Rechner benötigt JavaScript. Alles läuft in deinem Browser. Es wird nichts hochgeladen.</p></noscript>
+            </div>
+
+            <section class="section">
+                <h2>Wie viel Reifendruck fürs Rennrad?</h2>
+                <p>Wenn du noch mit 23-mm-Reifen und 120 psi gelernt hast, Rennradreifen aufzupumpen, ist es Zeit für neue Gewohnheiten. Moderne Rennradreifen sind breiter, 28 und 30 mm sind längst Standard. Auf echtem Asphalt rollen sie mit weniger Druck schneller, nicht langsamer. Oberhalb des optimalen Drucks schluckt der Reifen Unebenheiten nicht mehr, beginnt zu springen und belastet Hände und Rücken.</p>
+                <p>Der Rechner sucht den Druck, bei dem jeder Reifen unter seiner Last etwa 15 % einfedert. Das ist ein guter Kompromiss aus Rollwiderstand, Grip und Durchschlagschutz. Weil Vorder- und Hinterrad unterschiedlich belastet werden, erhalten sie verschiedene Werte. Dieselbe in Route Companion verwendete Berechnung wurde mit veröffentlichten Reifenmessungen abgeglichen und liegt bewusst eher etwas niedriger: Auf echten Straßen kosten wenige psi zu wenig fast nichts, während zu viel Druck Komfort und Geschwindigkeit kostet.</p>
+            </section>
+
+            <section class="section">
+                <h2>Typischer Rennrad-Reifendruck nach Gesamtgewicht</h2>
+                <table class="ref-table">
+                    <thead>
+                        <tr><th>Gesamtgewicht</th><th>Vorn</th><th>Hinten</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>60 kg</td><td>56 psi <span class="bar-unit">/ 3.9 bar</span></td><td>59.5 psi <span class="bar-unit">/ 4.1 bar</span></td></tr>
+                        <tr><td>70 kg</td><td>64 psi <span class="bar-unit">/ 4.4 bar</span></td><td>68 psi <span class="bar-unit">/ 4.7 bar</span></td></tr>
+                        <tr><td>80 kg</td><td>72.5 psi <span class="bar-unit">/ 5.0 bar</span></td><td>76.5 psi <span class="bar-unit">/ 5.3 bar</span></td></tr>
+                        <tr><td>90 kg</td><td>80.5 psi <span class="bar-unit">/ 5.6 bar</span></td><td>85.5 psi <span class="bar-unit">/ 5.9 bar</span></td></tr>
+                        <tr><td>100 kg</td><td>88.5 psi <span class="bar-unit">/ 6.1 bar</span></td><td>94 psi <span class="bar-unit">/ 6.5 bar</span></td></tr>
+                    </tbody>
+                </table>
+                <p class="field-hint" style="margin-top:10px;">Ausgangswerte für einen 28-mm-Tubeless-Reifen auf normalem Asphalt bei ruhigem Tempo und 700C-Laufrädern. Breitere Reifen und rauere Straßen brauchen weniger Druck. Nutze oben den Rechner für dein genaues Setup.</p>
+            </section>
+
+            <section class="section">
+                <h2>Auf die Straße abstimmen</h2>
+                <table class="ref-table">
+                    <tbody>
+                        <tr><td><strong>Glatter, frischer Asphalt</strong></td><td>Wenn du ein strafferes Fahrgefühl magst, kannst du den Ausgangswert um einige psi erhöhen.</td></tr>
+                        <tr><td><strong>Typische, ausgebesserte Straßen</strong></td><td>Übernimm den berechneten Wert unverändert.</td></tr>
+                        <tr><td><strong>Rauer Splittasphalt, nass</strong></td><td>Senke den Druck um 2–4 psi für mehr Grip und Komfort. Auf rauem Untergrund ist weniger Druck meist schneller.</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section" id="faq">
+                <h2>Häufige Fragen</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>Welcher Druck passt für 28-mm-Rennradreifen?</summary>
+                        <p>Für einen 70-kg-Fahrer mit 28-mm-Tubeless-Reifen sind etwa 64 psi vorne und 68 psi hinten auf normalem Asphalt ein guter Ausgangspunkt. Schwerere Fahrer brauchen mehr, breitere Reifen weniger. Nutze den Rechner für dein genaues Gewicht und deine Reifenbreite.</p>
+                    </details>
+                    <details>
+                        <summary>Sind 100 psi für Rennradreifen zu viel?</summary>
+                        <p>Für die meisten mit 28 mm breiten oder breiteren Reifen: ja. Bei 100 psi schluckt der Reifen Unebenheiten kaum noch und beginnt zu springen. Das ist langsamer und unkomfortabler. Sinnvoll ist so viel Druck höchstens bei sehr hohem Gewicht und schmalen Reifen.</p>
+                    </details>
+                    <details>
+                        <summary>Sollte der Reifendruck vorne und hinten unterschiedlich sein?</summary>
+                        <p>Ja. Dein Hinterrad trägt beim Rennrad ungefähr 51 bis 52 Prozent des Gewichts und braucht deshalb einige psi mehr, damit beide Reifen gleich weit einfedern. Bei gleichem Druck wäre der Vorderreifen etwas zu hart.</p>
+                    </details>
+                    <details>
+                        <summary>25 vs. 28 vs. 30 mm – wie stark verändert die Breite den Druck?</summary>
+                        <p>Deutlich. Mit jedem Schritt von 25 auf 28 und 30 mm wächst das Luftvolumen, deshalb kann derselbe Fahrer den Druck um mehrere psi senken. Das ist ein Grund, warum breite Tubeless-Rennradreifen schnell und geschmeidig rollen. Gib deine tatsächliche Reifenbreite ein, damit der Wert stimmt.</p>
+                    </details>
+                    <details>
+                        <summary>Tubeless vs. Schläuche auf der Straße – spielt das eine Rolle?</summary>
+                        <p>Ein wenig. Tubeless-Setups können etwas weniger Druck fahren, weil kein Schlauch eingeklemmt werden kann und sich geschmeidige Karkassen leichter verformen als verstärkte. Wähle dein Setup im Rechner aus, dann wird die Empfehlung angepasst.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Andere Disziplinen</h2>
+                <div class="sibling-tools">
+                    <a href="/de/tools/tyre-pressure/road.html">Rennrad</a>
+                    <a href="/de/tools/tyre-pressure/gravel.html">Gravel</a>
+                    <a href="/de/tools/tyre-pressure/mtb.html">MTB</a>
+                    <a href="/de/tools/tyre-pressure.html">Alle Setups und Touren</a>
+                </div>
+            </section>
+
+            <section class="tool-cta">
+                <div>
+                    <h2>Stimme den Druck auf die Route ab, nicht nur auf das Rad.</h2>
+                    <p>Route Companion berechnet denselben Wert für deine tatsächliche Route und zeigt ihn zusammen mit Wetter, Kleidung und Verpflegung in der Tourvorbereitung. So stellst du den Reifendruck passend für den Tag ein und fährst los.</p>
+                </div>
+                <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">App laden</a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="/de/">Start</a>
+                <a href="/de/tools/">Tools</a>
+                <a href="/de/guides/">Ratgeber</a>
+                <a href="/privacy.html">Datenschutz</a>
+                <a href="/terms.html">Nutzungsbedingungen</a>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </div>
+            <div>© 2026 Route Companion. Alle Rechte vorbehalten.</div>
+        </footer>
+    </div>
+    <script>
+      // Pre-set the shared calculator to this discipline (canonical stays clean).
+      if (!location.search) history.replaceState(null, '', location.pathname + '?cat=road&fw=28&surf=normal-pavement');
+    </script>
+    <script type="module" src="/tools/assets/tyre-pressure.js"></script>
+
+
+</body></html>

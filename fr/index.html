@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Companion | Météo, arrêts et ravitaillement sur chaque itinéraire</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="description" content="Découvrez votre itinéraire avant de partir. Consultez la météo, trouvez des arrêts utiles, planifiez votre ravitaillement et exportez vers Garmin, Wahoo et Hammerhead. Pour le vélo, la course et la randonnée.">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="canonical" href="https://routecompanion.app/fr/">
+    <link rel="alternate" hreflang="en" href="https://routecompanion.app/">
+    <link rel="alternate" hreflang="de" href="https://routecompanion.app/de/">
+    <link rel="alternate" hreflang="fr" href="https://routecompanion.app/fr/">
+    <link rel="alternate" hreflang="x-default" href="https://routecompanion.app/">
+    <meta name="theme-color" content="#0D1417">
+    <!-- Native App Store banner on iOS Safari (invisible elsewhere) -->
+    <meta name="apple-itunes-app" content="app-id=6758202473">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Route Companion">
+    <meta property="og:title" content="Route Companion | Météo, arrêts et ravitaillement sur chaque itinéraire">
+    <meta property="og:description" content="Découvrez votre itinéraire avant de partir. Consultez la météo, trouvez des arrêts utiles, planifiez votre ravitaillement et exportez vers Garmin, Wahoo et Hammerhead.">
+    <meta property="og:url" content="https://routecompanion.app/fr/">
+    <meta property="og:image" content="https://routecompanion.app/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Route Companion | Météo, arrêts et ravitaillement sur chaque itinéraire">
+    <meta name="twitter:description" content="Découvrez votre itinéraire avant de partir. Consultez la météo, trouvez des arrêts utiles, planifiez votre ravitaillement et exportez vers Garmin, Wahoo et Hammerhead.">
+    <meta name="twitter:image" content="https://routecompanion.app/assets/og-image.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Route Companion",
+      "operatingSystem": "iOS, Android",
+      "applicationCategory": "SportsApplication",
+      "applicationSubCategory": "Planification d’itinéraires à vélo, pour la course et la randonnée",
+      "url": "https://routecompanion.app/",
+      "downloadUrl": "https://apps.apple.com/app/id6758202473",
+      "installUrl": "https://apps.apple.com/app/id6758202473",
+      "image": "https://routecompanion.app/assets/og-image.png",
+      "screenshot": [
+        "https://routecompanion.app/screenshots/1.png",
+        "https://routecompanion.app/screenshots/2.png",
+        "https://routecompanion.app/screenshots/3.png"
+      ],
+      "description": "Consultez la météo le long de l’itinéraire, trouvez des arrêts utiles, planifiez votre ravitaillement et exportez vers Garmin, Wahoo et Hammerhead. Pour le vélo, la course et la randonnée.",
+      "featureList": [
+        "Météo heure par heure le long de votre itinéraire",
+        "Planification des glucides et de l’hydratation",
+        "Recherche d’eau, de cafés, de magasins de vélo et d’autres arrêts sur l’itinéraire",
+        "Importation de fichiers GPX, TCX et FIT ou d’itinéraires depuis Strava, Komoot et Ride with GPS",
+        "Export vers Garmin, Wahoo et Hammerhead",
+        "Alertes de proximité et Activité en direct sur iOS",
+        "Alertes vocales et notifications à l’approche des arrêts",
+        "Découverte d’itinéraires populaires à vélo, à pied et en randonnée à proximité",
+        "Carte de chaleur de toutes les routes que vous avez parcourues"
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "Route Companion",
+        "url": "https://routecompanion.app/",
+        "sameAs": ["https://www.instagram.com/route_companion_app/"]
+      },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+    <link rel="stylesheet" href="/assets/language.css">
+    <script src="/assets/language.js"></script>
+    <script>document.documentElement.classList.add('js');</script>
+    <style>
+        :root {
+            --bg-base: #0D1417;
+            --bg-surface: #172227;
+            --border-color: #243239;
+            --primary: #0E7490;
+            --primary-light: #35B5C9;
+            --cyan: #3BC2D6;
+            --purple: #0E94BA;
+            --pink: #FF6A3C;
+            --text-primary: #EAF1F3;
+            --text-secondary: #8DA2AA;
+            --text-muted: #78898F;
+            --text-faint: #64777F;
+            --bg-panel: rgba(13, 20, 23, 0.82);
+            --success: #10B981;
+            --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-base);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: transparent;
+            padding: 24px 0 56px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-backdrop {
+            position: absolute;
+            inset: -40px 0 0 0;
+            background-image: url("assets/topo.svg");
+            background-size: cover;
+            background-position: center top;
+            opacity: 0.22;
+            -webkit-mask-image: radial-gradient(ellipse 78% 72% at 50% 8%, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 100%);
+            mask-image: radial-gradient(ellipse 78% 72% at 50% 8%, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 100%);
+            pointer-events: none;
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .js .hero .hero-kicker,
+        .js .hero .tagline,
+        .js .hero .hero-copy,
+        .js .hero .hero-stage,
+        .js .hero .cta-buttons {
+            animation: rise 0.7s var(--ease-out) both;
+        }
+
+        .js .hero .hero-kicker { animation-delay: 0.05s; }
+        .js .hero .tagline { animation-delay: 0.12s; }
+        .js .hero .hero-copy { animation-delay: 0.18s; }
+        .js .hero .cta-buttons { animation-delay: 0.26s; }
+        .js .hero .hero-stage { animation-delay: 0.3s; animation-duration: 0.9s; }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+            align-items: center;
+            gap: clamp(32px, 5vw, 72px);
+            text-align: left;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 560px;
+        }
+
+        .hero-kicker {
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            color: var(--primary-light);
+            margin: 0 0 8px 0;
+        }
+
+        .workflow-mascots {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 56px;
+            margin: 14px auto 6px;
+        }
+
+        .workflow-mascots img {
+            height: 72px;
+            width: auto;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            -ms-interpolation-mode: nearest-neighbor;
+            opacity: 0.92;
+        }
+
+        .tagline {
+            font-size: clamp(2.3rem, 4.4vw, 3.6rem);
+            font-weight: 800;
+            line-height: 1.04;
+            letter-spacing: -0.04em;
+            margin: 0;
+            color: var(--text-primary);
+            text-wrap: balance;
+        }
+
+        .hero-copy {
+            font-size: clamp(1rem, 1.3vw, 1.12rem);
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 20px 0 0;
+            text-wrap: pretty;
+        }
+
+        /* Hero Visual - Screenshot Carousel */
+        .hero-stage {
+            width: 100%;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-visual-row {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 8px auto 0;
+        }
+
+        /* The frame takes its height from the screenshot rather than imposing a
+           device aspect on it, so no container can stretch the box and crop the
+           sides. Device chrome lives in the padding and radius, not in a ratio. */
+        .phone-frame {
+            position: relative;
+            flex: 0 0 auto;
+            align-self: center;
+            width: min(280px, 100%);
+            background: #000;
+            padding: 6px;
+            border-radius: 40px;
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .phone-drift,
+        .phone-frame picture {
+            display: block;
+        }
+
+        .phone-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 640 / 1387;
+            object-fit: contain;
+            border-radius: 34px;
+            background: var(--bg-surface);
+            transition:
+                opacity 0.32s ease,
+                transform 0.32s var(--ease-out);
+        }
+
+        .phone-frame.swapping img {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        .carousel-caption {
+            position: relative;
+            width: 100%;
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 20px 0 0;
+            min-height: 1.6em;
+        }
+
+        .carousel-caption-item {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(4px);
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s var(--ease-out),
+                visibility 0s linear 0.3s;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .carousel-caption-item.active {
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+            transition-delay: 0s;
+        }
+
+        /* Only the current screen is spelled out; the rest collapse to dots,
+           because the caption above already names what you are looking at. */
+        .feature-chips {
+            display: flex;
+            min-width: 0;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            margin-top: 18px;
+        }
+
+        .feature-chip {
+            position: relative;
+            overflow: hidden;
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 26px;
+            padding: 0 4px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--text-primary);
+            font: inherit;
+            font-size: 0.78rem;
+            font-weight: 700;
+            line-height: 1;
+            cursor: pointer;
+            transition:
+                padding 0.34s var(--ease-out),
+                border-color 0.24s ease,
+                background-color 0.24s ease;
+        }
+
+        .feature-chip::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(141, 162, 170, 0.32);
+            transition:
+                width 0.34s var(--ease-out),
+                opacity 0.24s ease,
+                background-color 0.2s ease;
+        }
+
+        .feature-chip:hover::before {
+            background: rgba(53, 181, 201, 0.75);
+        }
+
+        /* Clipped, never hidden - the label stays the button's accessible name. */
+        .feature-chip-label {
+            display: block;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            transition:
+                max-width 0.34s var(--ease-out),
+                opacity 0.24s ease;
+        }
+
+        .feature-chip.active {
+            padding: 0 13px;
+            border-color: rgba(53, 181, 201, 0.5);
+            background: rgba(14, 116, 144, 0.22);
+        }
+
+        .feature-chip.active::before {
+            width: 0;
+            opacity: 0;
+        }
+
+        .feature-chip.active .feature-chip-label {
+            max-width: var(--label-w, 160px);
+            opacity: 1;
+        }
+
+        .feature-chip::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            background: rgba(53, 181, 201, 0.38);
+            transform: scaleX(0);
+            transform-origin: left center;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes chipFill {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        .js .feature-chip.active::after {
+            opacity: 1;
+            animation: chipFill var(--dwell, 6.5s) linear forwards;
+        }
+
+        .hero-stage.paused .feature-chip.active::after {
+            animation-play-state: paused;
+        }
+
+
+        .cta-buttons {
+            display: flex;
+            gap: 14px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px 22px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            font-size: 0.97rem;
+        }
+
+        .btn-primary {
+            background-color: var(--text-primary);
+            color: var(--bg-base);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background-color: #FFFFFF;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .btn-secondary {
+            background-color: rgba(23, 34, 39, 0.9);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-surface);
+            border-color: rgba(53, 181, 201, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .btn:focus-visible,
+        .nav-links a:focus-visible,
+        .guide-row:focus-visible,
+        .feature-chip:focus-visible {
+            outline: 2px solid var(--primary-light);
+            outline-offset: 3px;
+        }
+
+        .btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: var(--bg-surface);
+            color: var(--text-muted);
+            box-shadow: none;
+            transform: none !important;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Section shared */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color) 18%, var(--border-color) 82%, transparent);
+            border: none;
+            margin: 0;
+        }
+
+        /* Scroll reveal: only applied when JS is available, so content never depends on it */
+        .js .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition:
+                opacity 0.65s var(--ease-out),
+                transform 0.65s var(--ease-out);
+            transition-delay: var(--reveal-delay, 0s);
+        }
+
+        .js .reveal.in {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Site navigation */
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background: transparent;
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .site-nav.scrolled {
+            background: var(--bg-panel);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            border-bottom-color: var(--border-color);
+        }
+
+        .site-nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.98rem;
+            letter-spacing: -0.2px;
+        }
+
+        .brand-link img {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* The section you are in, so the header answers "where am I". */
+        .nav-links a[aria-current="page"] {
+            position: relative;
+            color: var(--text-primary);
+        }
+
+        .nav-links a[aria-current="page"]::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -6px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--primary-light);
+        }
+
+        .nav-links .nav-cta {
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: rgba(23, 34, 39, 0.9);
+            color: var(--text-primary);
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .nav-links .nav-cta:hover {
+            border-color: rgba(53, 181, 201, 0.5);
+            background: var(--bg-surface);
+        }
+
+        .section-intro {
+            max-width: 760px;
+            margin: 0 auto 28px;
+            padding: 0 20px;
+        }
+
+        .section-kicker {
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            color: var(--primary-light);
+            margin: 0 0 8px 0;
+        }
+
+        .section-title {
+            font-size: clamp(1.7rem, 3vw, 2.25rem);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin: 0;
+            color: var(--text-primary);
+            text-wrap: balance;
+        }
+
+        .section-subtitle {
+            font-size: 1.02rem;
+            color: var(--text-secondary);
+            max-width: 620px;
+            margin: 14px auto 0;
+            text-wrap: pretty;
+        }
+
+        /* Fonctionnalités */
+        .features-section {
+            background: transparent;
+            padding: 56px 0;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .feature-card {
+            --card-accent: var(--primary-light);
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-surface);
+            padding: 26px 22px 24px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition:
+                transform 0.35s var(--ease-out),
+                border-color 0.35s ease,
+                box-shadow 0.35s ease;
+        }
+
+        .feature-card[data-glow="teal"] { --card-accent: #3BC2D6; }
+        .feature-card[data-glow="orange"] { --card-accent: #F59E0B; }
+        .feature-card[data-glow="blue"] { --card-accent: #1E6FC2; }
+        .feature-card[data-glow="green"] { --card-accent: #10B981; }
+        .feature-card[data-glow="purple"] { --card-accent: #0E94BA; }
+        .feature-card[data-glow="pink"] { --card-accent: #FF6A3C; }
+
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 56%;
+            height: 2px;
+            background: var(--card-accent);
+            border-radius: 0 0 2px 2px;
+            transform: translateX(-50%) scaleX(0);
+            opacity: 0;
+            transition: transform 0.45s var(--ease-out), opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: color-mix(in srgb, var(--card-accent) 45%, var(--border-color));
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card:hover::before {
+            transform: translateX(-50%) scaleX(1);
+            opacity: 0.9;
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            transition: transform 0.35s var(--ease-out);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.06);
+        }
+
+        .feature-icon .material-icons {
+            font-size: 28px;
+        }
+
+        .feature-card h2 {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin: 0 0 8px 0;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* How it works */
+        .workflow-section {
+            padding: 56px 0;
+        }
+
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            padding: 0 20px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .workflow-step {
+            text-align: center;
+            padding: 20px 12px;
+            position: relative;
+        }
+
+        .workflow-step:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            top: 38px;
+            left: calc(50% + 26px);
+            width: calc(100% - 52px);
+            height: 1px;
+            background: repeating-linear-gradient(90deg, rgba(53, 181, 201, 0.35) 0 6px, transparent 6px 12px);
+        }
+
+        .workflow-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(53, 181, 201, 0.12);
+            border: 1px solid rgba(53, 181, 201, 0.25);
+            color: var(--primary-light);
+            font-weight: 800;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .js .workflow-step.reveal.in .workflow-number,
+        .workflow-step:hover .workflow-number {
+            background: var(--primary);
+            border-color: var(--primary-light);
+            color: #FFFFFF;
+            box-shadow: 0 0 0 4px rgba(53, 181, 201, 0.14);
+        }
+
+        .workflow-step h3 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin: 0 0 6px 0;
+        }
+
+        .workflow-step p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.45;
+        }
+
+        /* Integrations */
+        .integrations-section {
+            padding: 56px 0;
+        }
+
+        .integration-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .integration-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .integration-card h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            color: var(--text-primary);
+        }
+
+        .integration-card p {
+            margin: 10px 0 0 0;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .integration-card {
+            transition: border-color 0.3s ease;
+        }
+
+        .integration-card:hover {
+            border-color: rgba(53, 181, 201, 0.35);
+        }
+
+        .integration-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            background: rgba(13, 20, 23, 0.6);
+            color: var(--text-primary);
+            font-size: 0.86rem;
+            font-weight: 600;
+            line-height: 1.2;
+            transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s var(--ease-out);
+        }
+
+        .integration-pill:hover {
+            border-color: rgba(53, 181, 201, 0.5);
+            color: var(--primary-light);
+            transform: translateY(-1px);
+        }
+
+        /* Guides */
+        .guides-section {
+            padding: 56px 0;
+            background: transparent;
+        }
+
+        .guide-list {
+            max-width: 840px;
+            margin: 0 auto;
+            padding: 0 20px;
+            border-top: 1px solid rgba(51, 65, 85, 0.75);
+        }
+
+        .guide-row {
+            display: grid;
+            grid-template-columns: 220px 1fr 24px;
+            align-items: start;
+            gap: 24px;
+            padding: 22px 14px;
+            margin: 0 -14px;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.75);
+            border-radius: 12px;
+            text-align: left;
+            text-decoration: none;
+            transition: background-color 0.25s ease;
+        }
+
+        .guide-row::after {
+            content: "\2192";
+            color: var(--text-faint);
+            font-size: 1.1rem;
+            line-height: 1.3;
+            transition: transform 0.3s var(--ease-out), color 0.2s ease;
+        }
+
+        .guide-row:hover {
+            background: rgba(53, 181, 201, 0.05);
+        }
+
+        .guide-row:hover::after {
+            transform: translateX(4px);
+            color: var(--primary-light);
+        }
+
+        .guide-row h3 {
+            color: var(--text-primary);
+            font-size: 1.08rem;
+            margin: 0;
+            transition: color 0.2s ease;
+        }
+
+        .guide-row p {
+            color: var(--text-secondary);
+            font-size: 0.94rem;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        .guide-row:hover h3 {
+            color: var(--primary-light);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 36px 0 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-links {
+            margin: 0 0 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-links .dot {
+            color: var(--text-muted);
+            margin: 0 12px;
+        }
+
+        .footer-copyright {
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .feature-chips {
+                margin-top: 16px;
+            }
+
+            .carousel-caption {
+                font-size: 1.02rem;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                padding-top: 20px;
+                padding-bottom: 30px;
+            }
+
+            /* One column reads best as promise, proof, then the ask, so the
+               download buttons sit below the screenshot rather than above it.
+               display: contents lets the text block's children reorder against
+               the stage without duplicating the buttons in the markup. */
+            .hero-container {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 0;
+                text-align: center;
+            }
+
+            .hero-content {
+                display: contents;
+            }
+
+            .hero-kicker { order: 1; }
+            .tagline { order: 2; }
+
+            .hero-copy {
+                order: 3;
+                margin-inline: auto;
+            }
+
+            .hero-stage {
+                order: 4;
+                margin-top: 22px;
+            }
+
+            .cta-buttons {
+                order: 5;
+                margin-top: 24px;
+                justify-content: center;
+            }
+
+            .js .hero .hero-stage { animation-delay: 0.26s; }
+            .js .hero .cta-buttons { animation-delay: 0.32s; }
+
+            .workflow-mascots {
+                gap: 40px;
+                margin: 2px auto 10px;
+            }
+
+            .workflow-mascots img {
+                height: 56px;
+            }
+
+            .tagline {
+                font-size: 2rem;
+                padding: 0 6px;
+            }
+
+            .hero-copy {
+                font-size: 0.95rem;
+            }
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .workflow-steps {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .integration-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .guide-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                padding: 18px 10px;
+                margin: 0 -10px;
+            }
+
+            .guide-row::after {
+                display: none;
+            }
+
+            .workflow-step:not(:last-child)::after {
+                display: none;
+            }
+
+            .site-nav-inner {
+                padding: 10px 16px;
+            }
+
+            .nav-links {
+                gap: 14px;
+                font-size: 0.86rem;
+            }
+
+            .section-title {
+                font-size: 1.55rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .feature-card:hover {
+                transform: translateY(-2px);
+            }
+            .hero-visual-row {
+                margin: 6px auto 0;
+            }
+
+            .phone-frame {
+                width: min(250px, 100%);
+                padding: 5px;
+                border-radius: 36px;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
+            }
+
+            .phone-frame img {
+                border-radius: 31px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow-steps {
+                grid-template-columns: 1fr;
+            }
+
+            /* On a phone the hero has to earn its height. The screenshot is the
+               argument, so the block above it gets tighter - not just smaller -
+               and the two download paths stop carrying equal weight. */
+            .hero {
+                padding-top: 12px;
+            }
+
+            .hero-kicker {
+                font-size: 0.72rem;
+            }
+
+            .tagline {
+                font-size: clamp(1.6rem, 7.6vw, 1.95rem);
+                line-height: 1.14;
+                padding: 0;
+            }
+
+            .hero-copy {
+                font-size: 0.92rem;
+                line-height: 1.5;
+                margin-top: 12px;
+                max-width: 36ch;
+            }
+
+            .cta-buttons {
+                gap: 10px;
+                margin-top: 20px;
+            }
+
+            .cta-buttons .btn {
+                padding: 12px 18px;
+                font-size: 0.92rem;
+            }
+
+            .cta-buttons .btn-secondary {
+                padding: 11px 18px;
+                font-size: 0.88rem;
+            }
+
+            .phone-frame {
+                width: min(232px, 100%);
+            }
+
+            .carousel-caption {
+                margin-top: 16px;
+                font-size: 1rem;
+            }
+
+            .feature-chips {
+                margin-top: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-link span {
+                display: none;
+            }
+        }
+
+        @media print {
+            .js .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .js .hero .hero-kicker,
+            .js .hero .tagline,
+            .js .hero .hero-copy,
+            .js .hero .hero-stage,
+            .js .hero .cta-buttons {
+                animation: none;
+            }
+
+            .js .feature-chip.active::after {
+                animation: none;
+            }
+
+            .phone-frame img {
+                transition: none;
+            }
+
+            .js .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            .carousel-caption-item,
+            .feature-card,
+            .feature-card::before,
+            .feature-icon,
+            .guide-row::after,
+            .integration-pill,
+            .btn {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- nav:start -->
+    <nav class="site-nav" aria-label="Site navigation">
+        <div class="site-nav-inner">
+            <a class="brand-link" href="#top">
+                <img src="assets/icon.png" alt="" width="30" height="30">
+                <span>Route Companion</span>
+            </a>
+            <div class="nav-links">
+                <a href="tools/">Outils</a>
+                <a href="guides/">Guides</a>
+                <a class="nav-cta" href="https://apps.apple.com/app/id6758202473">App Store</a>
+            </div>
+        </div>
+    </nav>
+    <!-- nav:end -->
+    <header class="hero" id="top">
+        <div class="hero-backdrop" aria-hidden="true"></div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <p class="hero-kicker">Pour le vélo, la course et la randonnée</p>
+                <h1 class="tagline">Connaissez votre itinéraire. Trouvez ce qu’il vous faut en chemin.</h1>
+                <p class="hero-copy">Consultez la météo le long de l’itinéraire, trouvez des arrêts utiles, planifiez votre ravitaillement et exportez vers Garmin, Wahoo et Hammerhead. Pour le vélo, la course et la randonnée.</p>
+                <div class="cta-buttons">
+                    <a href="https://apps.apple.com/app/id6758202473" class="btn btn-primary">
+                        <svg viewBox="0 0 384 512" width="20" height="20" fill="currentColor" style="margin-right: 8px; margin-bottom: -2px;">
+                            <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/>
+                        </svg>
+                        Télécharger dans l’App Store
+                    </a>
+                    <a href="android-beta.html" class="btn btn-secondary">
+                        <svg viewBox="0 0 576 512" width="20" height="20" fill="currentColor" style="margin-right: 8px; margin-bottom: -2px;">
+                            <path d="M420.55,301.93a24,24,0,1,1,24-24,24,24,0,0,1-24,24m-265.1,0a24,24,0,1,1,24-24,24,24,0,0,1-24,24m273.7-144.48,47.94-83a10,10,0,1,0-17.27-9.94l-48.35,84a302.3,302.3,0,0,0-246.94,0l-48.35-84a10,10,0,1,0-17.27,9.94l47.94,83C64.53,202.22,8.24,285.55,0,384H576c-8.24-98.45-64.54-181.78-146.85-226.55"/>
+                        </svg>
+                        Rejoindre la bêta Android
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-stage" id="hero-stage">
+                <div class="hero-visual-row">
+                <div class="phone-frame visible" data-slot="center" aria-live="polite">
+                    <div class="phone-drift">
+                        <picture>
+                            <source srcset="screenshots/1.webp" type="image/webp">
+                            <img src="screenshots/1.png" alt="Route Companion - Météo de l’itinéraire heure par heure" decoding="async" fetchpriority="high" width="640" height="1386">
+                        </picture>
+                    </div>
+                </div>
+                </div>
+                <div class="carousel-caption" id="carousel-caption" aria-live="polite"><span class="carousel-caption-item active">La météo heure par heure</span></div>
+                <div class="feature-chips" id="feature-chips" aria-label="Écrans de l’app">
+                    <button type="button" class="feature-chip active" data-screen="0" aria-pressed="true"><span class="feature-chip-label">Météo</span></button>
+                    <button type="button" class="feature-chip" data-screen="1" aria-pressed="false"><span class="feature-chip-label">Arrêts</span></button>
+                    <button type="button" class="feature-chip" data-screen="2" aria-pressed="false"><span class="feature-chip-label">Naviguer</span></button>
+                    <button type="button" class="feature-chip" data-screen="3" aria-pressed="false"><span class="feature-chip-label">Carte de chaleur</span></button>
+                    <button type="button" class="feature-chip" data-screen="4" aria-pressed="false"><span class="feature-chip-label">Découvrir</span></button>
+                    <button type="button" class="feature-chip" data-screen="5" aria-pressed="false"><span class="feature-chip-label">Suggestion</span></button>
+                    <button type="button" class="feature-chip" data-screen="6" aria-pressed="false"><span class="feature-chip-label">Ravitaillement</span></button>
+                    <button type="button" class="feature-chip" data-screen="7" aria-pressed="false"><span class="feature-chip-label">Écran d’accueil</span></button>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <div class="section-divider"></div>
+
+    <!-- How it works -->
+    <section class="workflow-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Comment ça marche</p>
+                <div class="workflow-mascots" aria-hidden="true">
+                    <img src="assets/mascot/runner.svg" alt="" height="72" decoding="async">
+                    <img src="assets/mascot/cyclist.svg" alt="" height="72" decoding="async">
+                </div>
+                <h2 class="section-title">Un seul parcours, de l’itinéraire à la sortie</h2>
+                <p class="section-subtitle">Importez un itinéraire, vérifiez les conditions, trouvez des arrêts avant et pendant la sortie, puis naviguez avec des alertes.</p>
+            </div>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="workflow-number">1</div>
+                    <h3>Importer ou planifier</h3>
+                    <p>Chargez un fichier GPX, récupérez un itinéraire Strava ou créez-en un de zéro.</p>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">2</div>
+                    <h3>Vérifier les conditions</h3>
+                    <p>Consultez la météo, le vent, les précipitations et la qualité de l’air le long de l’itinéraire.</p>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">3</div>
+                    <h3>Trouver des arrêts</h3>
+                    <p>Cherchez de l’eau, de quoi manger, des magasins de vélo et bien d’autres arrêts sur l’itinéraire.</p>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-number">4</div>
+                    <h3>Rouler</h3>
+                    <p>Naviguez avec des alertes, trouvez des arrêts à la volée et suivez votre progression sur l’écran verrouillé.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Fonctionnalités -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Fonctionnalités</p>
+                <h2 class="section-title">Tout tourne autour de l’itinéraire</h2>
+            </div>
+
+            <div class="features">
+                <div class="feature-card" data-glow="teal">
+                    <div class="feature-icon" style="background-color: rgba(30, 111, 194, 0.15); color: #1E6FC2;">
+                        <span class="material-icons">thunderstorm</span>
+                    </div>
+                    <h2>La météo le long de l’itinéraire</h2>
+                    <p>Consultez la météo heure par heure, le vent, les précipitations, la qualité de l’air et les conseils vestimentaires à chaque point de l’itinéraire.</p>
+                </div>
+                <div class="feature-card" data-glow="orange">
+                    <div class="feature-icon" style="background-color: rgba(245, 158, 11, 0.15); color: #F59E0B;">
+                        <span class="material-icons">local_fire_department</span>
+                    </div>
+                    <h2>Planifier le ravitaillement</h2>
+                    <p>Estimez les glucides par heure, l’hydratation, le mélange pour boisson et ce qu’il faut emporter selon la distance, le dénivelé et les conditions.</p>
+                </div>
+                <div class="feature-card" data-glow="blue">
+                    <div class="feature-icon" style="background-color: rgba(14, 116, 144, 0.15); color: #0E7490;">
+                        <span class="material-icons">alt_route</span>
+                    </div>
+                    <h2>Recherche intelligente d’arrêts</h2>
+                    <p>Trouvez de l’eau, des cafés, des magasins de vélos et des abris le long de l’itinéraire, avant ou pendant votre sortie. Auto-Mark sélectionne des arrêts à intervalles réguliers ; Quick Find vous conduit à l’arrêt correspondant le plus proche, où que vous soyez.</p>
+                </div>
+                <div class="feature-card" data-glow="green">
+                    <div class="feature-icon" style="background-color: rgba(16, 185, 129, 0.15); color: #10B981;">
+                        <span class="material-icons">upload_file</span>
+                    </div>
+                    <h2>Importer ou planifier</h2>
+                    <p>Chargez des fichiers GPX, TCX ou FIT. Importez depuis Strava, Komoot et Ride with GPS. Ou planifiez pour la route, le gravel, le VTT, la course et la randonnée.</p>
+                </div>
+                <div class="feature-card" data-glow="purple">
+                    <div class="feature-icon" style="background-color: rgba(14, 148, 186, 0.15); color: #0E94BA;">
+                        <span class="material-icons">widgets</span>
+                    </div>
+                    <h2>Alertes, widgets et activité en direct</h2>
+                    <p>Alertes vocales et notifications à l’approche des arrêts. La météo et quoi porter sur votre écran d’accueil. Votre prochain arrêt sur l’écran verrouillé et dans la Dynamic Island.</p>
+                </div>
+                <div class="feature-card" data-glow="pink">
+                    <div class="feature-icon" style="background-color: rgba(255, 106, 60, 0.15); color: #FF6A3C;">
+                        <span class="material-icons">ios_share</span>
+                    </div>
+                    <h2>Exporter vers vos appareils</h2>
+                    <p>Envoyez les points de parcours vers Garmin et Wahoo. Transférez les GPX vers Hammerhead, Garmin Connect et d’autres apps.</p>
+                </div>
+                <div class="feature-card" data-glow="teal">
+                    <div class="feature-icon" style="background-color: rgba(59, 194, 214, 0.15); color: #3BC2D6;">
+                        <span class="material-icons">explore</span>
+                    </div>
+                    <h2>Découvrir des itinéraires à proximité</h2>
+                    <p>Des itinéraires populaires à vélo, à pied et en randonnée autour de vous, prêts à vérifier, à marquer et à parcourir.</p>
+                </div>
+                <div class="feature-card" data-glow="orange">
+                    <div class="feature-icon" style="background-color: rgba(245, 158, 11, 0.15); color: #F59E0B;">
+                        <span class="material-icons">layers</span>
+                    </div>
+                    <h2>Toutes les routes que vous avez parcourues</h2>
+                    <p>Une carte de chaleur de vos sorties pour voir où vous êtes déjà passé et choisir un nouvel endroit.</p>
+                </div>
+                <div class="feature-card" data-glow="green">
+                    <div class="feature-icon" style="background-color: rgba(16, 185, 129, 0.15); color: #10B981;">
+                        <span class="material-icons">today</span>
+                    </div>
+                    <h2>Un itinéraire choisi pour vous</h2>
+                    <p>Chaque jour, une suggestion parmi les itinéraires autour de vous, avec un coup de pouce vers des routes que vous n’avez pas encore parcourues.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Integrations -->
+    <section class="integrations-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Import et export</p>
+                <h2 class="section-title">Importez vos itinéraires. Exportez-les prêts à partir.</h2>
+                <p class="section-subtitle">Placez Route Companion entre vos sources d’itinéraires habituelles et les appareils qui vous accompagnent.</p>
+            </div>
+
+            <div class="integration-grid">
+                <div class="integration-card">
+                    <h3>Importer depuis des fichiers et services</h3>
+                    <p>Chargez directement des fichiers ou connectez les services que vous utilisez déjà.</p>
+                    <div class="integration-pills">
+                        <span class="integration-pill">GPX</span>
+                        <span class="integration-pill">TCX</span>
+                        <span class="integration-pill">FIT</span>
+                        <span class="integration-pill">Strava</span>
+                        <span class="integration-pill">Komoot</span>
+                        <span class="integration-pill">Ride with GPS</span>
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <h3>Exporter vers des appareils et des apps</h3>
+                    <p>Export direct vers Garmin, Wahoo et Hammerhead. Formats standard pour tout le reste.</p>
+                    <div class="integration-pills">
+                        <span class="integration-pill">Garmin</span>
+                        <span class="integration-pill">Wahoo</span>
+                        <span class="integration-pill">Garmin Connect</span>
+                        <span class="integration-pill">Hammerhead</span>
+                        <span class="integration-pill">FIT</span>
+                        <span class="integration-pill">TCX</span>
+                        <span class="integration-pill">GPX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Free tools -->
+    <section class="guides-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Outils web gratuits</p>
+                <h2 class="section-title">Essayez les moteurs dans votre navigateur</h2>
+                <p class="section-subtitle">Trois moteurs de préparation de l’app, gratuits dans votre navigateur.</p>
+            </div>
+
+            <div class="guide-list">
+                <a class="guide-row" href="tools/route-weather.html">
+                    <h3>Météo d’un itinéraire GPX</h3>
+                    <p>Température, pluie et vent de face ou de dos le long de votre itinéraire, à votre vitesse. Votre fichier ne quitte jamais le navigateur.</p>
+                </a>
+                <a class="guide-row" href="tools/tyre-pressure.html">
+                    <h3>Calculateur de pression des pneus</h3>
+                    <p>Pression avant et arrière selon le poids, la largeur des pneus, le revêtement et le montage. Route, gravel, VTT et voyage chargé.</p>
+                </a>
+                <a class="guide-row" href="tools/fueling.html">
+                    <h3>Calculateur de ravitaillement</h3>
+                    <p>Glucides par heure, hydratation et liste concrète à emporter selon la distance, le dénivelé, l’effort et la température.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Guides -->
+    <section class="guides-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Guides de préparation</p>
+                <h2 class="section-title">La réflexion derrière l’app</h2>
+                <p class="section-subtitle">Route Companion transforme un itinéraire en décisions concrètes : quoi porter, combien emporter, où remplir les bidons et quels arrêts se trouvent vraiment devant vous. Ces pages expliquent la logique de l’app.</p>
+            </div>
+
+            <div class="guide-list">
+                <a class="guide-row" href="guides/cycling-weather-clothing.html">
+                    <h3>Comment s’habiller à vélo</h3>
+                    <p>Pourquoi les descentes, le moment de la pluie, le vent et le trajet retour comptent plus qu’un seul chiffre météo.</p>
+                </a>
+                <a class="guide-row" href="guides/running-weather-clothing.html">
+                    <h3>Comment s’habiller pour courir</h3>
+                    <p>Pourquoi les coureurs ont besoin d’une tenue plus légère et comment l’effort, la pluie, le vent et l’obscurité changent la décision.</p>
+                </a>
+                <a class="guide-row" href="guides/cycling-fueling.html">
+                    <h3>Ravitaillement et hydratation</h3>
+                    <p>Glucides, bidons, mélange maison, distances entre ravitaillements et quantité suffisante sans remplir toutes les poches.</p>
+                </a>
+                <a class="guide-row" href="guides/cycling-tyre-pressure.html">
+                    <h3>Pression des pneus vélo</h3>
+                    <p>Pourquoi la largeur mesurée, le poids total, le revêtement, la carcasse et les terrains mixtes comptent plus que le chiffre imprimé sur le pneu.</p>
+                </a>
+                <a class="guide-row" href="guides/route-stops.html">
+                    <h3>Trouver des arrêts sur un itinéraire</h3>
+                    <p>Eau, nourriture, stations-service, toilettes, réparations et pourquoi un arrêt derrière vous n’est plus un arrêt.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-links">
+                <a href="tools/">Outils gratuits</a>
+                <span class="dot">&middot;</span>
+                <a href="guides/">Guides</a>
+                <span class="dot">&middot;</span>
+                <a href="https://www.instagram.com/route_companion_app/" rel="me noopener" target="_blank">Instagram</a>
+                <span class="dot">&middot;</span>
+                <a href="privacy.html">Politique de confidentialité</a>
+                <span class="dot">&middot;</span>
+                <a href="terms.html">Conditions d’utilisation</a>
+                <span class="dot">&middot;</span>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </p>
+            <p class="footer-copyright">&copy; 2026 Route Companion. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var SCREENS = [
+                { file: '1', caption: 'La météo heure par heure', alt: 'Route Companion - Météo de l’itinéraire heure par heure' },
+                { file: '2', caption: 'Trouvez des arrêts en chemin', alt: 'Route Companion - Trouver des arrêts le long de votre itinéraire' },
+                { file: '4', caption: 'Naviguez avec des alertes d’arrêt', alt: 'Route Companion - Naviguer avec des alertes' },
+                { file: '7', caption: "Toutes les routes que vous avez parcourues", alt: "Toutes les routes que vous avez parcourues" },
+                { file: '8', caption: 'Découvrir des itinéraires à proximité', alt: 'Découvrir des itinéraires à proximité' },
+                { file: '10', caption: 'Un itinéraire choisi pour vous', alt: 'Un itinéraire choisi pour vous' },
+                { file: '3', caption: 'Planifiez ravitaillement et hydratation', alt: 'Route Companion - Planifier votre ravitaillement' },
+                { file: '9', caption: 'Alertes, widgets et activité en direct', alt: 'Alertes, widgets et activité en direct' }
+            ];
+            var DWELL = 6500;
+            var stage = document.getElementById('hero-stage');
+            var frame = document.querySelector('.phone-frame[data-slot="center"]');
+            var caption = document.getElementById('carousel-caption');
+            var chipBar = document.getElementById('feature-chips');
+            var chips = Array.prototype.slice.call(chipBar.querySelectorAll('.feature-chip'));
+            var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var current = 0;
+            var timer = null;
+            var startedAt = 0;
+            var remaining = DWELL;
+            var paused = false;
+            var pendingSwaps = [];
+
+            stage.style.setProperty('--dwell', DWELL + 'ms');
+
+            function wrap(i) {
+                return (i + SCREENS.length) % SCREENS.length;
+            }
+
+            function imageFor(frame) {
+                return frame.querySelector('img');
+            }
+
+            function applyScreen(frame, screen) {
+                var source = frame.querySelector('source');
+                var img = imageFor(frame);
+                if (source) source.srcset = 'screenshots/' + screen.file + '.webp';
+                img.src = 'screenshots/' + screen.file + '.png';
+                img.alt = screen.alt;
+            }
+
+            function swapScreen(frame, screen, delay) {
+                if (imageFor(frame).alt === screen.alt) return;
+                if (reduced) {
+                    applyScreen(frame, screen);
+                    return;
+                }
+                pendingSwaps.push(setTimeout(function () {
+                    frame.classList.add('swapping');
+                    pendingSwaps.push(setTimeout(function () {
+                        applyScreen(frame, screen);
+                        frame.classList.remove('swapping');
+                    }, 320));
+                }, delay));
+            }
+
+            function clearPending() {
+                pendingSwaps.forEach(clearTimeout);
+                pendingSwaps = [];
+                frame.classList.remove('swapping');
+            }
+
+            // One element per caption, toggled by class; the text itself never changes.
+            caption.innerHTML = '';
+            var captionItems = SCREENS.map(function (screen) {
+                var item = document.createElement('span');
+                item.className = 'carousel-caption-item';
+                item.textContent = screen.caption;
+                caption.appendChild(item);
+                return item;
+            });
+
+            function setCaption(index) {
+                captionItems.forEach(function (item, i) {
+                    item.classList.toggle('active', i === index);
+                });
+            }
+
+            // The pill expands to exactly its own label, so the growth reads as
+            // the word arriving rather than a box easing towards an arbitrary width.
+            // Every pill reserves the widest label, so the row keeps one width and
+            // the dots stay put instead of re-centring on each advance.
+            function measureLabels() {
+                var widest = 0;
+                chips.forEach(function (chip) {
+                    var label = chip.querySelector('.feature-chip-label');
+                    if (!label) return;
+                    chip.title = label.textContent;
+                    widest = Math.max(widest, label.scrollWidth);
+                });
+                if (!widest) return;
+                chipBar.style.setProperty('--label-w', Math.ceil(widest) + 'px');
+            }
+            measureLabels();
+            // Re-measure once the webfont settles; a fallback-font measurement clips.
+            if (document.fonts && document.fonts.ready) document.fonts.ready.then(measureLabels);
+
+            function setActiveChip(index) {
+                chips.forEach(function (chip, i) {
+                    var active = i === index;
+                    chip.classList.remove('active');
+                    chip.setAttribute('aria-pressed', active ? 'true' : 'false');
+                    if (active) {
+                        // Reflow so the progress animation restarts from zero.
+                        void chip.offsetWidth;
+                        chip.classList.add('active');
+                    }
+                });
+            }
+
+            function show(index) {
+                clearPending();
+                current = wrap(index);
+                swapScreen(frame, SCREENS[current], 0);
+                setCaption(current);
+                setActiveChip(current);
+            }
+
+            function stopTimer() {
+                clearTimeout(timer);
+                timer = null;
+            }
+
+            function schedule(ms) {
+                stopTimer();
+                if (reduced) return;
+                startedAt = Date.now();
+                remaining = ms;
+                timer = setTimeout(function () {
+                    show(current + 1);
+                    schedule(DWELL);
+                }, ms);
+            }
+
+            function pause() {
+                if (paused || reduced) return;
+                paused = true;
+                stage.classList.add('paused');
+                if (timer) {
+                    remaining = Math.max(400, remaining - (Date.now() - startedAt));
+                    stopTimer();
+                }
+            }
+
+            function resume() {
+                if (!paused) return;
+                paused = false;
+                stage.classList.remove('paused');
+                schedule(remaining);
+            }
+
+            chips.forEach(function (chip, i) {
+                chip.addEventListener('click', function () {
+                    show(i);
+                    schedule(DWELL);
+                });
+            });
+
+            stage.addEventListener('mouseenter', pause);
+            stage.addEventListener('mouseleave', resume);
+            stage.addEventListener('focusin', pause);
+            stage.addEventListener('focusout', function (event) {
+                if (!stage.contains(event.relatedTarget)) resume();
+            });
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden) pause(); else resume();
+            });
+
+            // Warm the cache so swaps never show an empty frame.
+            window.addEventListener('load', function () {
+                SCREENS.forEach(function (screen) {
+                    var webp = new Image();
+                    webp.src = 'screenshots/' + screen.file + '.webp';
+                });
+            });
+
+            setCaption(0);
+            setActiveChip(0);
+            schedule(DWELL);
+        });
+    </script>
+    <script>
+        (function () {
+            var nav = document.querySelector('.site-nav');
+            function onScroll() {
+                nav.classList.toggle('scrolled', window.scrollY > 12);
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+
+            var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var items = document.querySelectorAll('.section-intro, .workflow-step, .feature-card, .integration-card, .guide-row');
+            if (reduced || !('IntersectionObserver' in window)) return;
+            var groups = new Map();
+            items.forEach(function (el) {
+                el.classList.add('reveal');
+                var parent = el.parentElement;
+                var index = groups.get(parent) || 0;
+                groups.set(parent, index + 1);
+                el.style.setProperty('--reveal-delay', Math.min(index, 8) * 70 + 'ms');
+            });
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+            items.forEach(function (el) { observer.observe(el); });
+        })();
+    </script>
+</body>
+</html>

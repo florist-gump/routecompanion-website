@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="fr"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur de pression des pneus Gravel (Tubeless, par poids du cycliste) | Route Companion</title>
+    <meta name="description" content="Calculateur gratuit de pression des pneus de vélo de gravier. Psi et barre avant et arrière pour les graviers durs, meubles et volumineux en fonction du poids du cycliste, de la largeur des pneus et de la configuration, basés sur la méthode de chute des pneus à 15 %.">
+    <link rel="canonical" href="https://routecompanion.app/fr/tools/tyre-pressure/gravel.html">
+    <link rel="alternate" hreflang="en" href="https://routecompanion.app/tools/tyre-pressure/gravel.html">
+    <link rel="alternate" hreflang="de" href="https://routecompanion.app/de/tools/tyre-pressure/gravel.html">
+    <link rel="alternate" hreflang="fr" href="https://routecompanion.app/fr/tools/tyre-pressure/gravel.html">
+    <link rel="alternate" hreflang="x-default" href="https://routecompanion.app/tools/tyre-pressure/gravel.html">
+    <meta property="og:title" content="Calculateur de pression des pneus de gravier (par poids du cycliste)">
+    <meta property="og:description" content="La bonne pression du gravier est inférieure à celle de la plupart des coureurs et différente de l'avant à l'arrière. Obtenez un chiffre de départ pour votre poids, la largeur des pneus et le degré de relâchement de la surface, puis affinez à partir de là.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://routecompanion.app/fr/tools/tyre-pressure/gravel.html">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="/guides/styles.css">
+    <link rel="stylesheet" href="/tools/tools.css">
+    <style>
+      .ref-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.98rem; }
+      .ref-table th, .ref-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+      .ref-table thead th { color: var(--text-secondary); font-weight: 600; }
+      .ref-table .bar-unit { color: var(--text-secondary); }
+      .sibling-tools { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+      .sibling-tools a { padding: 8px 14px; border: 1px solid var(--border-color); border-radius: 999px; text-decoration: none; }
+    </style>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebApplication","name":"Calculateur de pression des pneus gravier","url":"https://routecompanion.app/fr/tools/tyre-pressure/gravel.html","applicationCategory":"SportsApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"publisher":{"@type":"Organization","name":"Route Companion","logo":{"@type":"ImageObject","url":"https://routecompanion.app/assets/icon.png"}}}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Quelle pression de pneu dois-je rouler sur du gravier ?","acceptedAnswer":{"@type":"Answer","text":"Cela dépend du poids du cycliste, de la largeur des pneus et du degré de relâchement de la surface. En guise d'ancrage, un cycliste de 75 kg sur des pneus tubeless de 40 mm roule à environ 30 à 34 psi sur un sac dur et plus bas sur du gravier meuble ou grossier. Utilisez la calculatrice pour un nombre correspondant à votre configuration, puis ajustez ± 2 psi sur quelques trajets."}},{"@type":"Question","name":"La pression du gravier doit-elle être inférieure avec le tubeless ?","acceptedAnswer":{"@type":"Answer","text":"Oui, un peu. Sans tube, il n'y a rien à pincer, donc les configurations tubeless peuvent fonctionner en toute sécurité quelques psi plus bas, ce qui explique en grande partie pourquoi elles tournent et roulent si bien sur un terrain accidenté. Choisissez votre configuration dans la calculatrice et elle s'ajuste."}},{"@type":"Question","name":"De combien inférieur pour le gravier meuble ou en gros morceaux ?","acceptedAnswer":{"@type":"Answer","text":"Environ 2 psi pour les terrains meubles sur durs et 2 à 4 psi de plus pour les terrains accidentés ou rocheux, par rapport à une ligne de base dure. Une pression plus faible permet au pneu de s'adapter à la surface pour plus d'adhérence, mais si vous allez trop loin, vous invitez des frappes sur la jante et des rots."}},{"@type":"Question","name":"La largeur des pneus change-t-elle beaucoup la pression ?","acceptedAnswer":{"@type":"Answer","text":"Beaucoup. Un pneu plus large retient plus de volume d'air, il nécessite donc moins de pression pour le même support : un pneu de 45 mm roule sensiblement plus bas qu'un pneu de 38 mm pour le même poids. Saisissez votre largeur réelle mesurée, qui est souvent 1 à 2 mm plus large que l'étiquette d'une jante moderne."}},{"@type":"Question","name":"Les jantes gravier sans crochet limitent-elles la pression ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Les jantes sans crochet (côté droit) sont plafonnées à 72,5 psi (5 bars) selon les directives ETRTO, et de nombreuses combinaisons spécifient une pression inférieure. Sur le gravier, vous êtes généralement bien en dessous, mais cochez l'option sans crochet et le calculateur vous avertit."}}]}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://routecompanion.app/fr/"},{"@type":"ListItem","position":2,"name":"Outils","item":"https://routecompanion.app/fr/tools/"},{"@type":"ListItem","position":3,"name":"Pression des pneus","item":"https://routecompanion.app/fr/tools/tyre-pressure.html"},{"@type":"ListItem","position":4,"name":"Calculateur de pression des pneus gravier","item":"https://routecompanion.app/fr/tools/tyre-pressure/gravel.html"}]}
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- nav:start -->
+        <nav class="site-nav" aria-label="Navigation sur les sites">
+            <div class="site-nav-inner">
+                <a class="brand-link" href="/fr/">
+                    <img src="/assets/icon.png" alt="" width="30" height="30">
+                    <span>Route Companion</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/fr/tools/" aria-current="page">Outils</a>
+                    <a href="/fr/guides/">Guides</a>
+                    <a class="nav-cta" href="https://apps.apple.com/app/id6758202473">App Store</a>
+                </div>
+            </div>
+        </nav>
+        <!-- nav:end -->
+
+        <p class="breadcrumb"><a href="/fr/tools/">Outils</a><a href="/fr/tools/tyre-pressure.html">Pression des pneus</a><span>Gravel</span></p>
+        <header class="tool-hero">
+            <div>
+                <h1>Calculateur de pression des pneus gravier</h1>
+                <p class="hero-copy">La bonne pression du gravier est inférieure à celle de la plupart des coureurs et différente de l'avant à l'arrière. Obtenez un chiffre de départ pour votre poids, la largeur des pneus et le degré de relâchement de la surface, puis affinez à partir de là.</p>
+            </div>
+            <div class="tool-mascot" id="tool-mascot" aria-hidden="true"></div>
+        </header>
+
+        <main>
+            <div class="tool-app">
+                <div id="tool-root">
+                    <div class="tool-loading">Chargement du calculateur…</div>
+                </div>
+                <noscript><p class="tool-error">Cette calculatrice nécessite JavaScript. Tout fonctionne dans votre navigateur. Rien n'est téléchargé.</p></noscript>
+            </div>
+
+            <section class="section">
+                <h2>Quelle pression pour le gravier ?</h2>
+                <p>Le gravier est l'endroit où la pression des pneus compte le plus et où le numéro imprimé sur le flanc vous aide le moins. Exécutez-le trop fort et le pneu saute sur la planche à laver, tourne vaguement sur des surfaces meubles et vous bat pendant des heures. Faites-le trop doucement et vous risquez de faire roter de l'air dans les coins, de bosseler les jantes et de vous tortiller sous la puissance. Le point idéal est une bande étonnamment étroite, et il se déplace en fonction de votre poids, de la largeur de vos pneus et du degré de relâchement du sol.</p>
+                <p>Ce calculateur vise environ 15 % de compression sous la charge réelle de chaque pneu. L'avant et l'arrière ne portent pas la même part de votre poids et reçoivent donc des pressions différentes. Une compression équilibrée rend le vélo stable et prévisible. Route Companion utilise le même calcul, vérifié avec des données publiées, et vise volontairement un peu bas : sur le gravel, un pneu légèrement souple roule mieux et accroche davantage qu'un pneu trop dur.</p>
+            </section>
+
+            <section class="section">
+                <h2>Pressions de gravier typiques en fonction du poids du cycliste</h2>
+                <table class="ref-table">
+                    <thead>
+                        <tr><th>Rider (y compris vélo + kit)</th><th>Avant</th><th>Arrière</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>60 kg</td><td>26 psi <span class="bar-unit">/ 1.8 bar</span></td><td>29 psi <span class="bar-unit">/ 2.0 bar</span></td></tr>
+                        <tr><td>70 kg</td><td>30 psi <span class="bar-unit">/ 2.1 bar</span></td><td>33 psi <span class="bar-unit">/ 2.3 bar</span></td></tr>
+                        <tr><td>80 kg</td><td>33.5 psi <span class="bar-unit">/ 2.3 bar</span></td><td>37 psi <span class="bar-unit">/ 2.6 bar</span></td></tr>
+                        <tr><td>90 kg</td><td>37 psi <span class="bar-unit">/ 2.6 bar</span></td><td>41 psi <span class="bar-unit">/ 2.8 bar</span></td></tr>
+                        <tr><td>100 kg</td><td>41 psi <span class="bar-unit">/ 2.8 bar</span></td><td>45 psi <span class="bar-unit">/ 3.1 bar</span></td></tr>
+                    </tbody>
+                </table>
+                <p class="field-hint" style="margin-top:10px;">Points de départ pour un pneu tubeless de 40 mm sur gravier dur, rythme soutenu, roues 700c. Laissez tomber quelques psi pour les surfaces meubles ou épaisses et utilisez le calculateur ci-dessus pour connaître la largeur et la configuration exactes de vos pneus.</p>
+            </section>
+
+            <section class="section">
+                <h2>Ajuster à la surface</h2>
+                <table class="ref-table">
+                    <tbody>
+                        <tr><td><strong>Saleté dure / lisse</strong></td><td>Commencez par le numéro de la calculatrice. Rapide, prévisible.</td></tr>
+                        <tr><td><strong>Lâche sur dur, mixte</strong></td><td>Déposez environ 2 psi à l'avant et à l'arrière pour une meilleure adhérence sur la couche supérieure lâche.</td></tr>
+                        <tr><td><strong>Gros, rocheux, technique</strong></td><td>Laissez tomber 2 à 4 psi de plus, mais surveillez les coups de jante&nbsp;; ajoutez un insert de boîtier si vous continuez à atteindre le fond.</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="section" id="faq">
+                <h2>Questions courantes</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>Quelle pression de pneu dois-je rouler sur du gravier ?</summary>
+                        <p>Cela dépend du poids du cycliste, de la largeur des pneus et du degré de relâchement de la surface. En guise d'ancrage, un cycliste de 75 kg sur des pneus tubeless de 40 mm roule à environ 30 à 34 psi sur un sac dur et plus bas sur du gravier meuble ou grossier. Utilisez la calculatrice pour un nombre correspondant à votre configuration, puis ajustez ± 2 psi sur quelques trajets.</p>
+                    </details>
+                    <details>
+                        <summary>La pression du gravier doit-elle être inférieure avec le tubeless ?</summary>
+                        <p>Oui, un peu. Sans tube, il n'y a rien à pincer, donc les configurations tubeless peuvent fonctionner en toute sécurité quelques psi plus bas, ce qui explique en grande partie pourquoi elles tournent et roulent si bien sur un terrain accidenté. Choisissez votre configuration dans la calculatrice et elle s'ajuste.</p>
+                    </details>
+                    <details>
+                        <summary>De combien inférieur pour le gravier meuble ou en gros morceaux ?</summary>
+                        <p>Environ 2 psi pour les terrains meubles sur durs et 2 à 4 psi de plus pour les terrains accidentés ou rocheux, par rapport à une ligne de base dure. Une pression plus faible permet au pneu de s'adapter à la surface pour plus d'adhérence, mais si vous allez trop loin, vous invitez des frappes sur la jante et des rots.</p>
+                    </details>
+                    <details>
+                        <summary>La largeur des pneus change-t-elle beaucoup la pression ?</summary>
+                        <p>Beaucoup. Un pneu plus large retient plus de volume d'air, il nécessite donc moins de pression pour le même support : un pneu de 45 mm roule sensiblement plus bas qu'un pneu de 38 mm pour le même poids. Saisissez votre largeur réelle mesurée, qui est souvent 1 à 2 mm plus large que l'étiquette d'une jante moderne.</p>
+                    </details>
+                    <details>
+                        <summary>Les jantes gravier sans crochet limitent-elles la pression ?</summary>
+                        <p>Oui. Les jantes sans crochet (côté droit) sont plafonnées à 72,5 psi (5 bars) selon les directives ETRTO, et de nombreuses combinaisons spécifient une pression inférieure. Sur le gravier, vous êtes généralement bien en dessous, mais cochez l'option sans crochet et le calculateur vous avertit.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Autres disciplines</h2>
+                <div class="sibling-tools">
+                    <a href="/fr/tools/tyre-pressure/road.html">Route</a>
+                    <a href="/fr/tools/tyre-pressure/gravel.html">Gravel</a>
+                    <a href="/fr/tools/tyre-pressure/mtb.html">MTB</a>
+                    <a href="/fr/tools/tyre-pressure.html">Toutes les configurations et tournées</a>
+                </div>
+            </section>
+
+            <section class="tool-cta">
+                <div>
+                    <h2>Votre pression de gravier change avec l'itinéraire.</h2>
+                    <p>L'application Route Companion lit le mélange de surface le long de votre itinéraire réel (chaussée, compactage dur, gravier meuble) et suggère une pression pour le sol que vous couvrirez réellement, directement dans la liste de contrôle avant le départ, à côté de la météo, des vêtements et du ravitaillement.</p>
+                </div>
+                <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">Télécharger l’app</a>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="/fr/">Accueil</a>
+                <a href="/fr/tools/">Outils</a>
+                <a href="/fr/guides/">Guides</a>
+                <a href="/privacy.html">Confidentialité</a>
+                <a href="/terms.html">Termes</a>
+                <a href="mailto:support@routecompanion.app">Assistance</a>
+            </div>
+            <div>© 2026 Route Companion. Tous droits réservés.</div>
+        </footer>
+    </div>
+    <script>
+      // Pre-set the shared calculator to this discipline (canonical stays clean).
+      if (!location.search) history.replaceState(null, '', location.pathname + '?cat=gravel&fw=40&surf=hardpack-gravel');
+    </script>
+    <script type="module" src="/tools/assets/tyre-pressure.js"></script>
+
+
+</body></html>
