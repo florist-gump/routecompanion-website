@@ -1,0 +1,426 @@
+/*
+ * Route Companion website tokens — the one token set for every page.
+ *
+ * The site used to run four parallel :root blocks (index.html inline,
+ * guides/styles.css, assets/legal.css, android-beta.html) that disagreed on
+ * --bg-panel, on the text ramp, and on what --pink meant. This file is loaded
+ * first everywhere, including by the gateway Worker that renders /p/<token>.
+ *
+ * Light is the default; dark arrives through prefers-color-scheme and through
+ * an explicit data-theme, both defined at the end of this file. Feature hues
+ * mirror FeatureColors from constants/colors.ts, light column here and dark
+ * below, matching what readableAccentColor resolves on each ground. Change one,
+ * change both.
+ */
+/*
+ * Self-hosted type. Latin subset, 88 KB for all three families — less than the
+ * Material Icons webfont this site used to pull from Google on every page, and
+ * no third party sees a visitor's IP. All three are SIL Open Font License 1.1;
+ * see fonts/README.md.
+ *
+ * Archivo and Public Sans ship as variable files, so one download covers every
+ * weight in the range.
+ */
+@font-face {
+    font-family: "Archivo";
+    src: url("/assets/fonts/archivo-var.woff2") format("woff2-variations");
+    font-weight: 100 900;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Public Sans";
+    src: url("/assets/fonts/public-sans-var.woff2") format("woff2-variations");
+    font-weight: 100 900;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Plex Mono";
+    src: url("/assets/fonts/plex-mono-400.woff2") format("woff2");
+    font-weight: 400;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Plex Mono";
+    src: url("/assets/fonts/plex-mono-600.woff2") format("woff2");
+    font-weight: 600;
+    font-display: swap;
+}
+
+:root {
+    color-scheme: light dark;
+
+    /* ── Surfaces ─────────────────────────────────────────────────────── */
+    --bg-base: #F1F4F3;
+    --bg-surface: #FFFFFF;
+    --bg-surface-raised: #FFFFFF;
+    --bg-panel: rgba(255, 255, 255, 0.86);
+    --bg-panel-raised: rgba(255, 255, 255, 0.95);
+    --border-color: #D5DDDB;
+    --hairline: rgba(15, 20, 23, 0.10);
+    --hairline-faint: rgba(15, 20, 23, 0.05);
+    --phone-bezel: #020617;
+
+    /* ── Text ─────────────────────────────────────────────────────────── */
+    --text-primary: #0F1417;
+    --text-secondary: #4E5D63;
+    --text-muted: #5C696E;
+    /* #78898F read 3.29:1 on the tinted nav/footer strip — below the 4.5:1 that
+       body text needs, and this tier carries real content ("feels 14°", the
+       wind reading, input suffixes), not decoration. 4.51:1 there, 4.99 on
+       white, and still a clear step lighter than --text-muted's 5.13. */
+    --text-faint: #637278;
+    --text-on-primary: #FFFFFF;
+
+    /* ── Brand ────────────────────────────────────────────────────────── */
+    --fjord-300: #3BC2D6;
+    --fjord-400: #35B5C9;
+    --fjord-500: #0E94BA;
+    --fjord-600: #0E7490;
+    /* fjord400 is a highlight on night and vanishes on paper, so the light ramp
+       steps down instead of up. Matches readableAccentColor() in the app.
+       This is the accent *ink* in light mode (body links, emphasised figures),
+       so it has to clear 4.5:1 on the tinted nav/footer strip as well as on
+       white. #0C7D9E managed 4.73 on white but only 4.27 on the strip; this
+       reads 5.80 and 5.24. It is darker than --primary, which is a fill. */
+    --primary: #0E7490;
+    --primary-light: #0B6E8C;
+    --cyan: #0E94BA;
+
+    /* Signal orange. Live states only, never decoration — same rule as the app.
+       --orange is a deprecated alias kept for website/plan/plan.css. */
+    --signal: #F4511E;
+    --orange: var(--signal);
+
+    /* Accents with live consumers (guides/styles.css, plan/plan.css). */
+    --green: #0F8A5F;
+    --amber: #B45309;
+
+    /* Feature colors — FeatureColors from constants/colors.ts, light column. */
+    --feature-plan: #0C7D9E;
+    --feature-import: #B16105;
+    --feature-discover: #1E6FF5;
+    --feature-stops: #12883E;
+    --feature-record: var(--signal);
+    --feature-fuel: #916F05;
+    --feature-weather: #0B7CAF;
+    --feature-activities: #8452F5;
+    --feature-settings: #64748B;
+    --feature-tint: 18%;
+
+    /* Direction of travel through the app, not app concepts. Import keeps the
+       amber the app already uses for route transfer; export is green because
+       what leaves is finished — "send them out ready". ΔE 77 apart, so the two
+       halves of the import/export section never read as the same marking. */
+    --flow-in: var(--feature-import);
+    --flow-out: #0B6E4B;
+
+
+    /* ── Status ───────────────────────────────────────────────────────────
+       `ink` is text on the tint, `tint` the fill, `edge` the delimiter. Light
+       needs a dark ink and a far higher edge alpha: the night theme's 0.30-0.40
+       borders resolve to about 1.3:1 on paper, and a tint is only ~1.06:1
+       against its panel, so the edge is the only thing separating a notice from
+       the page. There was no red token at all before this, which is why every
+       error on the site was a literal. */
+    --status-ok-ink: #0B6E4B;
+    --status-ok-tint: rgba(15, 138, 95, 0.12);
+    --status-ok-edge: rgba(15, 138, 95, 0.78);
+    --status-warn-ink: #92400E;
+    --status-warn-tint: rgba(180, 83, 9, 0.12);
+    --status-warn-edge: rgba(180, 83, 9, 0.72);
+    --status-error-ink: #B42318;
+    --status-error-tint: rgba(180, 35, 24, 0.10);
+    --status-error-edge: rgba(180, 35, 24, 0.60);
+
+    --shadow-sm: 0 1px 2px rgba(15, 20, 23, 0.05);
+    --shadow-md: 0 2px 6px rgba(15, 20, 23, 0.07), 0 12px 30px rgba(15, 20, 23, 0.07);
+    --shadow-lg: 0 20px 60px rgba(15, 20, 23, 0.12);
+
+    /* Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-pill: 999px;
+    --radius-phone: 38px;
+    --radius-phone-inner: 32px;
+
+    /* Spacing (mirrors constants/spacing.ts) */
+    --space-3xs: 2px;
+    --space-2xs: 4px;
+    --space-xs: 6px;
+    --space-sm: 8px;
+    --space-md: 12px;
+    --space-lg: 16px;
+    --space-xl: 20px;
+    --space-2xl: 24px;
+    --space-3xl: 32px;
+    --space-4xl: 40px;
+    --space-5xl: 56px;
+
+    /* Containers and reading measures */
+    --container: 1100px;
+    --container-wide: 1160px;
+    --gutter: 20px;
+    --measure-prose: 620px;
+    --measure-list: 840px;
+
+    /* Type */
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-display: "Archivo", var(--font-sans);
+    --font-text: "Public Sans", var(--font-sans);
+    --font-mono: "Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    --text-xs: 0.78rem;
+    --text-sm: 0.85rem;
+    --text-base: 0.90rem;
+    --text-md: 1.00rem;
+    --text-lg: 1.02rem;
+    --text-xl: 1.12rem;
+    --text-h3: 1.10rem;
+    --text-h2: clamp(1.9rem, 3.2vw, 2.5rem);
+    --text-h1: clamp(2.3rem, 4.4vw, 3.6rem);
+    --leading-tight: 1.04;
+    --leading-snug: 1.5;
+    --leading-body: 1.60;
+    --leading-relaxed: 1.65;
+
+    /* Motion and elevation */
+    --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --dur-fast: 0.20s;
+    --dur-base: 0.34s;
+    --dur-slow: 0.50s;
+}
+
+/*
+ * Theme.
+ *
+ * Light is the default in :root above. Dark arrives two ways and both are
+ * needed: the media query for readers who never touch the switch (the common
+ * case - nothing is stamped on <html> then), and the attribute for readers who
+ * did. The media query is guarded so an explicit light choice still wins on a
+ * dark OS, and [data-theme] wins in the other direction.
+ *
+ * Only tokens are redefined here. Nothing styles a component inside a theme
+ * block - a colour that exists only behind one of these never applies in the
+ * unstamped state, which is the classic half-themed page.
+ */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+    --bg-base: #0D1417;
+    --bg-surface: #172227;
+    --bg-surface-raised: #1D2A30;
+    --bg-panel: rgba(13, 20, 23, 0.82);
+    --bg-panel-raised: rgba(23, 34, 39, 0.94);
+    --border-color: #243239;
+    --hairline: rgba(255, 255, 255, 0.10);
+    --hairline-faint: rgba(255, 255, 255, 0.05);
+
+    --text-primary: #EAF1F3;
+    /* Measured against --bg-surface #172227, the lightest surface dim text sits
+       on (--bg-surface-raised only backs the map container). The ramp was
+       3.47 / 4.46 / 6.09 there, so two of three tiers missed 4.5:1; it is now
+       4.51 / 5.31 / 6.09, the same cadence the light ramp holds. */
+    --text-secondary: #8DA2AA;
+    --text-muted: #87969C;
+    --text-faint: #788A91;
+
+    --primary: #0E7490;
+    --primary-light: #35B5C9;
+    --cyan: #3BC2D6;
+
+    --signal: #FF6A3C;
+
+    --green: #10B981;
+    --amber: #F59E0B;
+
+    --feature-plan: #0E94BA;
+    --feature-import: #D97706;
+    --feature-discover: #4588F6;
+    --feature-stops: #16A34A;
+    --feature-fuel: #EAB308;
+    --feature-weather: #0EA5E9;
+    --feature-activities: #996FF7;
+    --feature-settings: #79899F;
+
+    --flow-in: var(--feature-import);
+    --flow-out: #2BB673;
+    --feature-tint: 14%;
+
+    --status-ok-ink: #34D399;
+    --status-ok-tint: rgba(16, 185, 129, 0.14);
+    --status-ok-edge: rgba(16, 185, 129, 0.35);
+    --status-warn-ink: #FBBF24;
+    --status-warn-tint: rgba(245, 158, 11, 0.13);
+    --status-warn-edge: rgba(245, 158, 11, 0.35);
+    --status-error-ink: #FCA5A5;
+    --status-error-tint: rgba(239, 68, 68, 0.12);
+    --status-error-edge: rgba(239, 68, 68, 0.40);
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.20);
+    --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.30);
+    --shadow-lg: 0 25px 80px rgba(0, 0, 0, 0.60);
+    }
+}
+
+:root[data-theme="dark"] {
+    --bg-base: #0D1417;
+    --bg-surface: #172227;
+    --bg-surface-raised: #1D2A30;
+    --bg-panel: rgba(13, 20, 23, 0.82);
+    --bg-panel-raised: rgba(23, 34, 39, 0.94);
+    --border-color: #243239;
+    --hairline: rgba(255, 255, 255, 0.10);
+    --hairline-faint: rgba(255, 255, 255, 0.05);
+
+    --text-primary: #EAF1F3;
+    /* Measured against --bg-surface #172227, the lightest surface dim text sits
+       on (--bg-surface-raised only backs the map container). The ramp was
+       3.47 / 4.46 / 6.09 there, so two of three tiers missed 4.5:1; it is now
+       4.51 / 5.31 / 6.09, the same cadence the light ramp holds. */
+    --text-secondary: #8DA2AA;
+    --text-muted: #87969C;
+    --text-faint: #788A91;
+
+    --primary: #0E7490;
+    --primary-light: #35B5C9;
+    --cyan: #3BC2D6;
+
+    --signal: #FF6A3C;
+
+    --green: #10B981;
+    --amber: #F59E0B;
+
+    --feature-plan: #0E94BA;
+    --feature-import: #D97706;
+    --feature-discover: #4588F6;
+    --feature-stops: #16A34A;
+    --feature-fuel: #EAB308;
+    --feature-weather: #0EA5E9;
+    --feature-activities: #996FF7;
+    --feature-settings: #79899F;
+
+    --flow-in: var(--feature-import);
+    --flow-out: #2BB673;
+    --feature-tint: 14%;
+
+    --status-ok-ink: #34D399;
+    --status-ok-tint: rgba(16, 185, 129, 0.14);
+    --status-ok-edge: rgba(16, 185, 129, 0.35);
+    --status-warn-ink: #FBBF24;
+    --status-warn-tint: rgba(245, 158, 11, 0.13);
+    --status-warn-edge: rgba(245, 158, 11, 0.35);
+    --status-error-ink: #FCA5A5;
+    --status-error-tint: rgba(239, 68, 68, 0.12);
+    --status-error-edge: rgba(239, 68, 68, 0.40);
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.20);
+    --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.30);
+    --shadow-lg: 0 25px 80px rgba(0, 0, 0, 0.60);
+}
+
+/*
+ * Theme switch. Lives in the stamped header on every page, so its styling has
+ * to travel with the tokens rather than sit in one page's stylesheet.
+ */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: color-mix(in srgb, var(--bg-surface) 70%, transparent);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+    color: var(--text-primary);
+    border-color: var(--text-faint);
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--primary-light);
+    outline-offset: 2px;
+}
+
+/* Two glyphs on the trigger: it reports what you are LOOKING AT, because that
+   is the question a reader can answer from an icon. Which of the three modes is
+   active is the menu's job, where it can be said in words. */
+.theme-toggle .theme-toggle-sun,
+.theme-toggle .theme-toggle-moon { display: none; }
+.theme-toggle[data-appearance="light"] .theme-toggle-sun { display: block; }
+.theme-toggle[data-appearance="dark"] .theme-toggle-moon { display: block; }
+/* Before the script runs, nothing is stamped — show one rather than none. */
+.theme-toggle:not([data-appearance]) .theme-toggle-moon { display: block; }
+
+/* The menu, matching the language switcher already in the footer of every page
+   rather than inventing a third interaction for the same kind of choice. */
+.theme-switcher {
+    position: relative;
+    display: inline-flex;
+}
+
+.theme-menu {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 10px);
+    right: 0;
+    display: grid;
+    width: max-content;
+    min-width: 150px;
+    padding: 6px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+    transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.theme-menu[data-open="true"] {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+}
+
+.theme-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    min-height: 34px;
+    padding: 6px 10px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: var(--text-sm);
+    text-align: left;
+    cursor: pointer;
+}
+
+.theme-option:hover {
+    background: var(--bg-base);
+    color: var(--text-primary);
+}
+
+.theme-option[aria-checked="true"] {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.theme-option[aria-checked="true"] .theme-check::after {
+    content: "\2713";
+    color: var(--primary-light);
+}
+
+.theme-option:focus-visible {
+    outline: 2px solid var(--primary-light);
+    outline-offset: -2px;
+}

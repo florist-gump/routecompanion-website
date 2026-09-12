@@ -1,0 +1,1030 @@
+/* Shared styles for the interactive tool pages. Loaded after guides/styles.css
+   and reuses its CSS variables + page chrome (.page-shell, .site-nav, .footer). */
+
+.tool-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.55fr);
+    gap: 36px;
+    align-items: center;
+    padding: 26px 0 34px;
+}
+
+.tool-hero h1 {
+    font-size: clamp(2.1rem, 5.4vw, 3.6rem);
+}
+
+.tool-hero .hero-copy {
+    margin-top: 16px;
+}
+
+.tool-mascot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tool-mascot svg,
+.tool-mascot-image {
+    width: min(300px, 70vw);
+    height: auto;
+    image-rendering: pixelated;
+    shape-rendering: crispEdges;
+    filter: drop-shadow(0 22px 34px rgba(0, 0, 0, 0.4));
+}
+
+/* ─── Tool layout ─────────────────────────────────────────── */
+
+.tool-app {
+    margin: 8px 0 44px;
+}
+
+.tool-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 22px;
+    align-items: start;
+}
+
+/* Keep the results in view while the (taller) input column scrolls. */
+@media (min-width: 861px) {
+    .tool-grid > .tool-panel:nth-child(2) {
+        position: sticky;
+        top: 24px;
+    }
+}
+
+.tool-panel-chart {
+    margin-top: 22px;
+}
+
+@media (max-width: 860px) {
+    .tool-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tool-hero {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .tool-mascot svg,
+    .tool-mascot-image {
+        width: min(240px, 62vw);
+    }
+}
+
+.tool-panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    min-width: 0;
+}
+
+/* Grid/flex children default to min-width:auto, which refuses to shrink below
+   their content and pushes the layout wider than the viewport on narrow
+   screens. Let every level of the form collapse to its track instead. */
+.field,
+.field-row,
+.input-wrap {
+    min-width: 0;
+}
+
+.tool-panel-title {
+    margin: 0 0 16px;
+    font-size: var(--text-sm);
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.tool-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    color: var(--text-muted);
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-lg);
+}
+
+/* ─── Fields ──────────────────────────────────────────────── */
+
+.field {
+    display: block;
+    margin: 0 0 15px;
+}
+
+.field:last-child {
+    margin-bottom: 0;
+}
+
+.field-label {
+    display: block;
+    font-size: var(--text-base);
+    font-weight: 800;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.field-hint {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--text-faint);
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+.field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.input-wrap {
+    display: flex;
+    align-items: center;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: border-color 0.15s ease;
+}
+
+.input-wrap:focus-within {
+    border-color: var(--primary-light);
+}
+
+.input-wrap input,
+.input-wrap select {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: var(--text-primary);
+    font: inherit;
+    font-weight: 600;
+    padding: 10px 12px;
+    appearance: none;
+    -moz-appearance: textfield;
+}
+
+.input-wrap input::-webkit-outer-spin-button,
+.input-wrap input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-wrap select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394A3B8' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 30px;
+}
+
+.input-suffix {
+    color: var(--text-faint);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    padding: 0 12px 0 4px;
+    white-space: nowrap;
+}
+
+.field-checkbox {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.field-checkbox input {
+    margin-top: 3px;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary);
+}
+
+.field-checkbox .field-label {
+    margin-bottom: 0;
+}
+
+/* ─── Segmented control ───────────────────────────────────── */
+
+.seg {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 4px;
+}
+
+.seg-btn {
+    flex: 1 1 auto;
+    border: 0;
+    background: transparent;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: var(--text-base);
+    font-weight: 600;
+    padding: 8px 10px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+}
+
+.seg-btn:hover {
+    color: var(--text-primary);
+}
+
+.seg-btn.active {
+    background: var(--primary);
+    color: var(--text-on-primary);
+}
+
+/* ─── Results ─────────────────────────────────────────────── */
+
+/* The answer, not four tiles.
+   These pages exist to produce two numbers - front and rear pressure, carbs and
+   fluids per hour - and every figure used to render at the same 26px inside the
+   same box, so the reader got a dashboard when they asked a question. The
+   islands already mark the answer with `accent`; the difference is made here.
+
+   No boxes either. A number on the page reads as an answer; a number in a
+   rounded rectangle reads as a cell in a table of them. */
+.result-hero {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: clamp(18px, 4vw, 44px);
+    margin-bottom: 20px;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.stat-value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    font-size: 1.35rem;
+}
+
+.stat-accent .stat-value {
+    font-size: clamp(2.6rem, 7vw, 3.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+}
+
+.stat-label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-secondary);
+    order: -1;
+}
+
+.stat-accent .stat-label {
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--primary-light);
+}
+
+.stat-sub {
+    font-size: var(--text-xs);
+    color: var(--text-faint);
+    font-weight: 400;
+    line-height: 1.45;
+}
+
+/* The supporting pair sits under a hairline as one quiet row, rather than
+   competing with the answer above it. */
+.result-hero + .result-hero {
+    border-top: 1px solid var(--border-color);
+    padding-top: 18px;
+    gap: clamp(16px, 3vw, 32px);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--text-xs);
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    padding: 4px 11px;
+    border-radius: var(--radius-pill);
+    text-transform: uppercase;
+}
+
+.badge-ok {
+    color: var(--status-ok-ink);
+    background: var(--status-ok-tint);
+    border: 1px solid var(--status-ok-edge);
+}
+
+.badge-warn {
+    color: var(--status-warn-ink);
+    background: var(--status-warn-tint);
+    border: 1px solid var(--status-warn-edge);
+}
+
+.badge-alert {
+    color: var(--status-warn-ink);
+    background: var(--status-warn-tint);
+    border: 1px solid var(--status-warn-edge);
+}
+
+.result-summary {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 16px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* ─── Outfit chips ────────────────────────────────────────── */
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-pill);
+    padding: 7px 13px;
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.chip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-faint);
+    flex: none;
+}
+
+/* Weather glyphs, inline from Font Awesome Free. `currentColor` is what makes
+   them theme-aware wherever they land — pill, popup, chart readout or table. */
+.wx-icon {
+    width: 1em;
+    height: 1em;
+    flex: none;
+    vertical-align: -0.125em;
+}
+
+.chip-icon {
+    width: 13px;
+    height: 13px;
+    flex: none;
+    color: var(--text-faint);
+}
+
+.chip-clothing .chip-dot { background: var(--primary); }
+.chip-weather .chip-dot { background: var(--feature-discover); }
+.chip-warmth .chip-dot { background: var(--feature-weather); }
+.chip-safety .chip-dot { background: var(--feature-fuel); }
+
+.chip-clothing .chip-icon { color: var(--primary); }
+.chip-weather .chip-icon { color: var(--feature-discover); }
+.chip-warmth .chip-icon { color: var(--feature-weather); }
+.chip-safety .chip-icon { color: var(--feature-fuel); }
+
+.chip-tentative {
+    border-style: dashed;
+    color: var(--text-muted);
+}
+
+.chip-opt {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ─── Advanced options fold ───────────────────────────────── */
+
+.advanced-fields {
+    margin-top: 4px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+}
+
+.advanced-fields summary {
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: var(--text-base);
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.advanced-fields summary:hover {
+    color: var(--text-primary);
+}
+
+/* ─── Warnings + assumptions ──────────────────────────────── */
+
+.tool-warnings {
+    display: grid;
+    gap: 8px;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tool-warnings li {
+    background: var(--status-warn-tint);
+    border: 1px solid var(--status-warn-edge);
+    border-radius: var(--radius-md);
+    padding: 10px 14px;
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+}
+
+.assumptions {
+    margin-top: 16px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+}
+
+.assumptions summary {
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: var(--text-base);
+    font-weight: 600;
+}
+
+.assumptions ul {
+    margin: 10px 0 0;
+    padding-left: 18px;
+    color: var(--text-muted);
+    font-size: var(--text-base);
+    display: grid;
+    gap: 6px;
+}
+
+/* ─── Pack list (fueling) ─────────────────────────────────── */
+
+.pack-list {
+    display: grid;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pack-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 10px 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.pack-count {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--primary-light);
+    white-space: nowrap;
+}
+
+/* ─── Food editor (fueling) ───────────────────────────────── */
+
+.food-list {
+    display: grid;
+    gap: 6px;
+}
+
+.food-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 10px;
+}
+
+.food-row > input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary);
+    flex: none;
+}
+
+.food-name {
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: var(--text-base);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.food-off .food-name {
+    color: var(--text-faint);
+}
+
+.food-carbs {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 0 8px 0 4px;
+}
+
+.food-carbs:focus-within {
+    border-color: var(--primary-light);
+}
+
+.food-carbs input {
+    width: 42px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: var(--text-primary);
+    font: inherit;
+    font-weight: 600;
+    text-align: right;
+    padding: 6px 2px;
+    appearance: none;
+    -moz-appearance: textfield;
+}
+
+.food-carbs input::-webkit-outer-spin-button,
+.food-carbs input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.food-carbs span {
+    color: var(--text-faint);
+    font-size: var(--text-sm);
+    font-weight: 600;
+}
+
+.food-remove,
+.food-remove-spacer {
+    width: 24px;
+    height: 24px;
+    flex: none;
+}
+
+.food-remove {
+    border: 0;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+}
+
+.food-remove:hover {
+    color: var(--status-error-ink);
+    background: var(--status-error-tint);
+}
+
+.food-add {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+
+.food-add-name {
+    flex: 1 1 160px;
+    min-width: 0;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font: inherit;
+    font-weight: 600;
+    padding: 8px 10px;
+    outline: 0;
+}
+
+.food-add-name:focus {
+    border-color: var(--primary-light);
+}
+
+.food-add .seg {
+    padding: 3px;
+}
+
+.food-add .seg-btn {
+    padding: 6px 10px;
+    font-size: var(--text-sm);
+}
+
+.food-add-btn {
+    border: 0;
+    background: var(--primary);
+    color: var(--text-on-primary);
+    font: inherit;
+    font-weight: 800;
+    padding: 9px 16px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+}
+
+.food-add-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ─── GPX dropzone (route weather) ────────────────────────── */
+
+.dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    border: 2px dashed rgba(56, 189, 248, 0.4);
+    border-radius: var(--radius-lg);
+    background: rgba(2, 132, 199, 0.06);
+    padding: 38px 20px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.dropzone:hover,
+.dropzone.drag-over {
+    border-color: var(--primary-light);
+    background: rgba(2, 132, 199, 0.12);
+}
+
+.dropzone strong {
+    color: var(--text-primary);
+    font-size: 1.05rem;
+}
+
+.dropzone span {
+    color: var(--text-muted);
+    font-size: var(--text-base);
+}
+
+.dropzone input[type='file'] {
+    display: none;
+}
+
+.privacy-note {
+    margin-top: 10px;
+    font-size: var(--text-sm);
+    color: var(--text-faint);
+    text-align: center;
+}
+
+.route-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    align-items: baseline;
+    margin: 0 0 14px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.route-meta .route-name {
+    color: var(--text-primary);
+    font-size: 1.08rem;
+    font-weight: 800;
+}
+
+.route-meta button {
+    background: none;
+    border: 0;
+    color: var(--primary-light);
+    font: inherit;
+    font-size: var(--text-base);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* ─── Route map + weather pills ───────────────────────────── */
+
+.route-map-wrap {
+    position: relative;
+    margin-bottom: 18px;
+}
+
+.route-map {
+    height: 400px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    background: var(--bg-surface);
+    z-index: 0;
+}
+
+.route-map .maplibregl-ctrl-top-left {
+    top: 8px;
+    left: 8px;
+}
+
+.route-map .maplibregl-ctrl-group {
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+}
+
+.route-map-error {
+    position: absolute;
+    inset: auto 12px 12px;
+    padding: 9px 12px;
+    border-radius: var(--radius-sm);
+    background: rgba(8, 17, 31, 0.9);
+    color: var(--text-on-primary);
+    font-size: var(--text-sm);
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .route-map {
+        height: 300px;
+    }
+}
+
+.weather-pill {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 7px;
+    border-radius: var(--radius-pill);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-primary);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+/* The map's one unique job is showing WHERE the bad bit is, and the wet variant
+   used to change only a 1px border colour. It is a filled pill now. */
+.weather-pill .wx-icon {
+    width: 12px;
+    height: 12px;
+    flex: none;
+}
+
+.weather-pill::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -9px;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: currentColor;
+    color: var(--bg-surface);
+}
+
+.weather-pill-rain {
+    background: var(--feature-discover);
+    border-color: var(--feature-discover);
+    color: var(--text-on-primary);
+}
+
+.weather-pill-rain::after {
+    color: var(--feature-discover);
+}
+
+.weather-pill-below {
+    margin-top: 8px;
+}
+
+.weather-pill-below::after {
+    top: -9px;
+    bottom: auto;
+    border-top-color: transparent;
+    border-bottom-color: currentColor;
+    color: var(--bg-surface);
+}
+
+.weather-map-popup .maplibregl-popup-content {
+    background: var(--bg-base);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    line-height: 1.45;
+    padding: 8px 10px;
+}
+
+.weather-map-popup .maplibregl-popup-tip {
+    border-top-color: var(--bg-base);
+    border-bottom-color: var(--bg-base);
+}
+
+/* ─── Weather chart + table ───────────────────────────────── */
+
+.weather-chart {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.weather-chart svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-width: 520px;
+}
+
+.weather-table-wrap {
+    overflow-x: auto;
+    margin-top: 16px;
+}
+
+.weather-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-base);
+    min-width: 560px;
+}
+
+.weather-table th {
+    text-align: left;
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.weather-table td {
+    padding: 9px 10px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.chart-tooltip {
+    position: absolute;
+    top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    background: var(--bg-base);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 9px 12px;
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 2;
+}
+
+.chart-tooltip strong {
+    color: var(--text-primary);
+    font-size: var(--text-sm);
+}
+
+.chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 0 0 10px;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.chart-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legend-swatch {
+    display: inline-block;
+    width: 16px;
+    height: 0;
+    border-top: 2px solid var(--feature-weather);
+}
+
+.legend-swatch.dashed {
+    border-top-style: dashed;
+    opacity: 0.6;
+}
+
+.legend-swatch.bar {
+    width: 10px;
+    height: 10px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: var(--feature-discover);
+}
+
+.legend-swatch.head { border-color: var(--status-warn-ink); }
+.legend-swatch.tail { border-color: var(--status-ok-ink); }
+.legend-swatch.cross { border-color: var(--text-muted); }
+
+.weather-table .wind-head { color: var(--status-warn-ink); }
+.weather-table .wind-cross { color: var(--text-secondary); }
+.weather-table .wind-tail { color: var(--status-ok-ink); }
+.weather-table .wind-calm { color: var(--text-faint); }
+
+.wind-arrow {
+    display: inline-block;
+    margin-right: 6px;
+}
+
+/* ─── Error + CTA ─────────────────────────────────────────── */
+
+.tool-error {
+    background: var(--status-error-tint);
+    border: 1px solid var(--status-error-edge);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    color: var(--status-error-ink);
+    font-weight: 600;
+    margin: 14px 0;
+}
+
+.tool-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 20px;
+    align-items: center;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin: 34px 0 8px;
+}
+
+.tool-cta h2 {
+    margin: 0 0 8px;
+    font-size: 1.35rem;
+    letter-spacing: -0.02em;
+}
+
+.tool-cta p {
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 700px) {
+    .tool-cta {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ─── FAQ ─────────────────────────────────────────────────── */
+
+.faq-list details {
+    border-bottom: 1px solid var(--border-color);
+    padding: 14px 0;
+}
+
+.faq-list summary {
+    cursor: pointer;
+    font-weight: 800;
+    color: var(--text-primary);
+    font-size: 1.02rem;
+}
+
+.faq-list p {
+    margin: 10px 0 0;
+    color: var(--text-secondary);
+}

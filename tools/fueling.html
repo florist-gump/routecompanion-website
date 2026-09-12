@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- theme:start -->
+    <script>
+        (function () {
+            var root = document.documentElement;
+            function stored() {
+                try { return localStorage.getItem('rc-theme'); } catch (e) { return null; }
+            }
+            var saved = stored();
+            if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+            var LABEL = { system: 'Theme: following your system setting', light: 'Theme: light', dark: 'Theme: dark' };
+            function systemDark() {
+                return matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+            function mode() {
+                var t = root.getAttribute('data-theme');
+                return t === 'light' || t === 'dark' ? t : 'system';
+            }
+            // The trigger shows what you are LOOKING AT, not where it came from;
+            // the menu is what says which of the three is active.
+            function resolved() {
+                var m = mode();
+                return m === 'system' ? (systemDark() ? 'dark' : 'light') : m;
+            }
+            function sync() {
+                var m = mode();
+                var triggers = document.querySelectorAll('[data-theme-toggle]');
+                for (var i = 0; i < triggers.length; i++) {
+                    triggers[i].setAttribute('data-appearance', resolved());
+                    triggers[i].setAttribute('title', LABEL[m]);
+                }
+                var options = document.querySelectorAll('[data-theme-choice]');
+                for (var j = 0; j < options.length; j++) {
+                    options[j].setAttribute('aria-checked', String(options[j].dataset.themeChoice === m));
+                }
+            }
+            function choose(next) {
+                if (next === 'system') {
+                    root.removeAttribute('data-theme');
+                    try { localStorage.removeItem('rc-theme'); } catch (err) {}
+                } else {
+                    root.setAttribute('data-theme', next);
+                    try { localStorage.setItem('rc-theme', next); } catch (err) {}
+                }
+                sync();
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                sync();
+                function setOpen(sw, open) {
+                    sw.querySelector('[data-theme-toggle]').setAttribute('aria-expanded', String(open));
+                    sw.querySelector('.theme-menu').dataset.open = String(open);
+                }
+                document.addEventListener('click', function (e) {
+                    var option = e.target.closest && e.target.closest('[data-theme-choice]');
+                    if (option) {
+                        choose(option.dataset.themeChoice);
+                        setOpen(option.closest('.theme-switcher'), false);
+                        option.closest('.theme-switcher').querySelector('[data-theme-toggle]').focus();
+                        return;
+                    }
+                    var trigger = e.target.closest && e.target.closest('[data-theme-toggle]');
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) {
+                        var isMine = !!trigger && all[i].contains(trigger);
+                        var open = isMine && trigger.getAttribute('aria-expanded') !== 'true';
+                        setOpen(all[i], open);
+                    }
+                });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key !== 'Escape') return;
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) setOpen(all[i], false);
+                });
+            });
+            // Nothing stored means follow the OS, including when the OS changes.
+            matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+        })();
+    </script>
+    <!-- theme:end -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cycling & Running Fueling Calculator: Carbs per Hour & Hydration | Route Companion</title>
+    <meta name="description" content="Free fueling calculator for rides and runs: carbs per hour, hydration, and a concrete pack list (gels, bars, bananas, bottles) from distance, elevation, effort, and temperature.">
+    <link rel="canonical" href="https://routecompanion.app/tools/fueling.html">
+    <link rel="alternate" hreflang="en" href="https://routecompanion.app/tools/fueling.html">
+    <link rel="alternate" hreflang="de" href="https://routecompanion.app/de/tools/fueling.html">
+    <link rel="alternate" hreflang="fr" href="https://routecompanion.app/fr/tools/fueling.html">
+    <link rel="alternate" hreflang="x-default" href="https://routecompanion.app/tools/fueling.html">
+    <meta property="og:title" content="Cycling & Running Fueling Calculator: Carbs per Hour & Hydration">
+    <meta property="og:description" content="How much to eat and drink on your next ride or run, plus a pack list you can grab off the shelf. Free, no sign-up.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="/assets/tokens.css">
+    <link rel="stylesheet" href="../guides/styles.css">
+    <link rel="stylesheet" href="/assets/language.css">
+    <link rel="stylesheet" href="tools.css">
+    <script src="/assets/language.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Route Companion Fueling Calculator",
+      "url": "https://routecompanion.app/tools/fueling.html",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "publisher": { "@type": "Organization", "name": "Route Companion", "logo": { "@type": "ImageObject", "url": "https://routecompanion.app/assets/icon.png" } }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How many carbs per hour should I eat on a ride?",
+          "acceptedAnswer": { "@type": "Answer", "text": "For easy rides 25 to 35 g/h is plenty; moderate endurance rides sit around 45 to 55 g/h; hard rides 60 to 80 g/h; race efforts 80 to 100 g/h. Above roughly 60 g/h your gut needs a mix of glucose and fructose (about 2:1) to absorb it, so use dual-source products at higher intakes." }
+        },
+        {
+          "@type": "Question",
+          "name": "How much should I drink per hour?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Around 0.4 to 0.8 L/h in mild conditions, more in heat. Sweat rates vary a lot between people, so drink to thirst rather than forcing a schedule. On long or hot days include sodium, not just plain water." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to eat on a one-hour ride?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Usually not. Your glycogen stores comfortably cover about 60 to 90 minutes of moderate work if you started fed. Bring a bottle, and something small if the effort is hard. Fueling starts to matter from about 90 minutes onward." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does elevation gain change the plan?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Climbing adds work and time. The calculator converts elevation gain into an equivalent extra distance to estimate your real moving time, which raises both total carbs and total fluids for the same map distance." }
+        },
+        {
+          "@type": "Question",
+          "name": "Gels or real food?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Both work. Gels and chews absorb fastest and suit high intensity; solid food is cheaper, sits better on long steady rides, and fights flavor fatigue. The calculator lets you pick gels-only, real-food-only, or a mix, and splits your pack list accordingly." }
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://routecompanion.app/"},{"@type":"ListItem","position":2,"name":"Tools","item":"https://routecompanion.app/tools/"},{"@type":"ListItem","position":3,"name":"Fueling calculator","item":"https://routecompanion.app/tools/fueling.html"}]}</script>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- nav:start -->
+        <nav class="site-nav" aria-label="Site navigation">
+            <div class="site-nav-inner">
+                <a class="brand-link" href="../index.html">
+                    <img src="../assets/icon.png" alt="" width="30" height="30">
+                    <span>Route Companion</span>
+                </a>
+                <div class="nav-links">
+                    <a href="../tools/" aria-current="page">Tools</a>
+                    <a href="../guides/">Guides</a>
+                    <span class="theme-switcher">
+                        <button type="button" class="theme-toggle" data-theme-toggle aria-expanded="false" aria-haspopup="menu" aria-controls="website-theme-menu" aria-label="Appearance">
+                            <svg class="theme-toggle-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+                            <svg class="theme-toggle-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+                        </button>
+                        <span class="theme-menu" id="website-theme-menu" role="menu" data-open="false">
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="system" aria-checked="true">Match system<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="light" aria-checked="false">Light mode<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="dark" aria-checked="false">Dark mode<span class="theme-check" aria-hidden="true"></span></button>
+                        </span>
+                    </span>
+                    <a class="nav-cta" href="https://apps.apple.com/app/id6758202473">App Store</a>
+                </div>
+            </div>
+        </nav>
+        <!-- nav:end -->
+
+        <p class="breadcrumb"><a href="index.html">Tools</a><span>Fueling calculator</span></p>
+        <header class="tool-hero">
+            <div>
+                <h1>Fueling calculator</h1>
+                <p class="hero-copy">How much to eat and drink on your next ride or run, with a pack list you can grab off the shelf. Built from your distance, climbing, effort, and the weather.</p>
+            </div>
+            <div class="tool-mascot" id="tool-mascot" aria-hidden="true"></div>
+        </header>
+
+        <main>
+            <div class="tool-app">
+                <div id="tool-root">
+                    <div class="tool-loading">Loading calculator…</div>
+                </div>
+                <noscript><p class="tool-error">This calculator needs JavaScript. Everything runs in your browser. Nothing is uploaded.</p></noscript>
+            </div>
+
+            <section class="section" id="how">
+                <h2>How the plan is built</h2>
+                <p class="lead">"Eat before you're hungry, drink before you're thirsty" is good advice. It just doesn't say how much, or what to put in your pockets.</p>
+                <p>The calculator first estimates your real moving time: distance plus a climbing surcharge (every meter of elevation gain effectively adds distance), at your average speed or a sensible default. Effort sets the carb target, from 25 to 35 g/h on easy days up to 80 to 100 g/h at race intensity, in line with current sports nutrition guidance. Temperature and duration set the fluid plan, deliberately capped at a sane ceiling because over-drinking plain water is riskier than mild thirst.</p>
+                <p>Then it turns targets into things: how many gels, bars, or bananas that actually is, how much comes from your drink mix, and how many bottle refills you'll need along the way. That last number is where route planning starts to matter; the <a href="../guides/route-stops.html">route stops guide</a> covers finding water along a route instead of hoping.</p>
+                <p>For the reasoning behind the numbers, read the full <a href="../guides/cycling-fueling.html">cycling fueling guide</a>.</p>
+            </section>
+
+            <section class="section" id="faq">
+                <h2>Common questions</h2>
+                <div class="faq-list">
+                    <details>
+                        <summary>How many carbs per hour should I eat?</summary>
+                        <p>For easy rides 25 to 35 g/h is plenty; moderate endurance rides sit around 45 to 55 g/h; hard rides 60 to 80 g/h; race efforts 80 to 100 g/h. Above roughly 60 g/h your gut needs a glucose and fructose mix (about 2:1) to absorb it. Single-sugar products stop helping past that point.</p>
+                    </details>
+                    <details>
+                        <summary>How much should I drink per hour?</summary>
+                        <p>Around 0.4 to 0.8 L/h in mild conditions, more in heat. Sweat rates vary hugely between people, so treat the number as a baseline and drink to thirst. On long or hot days include sodium, not just plain water.</p>
+                    </details>
+                    <details>
+                        <summary>Do I need to eat on a one-hour ride?</summary>
+                        <p>Usually not. Glycogen stores cover roughly 60 to 90 minutes of moderate work if you started fed. Bring a bottle, and something small if the effort is hard. Fueling starts to matter from about 90 minutes.</p>
+                    </details>
+                    <details>
+                        <summary>Why does elevation gain change the plan?</summary>
+                        <p>Climbing adds work and time. The calculator converts elevation gain into equivalent extra distance to estimate real moving time, which raises both total carbs and total fluids for the same map distance.</p>
+                    </details>
+                    <details>
+                        <summary>Gels or real food?</summary>
+                        <p>Both work. Gels and chews absorb fastest and suit high intensity; solid food is cheaper, sits better on long steady rides, and fights flavor fatigue. Pick your style above and the pack list splits accordingly.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section class="tool-cta">
+                <div>
+                    <h2>The app fuels the actual route.</h2>
+                    <p>Route Companion builds this plan from your imported route, with real distance, real climbing, and the forecast temperature. It reminds you to eat at the right time while you navigate, and finds water stops along the way when the bottles run low.</p>
+                </div>
+                <a class="btn btn-primary" href="https://apps.apple.com/app/id6758202473">Get the app</a>
+            </section>
+        </main>
+
+        <!-- footer:start -->
+        <footer class="footer">
+            <p class="footer-links">
+                <a href="../index.html">Home</a>
+                <span class="dot">&middot;</span>
+                <a href="../tools/">Tools</a>
+                <span class="dot">&middot;</span>
+                <a href="../guides/">Guides</a>
+                <span class="dot">&middot;</span>
+                <a href="https://www.instagram.com/route_companion_app/" rel="me noopener" target="_blank">Instagram</a>
+                <span class="dot">&middot;</span>
+                <a href="../privacy.html">Privacy Policy</a>
+                <span class="dot">&middot;</span>
+                <a href="../terms.html">Terms of Service</a>
+                <span class="dot">&middot;</span>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </p>
+            <p class="footer-copyright">&copy; 2026 Route Companion. All rights reserved.</p>
+        </footer>
+        <!-- footer:end -->
+    </div>
+    <script type="module" src="assets/fueling.js"></script>
+</body>
+</html>

@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- theme:start -->
+    <script>
+        (function () {
+            var root = document.documentElement;
+            function stored() {
+                try { return localStorage.getItem('rc-theme'); } catch (e) { return null; }
+            }
+            var saved = stored();
+            if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+            var LABEL = { system: 'Theme: following your system setting', light: 'Theme: light', dark: 'Theme: dark' };
+            function systemDark() {
+                return matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+            function mode() {
+                var t = root.getAttribute('data-theme');
+                return t === 'light' || t === 'dark' ? t : 'system';
+            }
+            // The trigger shows what you are LOOKING AT, not where it came from;
+            // the menu is what says which of the three is active.
+            function resolved() {
+                var m = mode();
+                return m === 'system' ? (systemDark() ? 'dark' : 'light') : m;
+            }
+            function sync() {
+                var m = mode();
+                var triggers = document.querySelectorAll('[data-theme-toggle]');
+                for (var i = 0; i < triggers.length; i++) {
+                    triggers[i].setAttribute('data-appearance', resolved());
+                    triggers[i].setAttribute('title', LABEL[m]);
+                }
+                var options = document.querySelectorAll('[data-theme-choice]');
+                for (var j = 0; j < options.length; j++) {
+                    options[j].setAttribute('aria-checked', String(options[j].dataset.themeChoice === m));
+                }
+            }
+            function choose(next) {
+                if (next === 'system') {
+                    root.removeAttribute('data-theme');
+                    try { localStorage.removeItem('rc-theme'); } catch (err) {}
+                } else {
+                    root.setAttribute('data-theme', next);
+                    try { localStorage.setItem('rc-theme', next); } catch (err) {}
+                }
+                sync();
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                sync();
+                function setOpen(sw, open) {
+                    sw.querySelector('[data-theme-toggle]').setAttribute('aria-expanded', String(open));
+                    sw.querySelector('.theme-menu').dataset.open = String(open);
+                }
+                document.addEventListener('click', function (e) {
+                    var option = e.target.closest && e.target.closest('[data-theme-choice]');
+                    if (option) {
+                        choose(option.dataset.themeChoice);
+                        setOpen(option.closest('.theme-switcher'), false);
+                        option.closest('.theme-switcher').querySelector('[data-theme-toggle]').focus();
+                        return;
+                    }
+                    var trigger = e.target.closest && e.target.closest('[data-theme-toggle]');
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) {
+                        var isMine = !!trigger && all[i].contains(trigger);
+                        var open = isMine && trigger.getAttribute('aria-expanded') !== 'true';
+                        setOpen(all[i], open);
+                    }
+                });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key !== 'Escape') return;
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) setOpen(all[i], false);
+                });
+            });
+            // Nothing stored means follow the OS, including when the OS changes.
+            matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+        })();
+    </script>
+    <!-- theme:end -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Companion | Weather, Stops & Fuel for Every Route</title>
+    <meta name="description" content="Know your route before you go. Check weather along the route, find useful stops, plan your fuel, and export to Garmin, Wahoo, and Hammerhead. For cycling, running, and hiking.">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="canonical" href="https://routecompanion.app/">
+    <link rel="alternate" hreflang="en" href="https://routecompanion.app/">
+    <link rel="alternate" hreflang="de" href="https://routecompanion.app/de/">
+    <link rel="alternate" hreflang="fr" href="https://routecompanion.app/fr/">
+    <link rel="alternate" hreflang="x-default" href="https://routecompanion.app/">
+    <meta name="theme-color" content="#0D1417">
+    <!-- Native App Store banner on iOS Safari (invisible elsewhere) -->
+    <meta name="apple-itunes-app" content="app-id=6758202473">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Route Companion">
+    <meta property="og:title" content="Route Companion | Weather, Stops & Fuel for Every Route">
+    <meta property="og:description" content="Know your route before you go. Check weather along the route, find useful stops, plan your fuel, and export to Garmin, Wahoo, and Hammerhead.">
+    <meta property="og:url" content="https://routecompanion.app/">
+    <meta property="og:image" content="https://routecompanion.app/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Route Companion | Weather, Stops & Fuel for Every Route">
+    <meta name="twitter:description" content="Know your route before you go. Check weather along the route, find useful stops, plan your fuel, and export to Garmin, Wahoo, and Hammerhead.">
+    <meta name="twitter:image" content="https://routecompanion.app/assets/og-image.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Route Companion",
+      "operatingSystem": "iOS, Android",
+      "applicationCategory": "SportsApplication",
+      "applicationSubCategory": "Cycling, running and hiking route planning",
+      "url": "https://routecompanion.app/",
+      "downloadUrl": "https://apps.apple.com/app/id6758202473",
+      "installUrl": "https://apps.apple.com/app/id6758202473",
+      "image": "https://routecompanion.app/assets/og-image.png",
+      "screenshot": [
+        "https://routecompanion.app/screenshots/1.png",
+        "https://routecompanion.app/screenshots/2.png",
+        "https://routecompanion.app/screenshots/3.png"
+      ],
+      "description": "Check weather along the route, find useful stops, plan your fuel, and export to Garmin, Wahoo, and Hammerhead. For cycling, running, and hiking.",
+      "featureList": [
+        "Hourly weather along your route",
+        "Carb and hydration fuel planning",
+        "On-route stop search for water, cafes, bike shops and more",
+        "Import GPX, TCX and FIT files or from Strava, Komoot and Ride with GPS",
+        "Export to Garmin, Wahoo and Hammerhead",
+        "Proximity alerts and iOS Live Activity",
+        "Voice and notification alerts as you approach stops",
+        "Discover popular cycling, running and hiking routes nearby",
+        "Heatmap of every road you've ridden"
+      ],
+      "publisher": {
+        "@type": "Organization",
+        "name": "Route Companion",
+        "url": "https://routecompanion.app/",
+        "sameAs": ["https://www.instagram.com/route_companion_app/"]
+      },
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+    <link rel="stylesheet" href="/assets/tokens.css">
+    <link rel="stylesheet" href="/assets/language.css">
+    <script src="/assets/language.js"></script>
+    <script>document.documentElement.classList.add('js');</script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-base);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: transparent;
+            padding: 24px 0 56px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Real contour lines, printed edge to edge rather than masked into a
+           blob behind the headline. On paper the same teal reads as survey ink,
+           so the asset is unchanged - only its opacity and its job are. */
+        .hero-backdrop {
+            position: absolute;
+            inset: -40px 0 0 0;
+            background-image: url("assets/topo.svg");
+            background-size: cover;
+            background-position: center top;
+            opacity: 0.16;
+            -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+            mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+            pointer-events: none;
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(14px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .js .hero .hero-kicker,
+        .js .hero .tagline,
+        .js .hero .hero-copy,
+        .js .hero .hero-stage,
+        .js .hero .cta-buttons {
+            animation: rise 0.7s var(--ease-out) both;
+        }
+
+        .js .hero .hero-kicker { animation-delay: 0.05s; }
+        .js .hero .tagline { animation-delay: 0.12s; }
+        .js .hero .hero-copy { animation-delay: 0.18s; }
+        .js .hero .cta-buttons { animation-delay: 0.26s; }
+        .js .hero .hero-stage { animation-delay: 0.3s; animation-duration: 0.9s; }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+            align-items: center;
+            gap: clamp(32px, 5vw, 72px);
+            text-align: left;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 560px;
+        }
+
+        .hero-kicker {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--primary-light);
+            margin: 0 0 10px 0;
+        }
+
+        .workflow-mascots {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 56px;
+            margin: 14px auto 6px;
+        }
+
+        .workflow-mascots img {
+            height: 72px;
+            width: auto;
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            -ms-interpolation-mode: nearest-neighbor;
+            opacity: 0.92;
+        }
+
+        .tagline {
+            font-family: var(--font-display);
+            font-size: clamp(2.3rem, 4.4vw, 3.6rem);
+            font-weight: 800;
+            line-height: 1.04;
+            letter-spacing: -0.04em;
+            margin: 0;
+            color: var(--text-primary);
+            text-wrap: balance;
+        }
+
+        .hero-copy {
+            font-size: clamp(1rem, 1.3vw, 1.12rem);
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 20px 0 0;
+            text-wrap: pretty;
+        }
+
+        /* Hero Visual - Screenshot Carousel */
+        .hero-stage {
+            width: 100%;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-visual-row {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 8px auto 0;
+        }
+
+        /* The frame takes its height from the screenshot rather than imposing a
+           device aspect on it, so no container can stretch the box and crop the
+           sides. Device chrome lives in the padding and radius, not in a ratio. */
+        .phone-frame {
+            position: relative;
+            flex: 0 0 auto;
+            align-self: center;
+            width: min(280px, 100%);
+            background: #000;
+            padding: 6px;
+            border-radius: 40px;
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.6),
+                0 0 0 1px var(--hairline),
+                inset 0 0 0 1px var(--hairline-faint);
+        }
+
+        .phone-drift,
+        .phone-frame picture {
+            display: block;
+        }
+
+        .phone-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 640 / 1387;
+            object-fit: contain;
+            border-radius: 34px;
+            background: var(--bg-surface);
+            transition:
+                opacity 0.32s ease,
+                transform 0.32s var(--ease-out);
+        }
+
+        .phone-frame.swapping img {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        /* The chips are the page's product tour now, so the caption carries the
+           sentence each screen is making rather than just naming it. Height is
+           reserved for the longest one so switching chips never reflows the
+           page under the reader's cursor. */
+        .carousel-caption {
+            position: relative;
+            width: 100%;
+            color: var(--text-primary);
+            margin: 22px 0 0;
+            /* German is the longest locale at 128px against 134px reserved, which
+               is too little headroom for the next string that gets translated. */
+            min-height: 9.6em;
+        }
+
+        .carousel-caption-head {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 1.24rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 7px;
+        }
+
+        .carousel-caption-detail {
+            display: block;
+            font-size: 0.98rem;
+            font-weight: 400;
+            line-height: 1.55;
+            color: var(--text-secondary);
+            /* The measure has to centre itself. Without the auto margins the
+               narrower box sits against the left edge while its text centres
+               inside it, so the sentence reads as offset from the heading
+               above it. */
+            max-width: 46ch;
+            margin-inline: auto;
+            text-wrap: pretty;
+        }
+
+        .carousel-caption-item {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(4px);
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s var(--ease-out),
+                visibility 0s linear 0.3s;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .carousel-caption-item.active {
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+            transition-delay: 0s;
+        }
+
+        /* Only the current screen is spelled out; the rest collapse to dots,
+           because the caption above already names what you are looking at. */
+        .feature-chips {
+            display: flex;
+            min-width: 0;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            margin-top: 18px;
+        }
+
+        .feature-chip {
+            position: relative;
+            overflow: hidden;
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 26px;
+            padding: 0 4px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--text-primary);
+            font: inherit;
+            font-size: 0.78rem;
+            font-weight: 700;
+            line-height: 1;
+            cursor: pointer;
+            transition:
+                padding 0.34s var(--ease-out),
+                border-color 0.24s ease,
+                background-color 0.24s ease;
+        }
+
+        .feature-chip::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(141, 162, 170, 0.32);
+            transition:
+                width 0.34s var(--ease-out),
+                opacity 0.24s ease,
+                background-color 0.2s ease;
+        }
+
+        .feature-chip:hover::before {
+            background: rgba(53, 181, 201, 0.75);
+        }
+
+        /* Clipped, never hidden - the label stays the button's accessible name. */
+        .feature-chip-label {
+            display: block;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 0;
+            opacity: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            transition:
+                max-width 0.34s var(--ease-out),
+                opacity 0.24s ease;
+        }
+
+        .feature-chip.active {
+            padding: 0 13px;
+            border-color: rgba(53, 181, 201, 0.5);
+            background: rgba(14, 116, 144, 0.22);
+        }
+
+        .feature-chip.active::before {
+            width: 0;
+            opacity: 0;
+        }
+
+        .feature-chip.active .feature-chip-label {
+            max-width: var(--label-w, 160px);
+            opacity: 1;
+        }
+
+        .feature-chip::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            background: rgba(53, 181, 201, 0.38);
+            transform: scaleX(0);
+            transform-origin: left center;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes chipFill {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        .js .feature-chip.active::after {
+            opacity: 1;
+            animation: chipFill var(--dwell, 6.5s) linear forwards;
+        }
+
+        .hero-stage.paused .feature-chip.active::after {
+            animation-play-state: paused;
+        }
+
+
+        .cta-buttons {
+            display: flex;
+            gap: 14px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px 22px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            font-size: 0.97rem;
+        }
+
+        .btn-primary {
+            background-color: var(--text-primary);
+            color: var(--bg-base);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background-color: #FFFFFF;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .btn-secondary {
+            background-color: color-mix(in srgb, var(--bg-surface) 90%, transparent);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-surface);
+            border-color: rgba(53, 181, 201, 0.45);
+            transform: translateY(-2px);
+        }
+
+        .btn:focus-visible,
+        .nav-links a:focus-visible,
+        .guide-row:focus-visible,
+        .feature-chip:focus-visible {
+            outline: 2px solid var(--primary-light);
+            outline-offset: 3px;
+        }
+
+        .btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: var(--bg-surface);
+            color: var(--text-muted);
+            box-shadow: none;
+            transform: none !important;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Section shared */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color) 18%, var(--border-color) 82%, transparent);
+            border: none;
+            margin: 0;
+        }
+
+        /* Scroll reveal: only applied when JS is available, so content never depends on it */
+        .js .reveal {
+            opacity: 0;
+            transform: translateY(16px);
+            transition:
+                opacity 0.65s var(--ease-out),
+                transform 0.65s var(--ease-out);
+            transition-delay: var(--reveal-delay, 0s);
+        }
+
+        .js .reveal.in {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Site navigation */
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            background: transparent;
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .site-nav.scrolled {
+            background: var(--bg-panel);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            border-bottom-color: var(--border-color);
+        }
+
+        .site-nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.98rem;
+            letter-spacing: -0.2px;
+        }
+
+        .brand-link img {
+            width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            border: 1px solid var(--hairline);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* The section you are in, so the header answers "where am I". */
+        .nav-links a[aria-current="page"] {
+            position: relative;
+            color: var(--text-primary);
+        }
+
+        .nav-links a[aria-current="page"]::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -6px;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--primary-light);
+        }
+
+        .nav-links .nav-cta {
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: color-mix(in srgb, var(--bg-surface) 90%, transparent);
+            color: var(--text-primary);
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .nav-links .nav-cta:hover {
+            border-color: rgba(53, 181, 201, 0.5);
+            background: var(--bg-surface);
+        }
+
+        .section-intro {
+            max-width: 760px;
+            margin: 0 auto 28px;
+            padding: 0 20px;
+        }
+
+        .section-kicker {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--primary-light);
+            margin: 0 0 10px 0;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(1.7rem, 3vw, 2.25rem);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin: 0;
+            color: var(--text-primary);
+            text-wrap: balance;
+        }
+
+        .section-subtitle {
+            font-size: 1.02rem;
+            color: var(--text-secondary);
+            max-width: 620px;
+            margin: 14px auto 0;
+            text-wrap: pretty;
+        }
+
+        /* Features */
+        /* How it works — a real sequence, so the numbers carry information rather
+           than decorate. One continuous rule through all four points, instead of
+           four filled circles joined by a dashed line. */
+        .workflow-section {
+            padding: var(--space-5xl) 0;
+        }
+
+        .workflow-steps {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            max-width: 980px;
+            margin: 40px auto 0;
+            text-align: left;
+        }
+
+        /* Spans centre-to-centre of the first and last node: with four equal
+           columns those sit at 12.5% and 87.5%. No horizontal padding on the
+           grid, or the percentages would be measured against the padding box
+           and the line would miss the nodes. */
+        .workflow-line {
+            position: absolute;
+            top: 0;
+            left: 12.5%;
+            width: 75%;
+            height: 48px;
+            overflow: visible;
+            pointer-events: none;
+        }
+
+        .workflow-line path {
+            fill: none;
+            stroke: url(#workflow-grad);
+            stroke-width: 1.6;
+            stroke-linecap: round;
+            vector-effect: non-scaling-stroke;
+        }
+
+        /* The line is drawn by default. The hidden state is armed by script
+           immediately before the observer starts, so if the script never runs,
+           or the observer never fires, the reader gets a drawn line rather than
+           no line at all. pathLength="1" normalises the path, so there is
+           nothing to measure.
+           Also worth knowing: an element inside a hidden or zero-height
+           viewport never intersects, which is why the fallback matters. */
+        .workflow-steps.armed .workflow-line path {
+            /* With vector-effect: non-scaling-stroke the dash pattern resolves in
+               SCREEN pixels, not path units — so pathLength normalisation does
+               not apply to it and a dash of 1 renders a 1px dotted line rather
+               than one continuous stroke. The dash has to be longer than the
+               drawn line instead: the track is at most 735px wide (75% of a
+               980px grid) and the wave adds a little, so 1200px is one dash with
+               room to spare. */
+            stroke-dasharray: 1200px;
+            stroke-dashoffset: 1200px;
+            /* No transition on this state. It is the hidden state, and arming it
+               is a jump to the start, not a move: with the transition declared
+               here, adding .armed animated dashoffset from 0 to 1200px — the
+               line wiping itself out backwards over 1.8s before it had ever
+               drawn. It was only invisible before because arming and drawing
+               happened within a few hundred milliseconds of each other. */
+        }
+
+        .workflow-steps.armed.in .workflow-line path {
+            stroke-dashoffset: 0;
+            /* No delay: the first dot has none either, and the line connecting
+               them should not set off after the things it connects. It still
+               outlasts them — 1800ms against the dots' 650ms — so the line is
+               what carries the eye across once they have landed. */
+            transition: stroke-dashoffset 1800ms cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .workflow-steps.armed .workflow-line path {
+                stroke-dasharray: none;
+                stroke-dashoffset: 0;
+                transition: none;
+            }
+        }
+
+        .workflow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 14px;
+        }
+
+        /* The node sits on the line and its ring, painted in the page colour,
+           punches the gap the line appears to run between. */
+        .workflow-number {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 20px;
+            border: 1px solid color-mix(in srgb, var(--primary-light) 32%, transparent);
+            border-radius: 50%;
+            background:
+                linear-gradient(180deg,
+                    color-mix(in srgb, var(--primary-light) 16%, transparent),
+                    color-mix(in srgb, var(--primary-light) 5%, transparent)),
+                var(--bg-base);
+            box-shadow: 0 0 0 6px var(--bg-base);
+            font-family: var(--font-mono);
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--primary-light);
+        }
+
+        .workflow-step h3 {
+            font-family: var(--font-display);
+            font-size: 1.02rem;
+            font-weight: 800;
+            letter-spacing: -0.015em;
+            color: var(--text-primary);
+            margin: 0 0 6px 0;
+        }
+
+        .workflow-step p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.5;
+            max-width: 26ch;
+            text-wrap: pretty;
+        }
+
+        /* Features — an index of what the app can do, not nine cards. The chips
+           above already explain each screen; this is the scannable list. */
+        .features-section {
+            padding: var(--space-5xl) 0;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0 clamp(28px, 5vw, 64px);
+            max-width: 980px;
+            margin: 32px auto 0;
+            padding: 0 var(--gutter);
+            text-align: left;
+        }
+
+        .feature-item {
+            display: grid;
+            grid-template-columns: 20px minmax(0, 1fr);
+            align-items: start;
+            /* The item stretches to its row's height so the rules line up across
+               both columns — but its own rows must not. Left at the default
+               (stretch), a two-line entry beside a four-line one grew its rows
+               to fill, pushing the copy 26px off its own heading and reading as
+               a mis-set gap rather than a shorter entry. */
+            align-content: start;
+            column-gap: 14px;
+            row-gap: 5px;
+            padding: 18px 0 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* The concept's own hue from the app's map, carried on the glyph rather
+           than in a tinted box behind it — the boxes belong on list rows in the
+           app, and this section is already a list. */
+        .feature-icon {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            color: var(--feature, var(--primary-light));
+        }
+
+        .feature-item[data-feature="weather"] { --feature: var(--feature-weather); }
+        .feature-item[data-feature="fuel"] { --feature: var(--feature-fuel); }
+        .feature-item[data-feature="stops"] { --feature: var(--feature-stops); }
+        .feature-item[data-feature="import"] { --feature: var(--flow-in); }
+        .feature-item[data-feature="export"] { --feature: var(--flow-out); }
+        .feature-item[data-feature="record"] { --feature: var(--feature-record); }
+        .feature-item[data-feature="discover"] { --feature: var(--feature-discover); }
+        .feature-item[data-feature="activities"] { --feature: var(--feature-activities); }
+        .feature-item[data-feature="plan"] { --feature: var(--feature-plan); }
+
+        .feature-item h3 {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+            line-height: 1.35;
+        }
+
+        /* Sits in the second column, under the title and past the mark, so the
+           marks line up down the page and the copy hangs off them. */
+        .feature-item p {
+            grid-column: 2;
+            margin: 0;
+            font-size: 0.86rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            text-wrap: pretty;
+        }
+
+        /* Integrations */
+        .integrations-section {
+            padding: 56px 0;
+        }
+
+        /* The section's whole claim is a direction — a route comes in, leaves
+           ready for the head unit. Two symmetric boxes said "two equal things"
+           instead, so the layout now runs left to right through a spine, and
+           the boxes are gone: they drew a border twice around the same kind of
+           content, which is the one thing this page already decided not to do. */
+        .integration-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            align-items: start;
+            gap: clamp(20px, 4vw, 48px);
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 var(--gutter);
+        }
+
+        .integration-card {
+            text-align: left;
+        }
+
+        .integration-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin: 0;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+        }
+
+        /* Each half carries its own direction colour and its own chip treatment.
+           Marking both sides in one hue made the section read as a mirror — GPX
+           appeared identically on the left and the right — so nothing told you
+           which side you were looking at. */
+        .integration-card.is-in {
+            --flow: var(--flow-in);
+            /* The amber reads 3.6:1 on its own tint in light mode, so its text
+               mixes toward the theme's ink. The green clears 4.5 as it is. */
+            --flow-ink: color-mix(in srgb, var(--flow-in) 80%, var(--text-primary));
+        }
+
+        .integration-card.is-out {
+            --flow: var(--flow-out);
+            --flow-ink: var(--flow-out);
+        }
+
+        /* A mark, not a rule: the two halves are a pair of opposite actions, and
+           a dash said only "here is a heading" on both. */
+        .integration-icon {
+            flex: none;
+            width: 16px;
+            height: 16px;
+            color: var(--flow);
+        }
+
+        .integration-card p {
+            margin: 8px 0 0 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            text-wrap: pretty;
+        }
+
+        .integration-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        /* The hairline the arrow sits on. Fades at both ends so it reads as a
+           passage rather than a divider between two panels. */
+        .integration-spine {
+            align-self: stretch;
+            display: grid;
+            place-items: center;
+            width: 1px;
+            padding: 0;
+            border: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                var(--border-color) 18%,
+                var(--border-color) 82%,
+                transparent
+            );
+        }
+
+        .integration-spine svg {
+            width: 15px;
+            height: 15px;
+            padding: 9px;
+            border-radius: 999px;
+            /* Opaque, so the hairline appears to pass behind the disc. */
+            background: var(--bg-base);
+        }
+
+        /* A service or a device: a proper noun, set as text. The border takes a
+           wash of the side's colour so the two columns differ even where the
+           words are the only content. */
+        .integration-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid color-mix(in srgb, var(--flow) 26%, var(--border-color));
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* A file extension is not a brand. The mono face says which of these you
+           type and which you tap. */
+        .integration-pill.is-format {
+            color: var(--flow-ink);
+            font-family: var(--font-mono, ui-monospace, monospace);
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+        }
+
+        /* What arrives is filled; what leaves is outlined. The formats repeat on
+           both sides, so shape carries the difference even in one colour — and
+           in greyscale. */
+        .is-in .integration-pill.is-format {
+            border-color: transparent;
+            background: color-mix(in srgb, var(--flow) 14%, transparent);
+        }
+
+        .is-out .integration-pill.is-format {
+            border-color: color-mix(in srgb, var(--flow) 42%, transparent);
+            background: transparent;
+        }
+
+        /* Guides */
+        .guides-section {
+            padding: 56px 0;
+            background: transparent;
+        }
+
+        .guide-list {
+            max-width: 840px;
+            margin: 0 auto;
+            padding: 0 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .guide-row {
+            position: relative;
+            display: grid;
+            grid-template-columns: 220px 1fr 24px;
+            align-items: start;
+            gap: 24px;
+            padding: 22px 14px;
+            margin: 0 -14px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+            text-decoration: none;
+        }
+
+        .guide-row::after {
+            content: "\2192";
+            color: var(--text-faint);
+            font-size: 1.1rem;
+            line-height: 1.3;
+            transition: transform 0.3s var(--ease-out), color 0.2s ease;
+        }
+
+        .guide-row:hover::after {
+            transform: translateX(4px);
+            color: var(--primary-light);
+        }
+
+        .guide-row h3 {
+            color: var(--text-primary);
+            font-size: 1.08rem;
+            margin: 0;
+            transition: color 0.2s ease;
+        }
+
+        .guide-row p {
+            color: var(--text-secondary);
+            font-size: 0.94rem;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        .guide-row:hover h3 {
+            color: var(--primary-light);
+        }
+
+        /* Footer */
+        .footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 36px 0 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-md);
+            margin: 0 0 8px 0;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-light);
+        }
+
+        /* No margin: the flex gap already spaces these, and language.js
+           injects one more dot of its own into .footer-links. */
+        .footer-links .dot {
+            color: var(--text-muted);
+        }
+
+        .footer-copyright {
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .feature-chips {
+                margin-top: 16px;
+            }
+
+            .carousel-caption {
+                font-size: 1.02rem;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .workflow-steps {
+                grid-template-columns: repeat(2, 1fr);
+                row-gap: 22px;
+            }
+
+            .hero {
+                padding-top: 20px;
+                padding-bottom: 30px;
+            }
+
+            /* One column reads best as promise, proof, then the ask, so the
+               download buttons sit below the screenshot rather than above it.
+               display: contents lets the text block's children reorder against
+               the stage without duplicating the buttons in the markup. */
+            .hero-container {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 0;
+                text-align: center;
+            }
+
+            .hero-content {
+                display: contents;
+            }
+
+            .hero-kicker { order: 1; }
+            .tagline { order: 2; }
+
+            .hero-copy {
+                order: 3;
+                margin-inline: auto;
+            }
+
+            .hero-stage {
+                order: 4;
+                margin-top: 22px;
+            }
+
+            .cta-buttons {
+                order: 5;
+                margin-top: 24px;
+                justify-content: center;
+            }
+
+            .js .hero .hero-stage { animation-delay: 0.26s; }
+            .js .hero .cta-buttons { animation-delay: 0.32s; }
+
+            .workflow-mascots {
+                gap: 40px;
+                margin: 2px auto 10px;
+            }
+
+            .workflow-mascots img {
+                height: 56px;
+            }
+
+            .tagline {
+                font-size: 2rem;
+                padding: 0 6px;
+            }
+
+            .hero-copy {
+                font-size: 0.95rem;
+            }
+
+            .integration-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .integration-spine {
+                width: auto;
+                height: 1px;
+                background: linear-gradient(
+                    to right,
+                    transparent,
+                    var(--border-color) 18%,
+                    var(--border-color) 82%,
+                    transparent
+                );
+            }
+
+            .integration-spine svg {
+                transform: rotate(90deg);
+            }
+
+            .guide-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                padding: 18px 10px;
+                margin: 0 -10px;
+            }
+
+            .guide-row::after {
+                display: none;
+            }
+
+            .site-nav-inner {
+                padding: 10px 16px;
+            }
+
+            .nav-links {
+                gap: 14px;
+                font-size: 0.86rem;
+            }
+
+            .section-title {
+                font-size: 1.55rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .hero-visual-row {
+                margin: 6px auto 0;
+            }
+
+            .phone-frame {
+                width: min(250px, 100%);
+                padding: 5px;
+                border-radius: 36px;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--hairline-faint);
+            }
+
+            .phone-frame img {
+                border-radius: 31px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .workflow-steps,
+            .features {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+
+            /* On a phone the hero has to earn its height. The screenshot is the
+               argument, so the block above it gets tighter - not just smaller -
+               and the two download paths stop carrying equal weight. */
+            .hero {
+                padding-top: 12px;
+            }
+
+            .hero-kicker {
+                font-size: 0.72rem;
+            }
+
+            .tagline {
+                font-size: clamp(1.6rem, 7.6vw, 1.95rem);
+                line-height: 1.14;
+                padding: 0;
+            }
+
+            .hero-copy {
+                font-size: 0.92rem;
+                line-height: 1.5;
+                margin-top: 12px;
+                max-width: 36ch;
+            }
+
+            .cta-buttons {
+                gap: 10px;
+                margin-top: 20px;
+            }
+
+            .cta-buttons .btn {
+                padding: 12px 18px;
+                font-size: 0.92rem;
+            }
+
+            .cta-buttons .btn-secondary {
+                padding: 11px 18px;
+                font-size: 0.88rem;
+            }
+
+            .phone-frame {
+                width: min(232px, 100%);
+            }
+
+            .carousel-caption {
+                margin-top: 16px;
+                font-size: 1rem;
+            }
+
+            .feature-chips {
+                margin-top: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .brand-link span {
+                display: none;
+            }
+        }
+
+        @media print {
+            .js .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .js .hero .hero-kicker,
+            .js .hero .tagline,
+            .js .hero .hero-copy,
+            .js .hero .hero-stage,
+            .js .hero .cta-buttons {
+                animation: none;
+            }
+
+            .js .feature-chip.active::after {
+                animation: none;
+            }
+
+            .phone-frame img {
+                transition: none;
+            }
+
+            .js .reveal {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            .carousel-caption-item,
+            .guide-row::after,
+            .btn {
+                transition: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- nav:start -->
+    <nav class="site-nav" aria-label="Site navigation">
+        <div class="site-nav-inner">
+            <a class="brand-link" href="#top">
+                <img src="assets/icon.png" alt="" width="30" height="30">
+                <span>Route Companion</span>
+            </a>
+            <div class="nav-links">
+                <a href="tools/">Tools</a>
+                <a href="guides/">Guides</a>
+                <span class="theme-switcher">
+                    <button type="button" class="theme-toggle" data-theme-toggle aria-expanded="false" aria-haspopup="menu" aria-controls="website-theme-menu" aria-label="Appearance">
+                        <svg class="theme-toggle-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+                        <svg class="theme-toggle-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+                    </button>
+                    <span class="theme-menu" id="website-theme-menu" role="menu" data-open="false">
+                        <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="system" aria-checked="true">Match system<span class="theme-check" aria-hidden="true"></span></button>
+                        <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="light" aria-checked="false">Light mode<span class="theme-check" aria-hidden="true"></span></button>
+                        <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="dark" aria-checked="false">Dark mode<span class="theme-check" aria-hidden="true"></span></button>
+                    </span>
+                </span>
+                <a class="nav-cta" href="https://apps.apple.com/app/id6758202473">App Store</a>
+            </div>
+        </div>
+    </nav>
+    <!-- nav:end -->
+    <header class="hero" id="top">
+        <div class="hero-backdrop" aria-hidden="true"></div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <p class="hero-kicker">For Cycling, Running & Hiking</p>
+                <h1 class="tagline">Know your route. Find what you need along it.</h1>
+                <p class="hero-copy">Check weather along the route, find useful stops, plan your fuel, and export to Garmin, Wahoo, and Hammerhead. For cycling, running, and hiking.</p>
+                <div class="cta-buttons">
+                    <a href="https://apps.apple.com/app/id6758202473" class="btn btn-primary">
+                        <svg viewBox="0 0 384 512" width="20" height="20" fill="currentColor" style="margin-right: 8px; margin-bottom: -2px;">
+                            <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 52.3-11.4 69.5-34.3z"/>
+                        </svg>
+                        Download on the App Store
+                    </a>
+                    <a href="android-beta.html" class="btn btn-secondary">
+                        <svg viewBox="0 0 576 512" width="20" height="20" fill="currentColor" style="margin-right: 8px; margin-bottom: -2px;">
+                            <path d="M420.55,301.93a24,24,0,1,1,24-24,24,24,0,0,1-24,24m-265.1,0a24,24,0,1,1,24-24,24,24,0,0,1-24,24m273.7-144.48,47.94-83a10,10,0,1,0-17.27-9.94l-48.35,84a302.3,302.3,0,0,0-246.94,0l-48.35-84a10,10,0,1,0-17.27,9.94l47.94,83C64.53,202.22,8.24,285.55,0,384H576c-8.24-98.45-64.54-181.78-146.85-226.55"/>
+                        </svg>
+                        Join Android Beta
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-stage" id="hero-stage">
+                <div class="hero-visual-row">
+                <div class="phone-frame visible" data-slot="center" aria-live="polite">
+                    <div class="phone-drift">
+                        <picture>
+                            <source srcset="screenshots/1.webp" type="image/webp">
+                            <img src="screenshots/1.png" alt="Route Companion - Route weather hour by hour" decoding="async" fetchpriority="high" width="640" height="1386">
+                        </picture>
+                    </div>
+                </div>
+                </div>
+                <div class="carousel-caption" id="carousel-caption" aria-live="polite"><span class="carousel-caption-item active">Weather hour by hour</span></div>
+                <div class="feature-chips" id="feature-chips" aria-label="App screens">
+                    <button type="button" class="feature-chip active" data-screen="0" aria-pressed="true"><span class="feature-chip-label">Weather</span></button>
+                    <button type="button" class="feature-chip" data-screen="1" aria-pressed="false"><span class="feature-chip-label">Stops</span></button>
+                    <button type="button" class="feature-chip" data-screen="2" aria-pressed="false"><span class="feature-chip-label">Navigate</span></button>
+                    <button type="button" class="feature-chip" data-screen="3" aria-pressed="false"><span class="feature-chip-label">Heatmap</span></button>
+                    <button type="button" class="feature-chip" data-screen="4" aria-pressed="false"><span class="feature-chip-label">Discover</span></button>
+                    <button type="button" class="feature-chip" data-screen="5" aria-pressed="false"><span class="feature-chip-label">Suggestion</span></button>
+                    <button type="button" class="feature-chip" data-screen="6" aria-pressed="false"><span class="feature-chip-label">Fuel</span></button>
+                    <button type="button" class="feature-chip" data-screen="7" aria-pressed="false"><span class="feature-chip-label">Home screen</span></button>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <div class="section-divider"></div>
+
+    <div class="section-divider"></div>
+
+    <!-- How it works -->
+    <section class="workflow-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">How It Works</p>
+                <div class="workflow-mascots" aria-hidden="true">
+                    <img src="assets/mascot/runner.svg" alt="" height="72" decoding="async">
+                    <img src="assets/mascot/cyclist.svg" alt="" height="72" decoding="async">
+                </div>
+                <h2 class="section-title">One loop, from route to ride</h2>
+                <p class="section-subtitle">Bring a route in, check conditions, find stops before and during your ride, and navigate with alerts.</p>
+            </div>
+            <div class="workflow-steps">
+                    <svg class="workflow-line" viewBox="0 0 100 20" preserveAspectRatio="none" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="workflow-grad" x1="0" x2="1" y1="0" y2="0">
+                                <stop offset="0" style="stop-color: var(--fjord-300); stop-opacity: 0.5"></stop>
+                                <stop offset="0.5" style="stop-color: var(--primary-light)"></stop>
+                                <stop offset="1" style="stop-color: var(--fjord-300); stop-opacity: 0.5"></stop>
+                            </linearGradient>
+                        </defs>
+                        <path d="M0,10 C8,5 25,5 33.33,10 C41.7,15 58.3,15 66.67,10 C75,5 92,5 100,10"></path>
+                    </svg>
+                <div class="workflow-step">
+                    <span class="workflow-number">01</span>
+                    <h3>Import or plan</h3>
+                    <p>Load a GPX, pull from Strava, or plan a route from scratch.</p>
+                </div>
+                <div class="workflow-step">
+                    <span class="workflow-number">02</span>
+                    <h3>Check conditions</h3>
+                    <p>See weather, wind, precipitation, and air quality along the route.</p>
+                </div>
+                <div class="workflow-step">
+                    <span class="workflow-number">03</span>
+                    <h3>Find stops</h3>
+                    <p>Search for water, food, bike shops, and many more stop types on-route.</p>
+                </div>
+                <div class="workflow-step">
+                    <span class="workflow-number">04</span>
+                    <h3>Ride</h3>
+                    <p>Navigate with alerts, find stops on the fly, and track your progress on the Lock Screen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Features -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Features</p>
+                <h2 class="section-title">Everything centers on the route</h2>
+            </div>
+            <!-- Icons: Font Awesome Free 7 by @fontawesome, https://fontawesome.com/license/free (CC BY 4.0).
+                 Inlined as paths rather than loaded as a webfont, so the site makes no third-party request. -->
+            <div class="features">
+                <div class="feature-item" data-feature="weather"><svg class="feature-icon" viewBox="0 0 640 512" aria-hidden="true"><path fill="currentColor" d="M254.9 448.2c4.2-12.6 17.8-19.4 30.3-15.2 12.6 4.2 19.4 17.8 15.2 30.4l-21.4 64.1c-4.2 12.6-17.8 19.4-30.4 15.2s-19.4-17.8-15.2-30.3l21.4-64.2zm120 0c4.2-12.6 17.8-19.4 30.3-15.2 12.6 4.2 19.4 17.8 15.2 30.4l-21.4 64.1c-4.2 12.6-17.8 19.4-30.4 15.2s-19.4-17.8-15.2-30.3l21.4-64.2zm120 0c4.2-12.6 17.8-19.4 30.3-15.2 12.6 4.2 19.4 17.8 15.2 30.4l-21.4 64.1c-4.2 12.6-17.8 19.4-30.4 15.2s-19.4-17.8-15.2-30.3l21.4-64.2zM448.3 128c44.2 0 80 35.8 80 80 0 7.5-1.1 14.7-3 21.5 29.8 11.6 51 40.6 51 74.5 0 44.2-35.8 80-80 80l-192 0-8.2-.4c-40.3-4.1-71.8-38.2-71.8-79.6 0-39 27.9-71.5 64.9-78.5-.5-3.1-.9-6.2-.9-9.5 0-30.9 25.1-56 56-56 12.4 0 23.9 4.1 33.2 10.9 13.4-25.5 40.1-42.9 70.8-42.9zM240.3-31.8c5.3 0 10.3 2.7 13.3 7.1l47.3 70.4 83.3-16.3c5.2-1 10.6 .7 14.3 4.4 3.8 3.8 5.4 9.2 4.4 14.4l-8.6 43.8c-11.9 5.5-22.8 12.9-32.4 21.6-5.7-1-11.7-1.5-17.7-1.5-14.3 0-28 3-40.4 8.2-16.9-15-39.2-24.2-63.6-24.2-53 0-96 43-96 96 0 30.9 14.6 58.2 37.2 75.8-3.4 11.5-5.2 23.6-5.2 36.2 0 13.2 2 25.9 5.7 37.9l-2.4-3.5-83.2 16.3c-5.2 1-10.6-.7-14.3-4.4-3.8-3.8-5.4-9.2-4.4-14.4l16.3-83.3-70.4-47.4c-4.4-3-7.1-8-7.1-13.3 0-5.3 2.6-10.3 7-13.2l70.4-47.4-16.3-83.2-.2-2c-.3-4.6 1.3-9.1 4.6-12.4 3.8-3.8 9.2-5.4 14.4-4.4l83.2 16.3 47.3-70.4 1.2-1.6c3-3.5 7.4-5.5 12.1-5.5zm0 175.8c8.6 0 16.6 2.3 23.6 6.2-9.7 11.9-16.9 25.9-20.7 41.3-15 8.1-28.2 19.2-38.8 32.3-7.5-8.5-12.2-19.6-12.2-31.8 0-26.5 21.5-48 48-48z"></path></svg><h3>Weather along the route</h3><p>See hourly weather, wind, precipitation, AQI, and outfit guidance mapped to where you'll actually be on the route.</p></div>
+                <div class="feature-item" data-feature="stops"><svg class="feature-icon" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M0 188.6C0 84.4 86 0 192 0S384 84.4 384 188.6c0 119.3-120.2 262.3-170.4 316.8-11.8 12.8-31.5 12.8-43.3 0-50.2-54.5-170.4-197.5-170.4-316.8zM192 256a64 64 0 1 0 0-128 64 64 0 1 0 0 128z"></path></svg><h3>Smart stop search</h3><p>Water, cafes, bike shops and shelters along the route. Auto-Mark marks them at intervals, Quick Find finds the nearest.</p></div>
+                <div class="feature-item" data-feature="fuel"><svg class="feature-icon" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M153.6 29.9l16-21.3C173.6 3.2 180 0 186.7 0 198.4 0 208 9.6 208 21.3l0 22.1c0 13.1 5.4 25.7 14.9 34.7L307.6 159C356.4 205.6 384 270.2 384 337.7 384 434 306 512 209.7 512L192 512C86 512 0 426 0 320l0-3.8c0-48.8 19.4-95.6 53.9-130.1l3.5-3.5c4.2-4.2 10-6.6 16-6.6 12.5 0 22.6 10.1 22.6 22.6L96 288c0 35.3 28.7 64 64 64s64-28.7 64-64l0-3.9c0-18-7.2-35.3-19.9-48l-38.6-38.6c-24-24-37.5-56.7-37.5-90.7 0-27.7 9-54.8 25.6-76.9z"></path></svg><h3>Fuel Your Ride</h3><p>Estimate carbs per hour, hydration, drink mix, and what to pack based on distance, elevation, and conditions.</p></div>
+                <div class="feature-item" data-feature="record"><svg class="feature-icon" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M224 0c-17.7 0-32 14.3-32 32l0 3.2C119 50 64 114.6 64 192l0 21.7c0 48.1-16.4 94.8-46.4 132.4L7.8 358.3C2.7 364.6 0 372.4 0 380.5 0 400.1 15.9 416 35.5 416l376.9 0c19.6 0 35.5-15.9 35.5-35.5 0-8.1-2.7-15.9-7.8-22.2l-9.8-12.2C400.4 308.5 384 261.8 384 213.7l0-21.7c0-77.4-55-142-128-156.8l0-3.2c0-17.7-14.3-32-32-32zM162 464c7.1 27.6 32.2 48 62 48s54.9-20.4 62-48l-124 0z"></path></svg><h3>Alerts, Widgets &amp; Live Activity</h3><p>Voice alerts as you approach a stop, weather on your home screen, and your next stop on the lock screen.</p></div>
+                <div class="feature-item" data-feature="export"><svg class="feature-icon" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64l0 240 182.1 0-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l72 72c9.4 9.4 9.4 24.6 0 33.9l-72 72c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-182.1 0 0 96c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-277.5c0-17-6.7-33.3-18.7-45.3L258.7 18.7C246.7 6.7 230.5 0 213.5 0L64 0zM325.5 176L232 176c-13.3 0-24-10.7-24-24L208 58.5 325.5 176z"></path></svg><h3>Import or plan</h3><p>Load a file, pull from the services you already use, or plan your own for road, gravel, MTB, running and hiking.</p></div>
+                <div class="feature-item" data-feature="import"><svg class="feature-icon" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M384 192c53 0 96-43 96-96s-43-96-96-96-96 43-96 96c0 5.4 .5 10.8 1.3 16L159.6 184.1c-16.9-15-39.2-24.1-63.6-24.1-53 0-96 43-96 96s43 96 96 96c24.4 0 46.6-9.1 63.6-24.1L289.3 400c-.9 5.2-1.3 10.5-1.3 16 0 53 43 96 96 96s96-43 96-96-43-96-96-96c-24.4 0-46.6 9.1-63.6 24.1L190.7 272c.9-5.2 1.3-10.5 1.3-16s-.5-10.8-1.3-16l129.7-72.1c16.9 15 39.2 24.1 63.6 24.1z"></path></svg><h3>Export to devices</h3><p>Send course points to Garmin and Wahoo. Upload GPX routes to Hammerhead, Garmin Connect, and other apps.</p></div>
+                <div class="feature-item" data-feature="discover"><svg class="feature-icon" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm50.7-186.9L162.4 380.6c-19.4 7.5-38.5-11.6-31-31l55.5-144.3c3.3-8.5 9.9-15.1 18.4-18.4l144.3-55.5c19.4-7.5 38.5 11.6 31 31L325.1 306.7c-3.2 8.5-9.9 15.1-18.4 18.4zM288 256a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z"></path></svg><h3>Discover routes nearby</h3><p>Popular cycling, running, and hiking routes around you, ready to check, mark, and ride.</p></div>
+                <div class="feature-item" data-feature="plan"><svg class="feature-icon" viewBox="0 0 448 512" aria-hidden="true"><path fill="currentColor" d="M128 0c17.7 0 32 14.3 32 32l0 32 128 0 0-32c0-17.7 14.3-32 32-32s32 14.3 32 32l0 32 32 0c35.3 0 64 28.7 64 64l0 288c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 128C0 92.7 28.7 64 64 64l32 0 0-32c0-17.7 14.3-32 32-32zm0 256c-17.7 0-32 14.3-32 32l0 64c0 17.7 14.3 32 32 32l64 0c17.7 0 32-14.3 32-32l0-64c0-17.7-14.3-32-32-32l-64 0z"></path></svg><h3>A route picked for you</h3><p>A daily suggestion from the routes around you, with a nudge toward roads you have not ridden yet.</p></div>
+                <div class="feature-item" data-feature="stops"><svg class="feature-icon" viewBox="0 0 640 512" aria-hidden="true"><path fill="currentColor" d="M320 16a104 104 0 1 1 0 208 104 104 0 1 1 0-208zM96 88a72 72 0 1 1 0 144 72 72 0 1 1 0-144zM0 416c0-70.7 57.3-128 128-128 12.8 0 25.2 1.9 36.9 5.4-32.9 36.8-52.9 85.4-52.9 138.6l0 16c0 11.4 2.4 22.2 6.7 32L32 480c-17.7 0-32-14.3-32-32l0-32zm521.3 64c4.3-9.8 6.7-20.6 6.7-32l0-16c0-53.2-20-101.8-52.9-138.6 11.7-3.5 24.1-5.4 36.9-5.4 70.7 0 128 57.3 128 128l0 32c0 17.7-14.3 32-32 32l-86.7 0zM472 160a72 72 0 1 1 144 0 72 72 0 1 1 -144 0zM160 432c0-88.4 71.6-160 160-160s160 71.6 160 160l0 16c0 17.7-14.3 32-32 32l-256 0c-17.7 0-32-14.3-32-32l0-16z"></path></svg><h3>Share the plan with your group</h3><p>One link carrying the route, the marked stops and the start time, so everyone arrives having seen the same plan.</p></div>
+                <div class="feature-item" data-feature="activities"><svg class="feature-icon" viewBox="0 0 512 512" aria-hidden="true"><path fill="currentColor" d="M232.5 5.2c14.9-6.9 32.1-6.9 47 0l218.6 101c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L13.9 149.8C5.4 145.8 0 137.3 0 128s5.4-17.9 13.9-21.8L232.5 5.2zM48.1 218.4l164.3 75.9c27.7 12.8 59.6 12.8 87.3 0l164.3-75.9 34.1 15.8c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L13.9 277.8C5.4 273.8 0 265.3 0 256s5.4-17.9 13.9-21.8l34.1-15.8zM13.9 362.2l34.1-15.8 164.3 75.9c27.7 12.8 59.6 12.8 87.3 0l164.3-75.9 34.1 15.8c8.5 3.9 13.9 12.4 13.9 21.8s-5.4 17.9-13.9 21.8l-218.6 101c-14.9 6.9-32.1 6.9-47 0L13.9 405.8C5.4 401.8 0 393.3 0 384s5.4-17.9 13.9-21.8z"></path></svg><h3>Every road you've ridden</h3><p>A heatmap of your rides, so you can see where you have been and pick somewhere new.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Integrations -->
+    <section class="integrations-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Import & Export</p>
+                <h2 class="section-title">Bring routes in. Send them out ready</h2>
+                <p class="section-subtitle">Use Route Companion between the route sources you already rely on and the devices you ride with.</p>
+            </div>
+
+            <div class="integration-grid">
+                <div class="integration-card is-in">
+                    <h3><svg class="integration-icon" viewBox="0 0 384 512" aria-hidden="true"><path fill="currentColor" d="M64 0C28.7 0 0 28.7 0 64l0 240 182.1 0-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l72 72c9.4 9.4 9.4 24.6 0 33.9l-72 72c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-182.1 0 0 96c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-277.5c0-17-6.7-33.3-18.7-45.3L258.7 18.7C246.7 6.7 230.5 0 213.5 0L64 0zM325.5 176L232 176c-13.3 0-24-10.7-24-24L208 58.5 325.5 176z"></path></svg>Import from files and services</h3>
+                    <p>Load files directly or connect to the services you already use.</p>
+                    <div class="integration-pills">
+                        <span class="integration-pill is-format">GPX</span>
+                        <span class="integration-pill is-format">TCX</span>
+                        <span class="integration-pill is-format">FIT</span>
+                        <span class="integration-pill">Strava</span>
+                        <span class="integration-pill">Komoot</span>
+                        <span class="integration-pill">Ride with GPS</span>
+                    </div>
+                </div>
+
+                <div class="integration-spine" aria-hidden="true"><svg class="integration-arrow" viewBox="0 0 512 512" aria-hidden="true"><defs><linearGradient id="flowArrow" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--flow-in)"></stop><stop offset="1" stop-color="var(--flow-out)"></stop></linearGradient></defs><path fill="url(#flowArrow)" d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l370.7 0-105.4 105.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></div>
+
+                <div class="integration-card is-out">
+                    <h3><svg class="integration-icon" viewBox="0 0 576 512" aria-hidden="true"><path fill="currentColor" d="M96.5 0c-35.3 0-64 28.7-64 64l0 384c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-96 78.1 0-31 31c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l72-72c9.4-9.4 9.4-24.6 0-33.9l-72-72c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l31 31-78.1 0 0-133.5c0-17-6.7-33.3-18.7-45.3L291.2 18.7C279.2 6.7 263 0 246 0L96.5 0zM358 176l-93.5 0c-13.3 0-24-10.7-24-24L240.5 58.5 358 176zM224.5 328c0-13.3 10.7-24 24-24l104 0 0 48-104 0c-13.3 0-24-10.7-24-24z"></path></svg>Export to devices and apps</h3>
+                    <p>Direct export to Garmin, Wahoo, and Hammerhead. Standard formats for everything else.</p>
+                    <div class="integration-pills">
+                        <span class="integration-pill is-format">GPX</span>
+                        <span class="integration-pill is-format">TCX</span>
+                        <span class="integration-pill is-format">FIT</span>
+                        <span class="integration-pill">Garmin</span>
+                        <span class="integration-pill">Wahoo</span>
+                        <span class="integration-pill">Garmin Connect</span>
+                        <span class="integration-pill">Hammerhead</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Free tools -->
+    <section class="guides-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Free Web Tools</p>
+                <h2 class="section-title">Try the engines in your browser</h2>
+                <p class="section-subtitle">Three of the app's ride-prep engines, free to use in your browser.</p>
+            </div>
+
+            <div class="guide-list">
+                <a class="guide-row" href="tools/route-weather.html">
+                    <h3>Route weather from a GPX</h3>
+                    <p>Temperature, rain, and headwind or tailwind along your route at your speed. Your file never leaves the browser.</p>
+                </a>
+                <a class="guide-row" href="tools/tyre-pressure.html">
+                    <h3>Tyre pressure calculator</h3>
+                    <p>Front and rear pressure from rider weight, tyre width, surface, and setup. Road, gravel, MTB, and loaded touring.</p>
+                </a>
+                <a class="guide-row" href="tools/fueling.html">
+                    <h3>Fueling calculator</h3>
+                    <p>Carbs per hour, hydration, and a concrete pack list from distance, climbing, effort, and temperature.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Guides -->
+    <section class="guides-section">
+        <div class="container">
+            <div class="section-intro">
+                <p class="section-kicker">Route Prep Guides</p>
+                <h2 class="section-title">The thinking behind the app</h2>
+                <p class="section-subtitle">Route Companion turns a route into practical decisions: what to wear, how much to carry, where to refill, and which stops are actually ahead. These pages explain the logic without hiding behind the app.</p>
+            </div>
+
+            <div class="guide-list">
+                <a class="guide-row" href="guides/cycling-weather-clothing.html">
+                    <h3>What to wear cycling</h3>
+                    <p>Why descents, rain timing, wind, and the return commute matter more than one forecast number.</p>
+                </a>
+                <a class="guide-row" href="guides/running-weather-clothing.html">
+                    <h3>What to wear running</h3>
+                    <p>Why runners need a lighter kit model, and how effort, rain, wind, and darkness change the call.</p>
+                </a>
+                <a class="guide-row" href="guides/cycling-fueling.html">
+                    <h3>Fueling and hydration</h3>
+                    <p>Carbs, bottles, cheap drink mix, refill gaps, and packing enough without filling every pocket.</p>
+                </a>
+                <a class="guide-row" href="guides/cycling-tyre-pressure.html">
+                    <h3>Cycling tyre pressure</h3>
+                    <p>Why measured width, rider/system weight, surface, casing, and mixed terrain matter more than the number printed on the tyre.</p>
+                </a>
+                <a class="guide-row" href="guides/route-stops.html">
+                    <h3>Find stops along a route</h3>
+                    <p>Water, food, gas stations, toilets, repair options, and why a stop behind you is not a stop.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- footer:start -->
+    <footer class="footer">
+        <p class="footer-links">
+            <a href="tools/">Tools</a>
+            <span class="dot">&middot;</span>
+            <a href="guides/">Guides</a>
+            <span class="dot">&middot;</span>
+            <a href="https://www.instagram.com/route_companion_app/" rel="me noopener" target="_blank">Instagram</a>
+            <span class="dot">&middot;</span>
+            <a href="privacy.html">Privacy Policy</a>
+            <span class="dot">&middot;</span>
+            <a href="terms.html">Terms of Service</a>
+            <span class="dot">&middot;</span>
+            <a href="mailto:support@routecompanion.app">Support</a>
+        </p>
+        <p class="footer-copyright">&copy; 2026 Route Companion. All rights reserved.</p>
+    </footer>
+    <!-- footer:end -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var SCREENS = [
+                { file: '1', caption: 'Weather hour by hour', detail: 'Route Companion samples the forecast where you will actually be, hour by hour, instead of where you are standing when you check.', alt: 'Route Companion - Route weather hour by hour' },
+                { file: '2', caption: 'Find stops along the way', detail: 'Search the whole route for water, cafes, food, toilets, shelter, and bike shops, then mark only the ones that fall where you will actually want them.', alt: 'Route Companion - Find stops along your route' },
+                { file: '4', caption: 'Navigate with stop alerts', detail: 'While you ride, the next marked stop is announced before you reach it, by voice and by notification, so you do not ride past it looking at the road.', alt: 'Route Companion - Navigate with alerts' },
+                { file: '7', caption: "Every road you've ridden", detail: 'A heatmap of your rides, so you can see where you have been and pick somewhere new.', alt: "Every road you've ridden" },
+                { file: '8', caption: 'Discover routes nearby', detail: 'Popular cycling, running, and hiking routes around you, ready to check, mark, and ride.', alt: 'Discover routes nearby' },
+                { file: '10', caption: 'A route picked for you', detail: 'A daily suggestion from the routes around you, with a nudge toward roads you have not ridden yet.', alt: 'A route picked for you' },
+                { file: '3', caption: 'Plan your fuel and hydration', detail: 'Distance, climbing, effort, and temperature turn into an amount, and the amount turns into a pack list you can put in a jersey pocket.', alt: 'Route Companion - Plan your fuel' },
+                { file: '9', caption: 'Alerts, Widgets & Live Activity', detail: 'Voice alerts as you approach a stop, weather on your home screen, and your next stop on the lock screen.', alt: 'Alerts, Widgets & Live Activity' }
+            ];
+            var DWELL = 6500;
+            var stage = document.getElementById('hero-stage');
+            var frame = document.querySelector('.phone-frame[data-slot="center"]');
+            var caption = document.getElementById('carousel-caption');
+            var chipBar = document.getElementById('feature-chips');
+            var chips = Array.prototype.slice.call(chipBar.querySelectorAll('.feature-chip'));
+            var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var current = 0;
+            var timer = null;
+            var startedAt = 0;
+            var remaining = DWELL;
+            var paused = false;
+            var pendingSwaps = [];
+
+            stage.style.setProperty('--dwell', DWELL + 'ms');
+
+            function wrap(i) {
+                return (i + SCREENS.length) % SCREENS.length;
+            }
+
+            function imageFor(frame) {
+                return frame.querySelector('img');
+            }
+
+            function applyScreen(frame, screen) {
+                var source = frame.querySelector('source');
+                var img = imageFor(frame);
+                if (source) source.srcset = 'screenshots/' + screen.file + '.webp';
+                img.src = 'screenshots/' + screen.file + '.png';
+                img.alt = screen.alt;
+            }
+
+            function swapScreen(frame, screen, delay) {
+                if (imageFor(frame).alt === screen.alt) return;
+                if (reduced) {
+                    applyScreen(frame, screen);
+                    return;
+                }
+                pendingSwaps.push(setTimeout(function () {
+                    frame.classList.add('swapping');
+                    pendingSwaps.push(setTimeout(function () {
+                        applyScreen(frame, screen);
+                        frame.classList.remove('swapping');
+                    }, 320));
+                }, delay));
+            }
+
+            function clearPending() {
+                pendingSwaps.forEach(clearTimeout);
+                pendingSwaps = [];
+                frame.classList.remove('swapping');
+            }
+
+            // One element per caption, toggled by class; the text itself never changes.
+            caption.innerHTML = '';
+            var captionItems = SCREENS.map(function (screen) {
+                var item = document.createElement('span');
+                item.className = 'carousel-caption-item';
+                var head = document.createElement('strong');
+                head.className = 'carousel-caption-head';
+                head.textContent = screen.caption;
+                var detail = document.createElement('span');
+                detail.className = 'carousel-caption-detail';
+                detail.textContent = screen.detail;
+                item.appendChild(head);
+                item.appendChild(detail);
+                caption.appendChild(item);
+                return item;
+            });
+
+            function setCaption(index) {
+                captionItems.forEach(function (item, i) {
+                    item.classList.toggle('active', i === index);
+                });
+            }
+
+            // The pill expands to exactly its own label, so the growth reads as
+            // the word arriving rather than a box easing towards an arbitrary width.
+            // Every pill reserves the widest label, so the row keeps one width and
+            // the dots stay put instead of re-centring on each advance.
+            // Every pill reserves the widest label so the row keeps one width.
+            //
+            // This used to read label.scrollWidth, which is measured on a box that
+            // is `max-width: 0; overflow: hidden`. That is unreliable twice over:
+            // scrollWidth is an integer and rounds down, and engines disagree on
+            // whether it reports content width or padding-box width on a clipped
+            // box - some return 0. When some chips measured and others returned 0,
+            // --label-w came out too small and every longer label clipped, which
+            // `.hero { overflow: hidden }` then rendered as a hard cut. Measure a
+            // clone outside the clipping context with sub-pixel geometry instead.
+            function measureLabels() {
+                var probe = document.createElement('span');
+                probe.style.cssText =
+                    'position:absolute;visibility:hidden;white-space:nowrap;' +
+                    'max-width:none;left:-9999px;top:0';
+                chipBar.appendChild(probe);
+                var widest = 0;
+                chips.forEach(function (chip) {
+                    var label = chip.querySelector('.feature-chip-label');
+                    if (!label) return;
+                    chip.title = label.textContent;
+                    probe.className = label.className;
+                    probe.textContent = label.textContent;
+                    widest = Math.max(widest, probe.getBoundingClientRect().width);
+                });
+                chipBar.removeChild(probe);
+                if (!widest) return;
+                // +1 absorbs the ceil boundary.
+                chipBar.style.setProperty('--label-w', Math.ceil(widest) + 1 + 'px');
+            }
+            measureLabels();
+
+            function setActiveChip(index) {
+                chips.forEach(function (chip, i) {
+                    var active = i === index;
+                    chip.classList.remove('active');
+                    chip.setAttribute('aria-pressed', active ? 'true' : 'false');
+                    if (active) {
+                        // Reflow so the progress animation restarts from zero.
+                        void chip.offsetWidth;
+                        chip.classList.add('active');
+                    }
+                });
+            }
+
+            function show(index) {
+                clearPending();
+                current = wrap(index);
+                swapScreen(frame, SCREENS[current], 0);
+                setCaption(current);
+                setActiveChip(current);
+            }
+
+            function stopTimer() {
+                clearTimeout(timer);
+                timer = null;
+            }
+
+            function schedule(ms) {
+                stopTimer();
+                if (reduced) return;
+                startedAt = Date.now();
+                remaining = ms;
+                timer = setTimeout(function () {
+                    show(current + 1);
+                    schedule(DWELL);
+                }, ms);
+            }
+
+            function pause() {
+                if (paused || reduced) return;
+                paused = true;
+                stage.classList.add('paused');
+                if (timer) {
+                    remaining = Math.max(400, remaining - (Date.now() - startedAt));
+                    stopTimer();
+                }
+            }
+
+            function resume() {
+                if (!paused) return;
+                paused = false;
+                stage.classList.remove('paused');
+                schedule(remaining);
+            }
+
+            chips.forEach(function (chip, i) {
+                chip.addEventListener('click', function () {
+                    show(i);
+                    schedule(DWELL);
+                });
+            });
+
+            stage.addEventListener('mouseenter', pause);
+            stage.addEventListener('mouseleave', resume);
+            stage.addEventListener('focusin', pause);
+            stage.addEventListener('focusout', function (event) {
+                if (!stage.contains(event.relatedTarget)) resume();
+            });
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden) pause(); else resume();
+            });
+
+            // Warm the cache so swaps never show an empty frame.
+            window.addEventListener('load', function () {
+                SCREENS.forEach(function (screen) {
+                    var webp = new Image();
+                    webp.src = 'screenshots/' + screen.file + '.webp';
+                });
+            });
+
+            setCaption(0);
+            setActiveChip(0);
+            schedule(DWELL);
+        });
+    </script>
+    <script>
+        (function () {
+            var nav = document.querySelector('.site-nav');
+            function onScroll() {
+                nav.classList.toggle('scrolled', window.scrollY > 12);
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+
+            var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            // The route line draws itself once, when it comes into view.
+            // pathLength="1" normalises it, so there is nothing to measure.
+            // The route line lives on .workflow-steps, which is also the container
+            // the numbered steps below it are grouped by — so the group observer
+            // set up below drives both, and they start together by construction
+            // rather than by two margins that happen to agree. Two observers with
+            // their own thresholds is how the line ended up a third of a screen
+            // behind its own dots.
+            var track = document.querySelector('.workflow-steps');
+            if (track && !reduced && 'IntersectionObserver' in window) {
+                // Hide it only once we know we can bring it back.
+                track.classList.add('armed');
+                if (track.getBoundingClientRect().bottom < 0) {
+                    // Already scrolled past on load: show it drawn rather than
+                    // leaving a gap that never fills.
+                    track.classList.add('in');
+                }
+            }
+
+            var items = document.querySelectorAll('.section-intro, .workflow-step, .feature-item, .integration-card, .guide-row');
+            if (reduced || !('IntersectionObserver' in window)) return;
+            // Group by container, and observe the container rather than each
+            // item. Observed individually, a list came in four of five and held
+            // the last one back until you scrolled further — the reveal read as
+            // the page still loading rather than as a list arriving. A group is
+            // one thing: once it starts, all of it comes in, staggered so it
+            // still reads as a wave.
+            var groups = new Map();
+            items.forEach(function (el) {
+                el.classList.add('reveal');
+                var parent = el.parentElement;
+                var list = groups.get(parent);
+                if (!list) { list = []; groups.set(parent, list); }
+                el.style.setProperty('--reveal-delay', Math.min(list.length, 8) * 70 + 'ms');
+                list.push(el);
+            });
+            var seen = false;
+            var observer = new IntersectionObserver(function (entries) {
+                seen = true;
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    observer.unobserve(entry.target);
+                    // The container reveals too: for .workflow-steps that is what
+                    // draws the route line, so it starts with its own first dot.
+                    // On every other container nothing listens for it.
+                    entry.target.classList.add('in');
+                    var list = groups.get(entry.target) || [];
+                    for (var i = 0; i < list.length; i++) list[i].classList.add('in');
+                });
+            }, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
+            groups.forEach(function (list, parent) { observer.observe(parent); });
+            // A working observer reports on a new target straight away,
+            // intersecting or not. If nothing ever arrives, this view never
+            // intersects anything - a hidden tab, a zero-height frame - and the
+            // line would stay armed and invisible for good.
+            setTimeout(function () {
+                if (seen || !track) return;
+                observer.disconnect();
+                track.classList.remove('armed');
+            }, 1500);
+        })();
+    </script>
+</body>
+</html>
