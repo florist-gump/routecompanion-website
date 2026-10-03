@@ -1,0 +1,16 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="plate" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#132028"/>
+      <stop offset="1" stop-color="#0A1014"/>
+    </linearGradient>
+  </defs>
+  <!-- Plate: night with one soft tonal step (matches AppLogo.tsx / splash #0D1417 family) -->
+  <rect width="1024" height="1024" fill="url(#plate)" rx="230"/>
+  <!-- Route: one flat teal fill, 100 px, round caps -->
+  <path d="M180 844 Q512 844 512 512 Q512 180 844 180" fill="none" stroke="#2BB8CF" stroke-width="100" stroke-linecap="round"/>
+  <!-- Stop: single white ring -->
+  <circle cx="512" cy="512" r="118" fill="none" stroke="#FFFFFF" stroke-width="46"/>
+  <!-- Live core: signal orange -->
+  <circle cx="512" cy="512" r="44" fill="#FF6A3C"/>
+</svg>
