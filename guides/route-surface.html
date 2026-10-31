@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- theme:start -->
+    <script>
+        (function () {
+            var root = document.documentElement;
+            function stored() {
+                try { return localStorage.getItem('rc-theme'); } catch (e) { return null; }
+            }
+            var saved = stored();
+            if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+            var LABEL = { system: 'Theme: following your system setting', light: 'Theme: light', dark: 'Theme: dark' };
+            function systemDark() {
+                return matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+            function mode() {
+                var t = root.getAttribute('data-theme');
+                return t === 'light' || t === 'dark' ? t : 'system';
+            }
+            // The trigger shows what you are LOOKING AT, not where it came from;
+            // the menu is what says which of the three is active.
+            function resolved() {
+                var m = mode();
+                return m === 'system' ? (systemDark() ? 'dark' : 'light') : m;
+            }
+            function sync() {
+                var m = mode();
+                var triggers = document.querySelectorAll('[data-theme-toggle]');
+                for (var i = 0; i < triggers.length; i++) {
+                    triggers[i].setAttribute('data-appearance', resolved());
+                    triggers[i].setAttribute('title', LABEL[m]);
+                }
+                var options = document.querySelectorAll('[data-theme-choice]');
+                for (var j = 0; j < options.length; j++) {
+                    options[j].setAttribute('aria-checked', String(options[j].dataset.themeChoice === m));
+                }
+            }
+            function choose(next) {
+                if (next === 'system') {
+                    root.removeAttribute('data-theme');
+                    try { localStorage.removeItem('rc-theme'); } catch (err) {}
+                } else {
+                    root.setAttribute('data-theme', next);
+                    try { localStorage.setItem('rc-theme', next); } catch (err) {}
+                }
+                sync();
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                sync();
+                function setOpen(sw, open) {
+                    sw.querySelector('[data-theme-toggle]').setAttribute('aria-expanded', String(open));
+                    sw.querySelector('.theme-menu').dataset.open = String(open);
+                }
+                document.addEventListener('click', function (e) {
+                    var option = e.target.closest && e.target.closest('[data-theme-choice]');
+                    if (option) {
+                        choose(option.dataset.themeChoice);
+                        setOpen(option.closest('.theme-switcher'), false);
+                        option.closest('.theme-switcher').querySelector('[data-theme-toggle]').focus();
+                        return;
+                    }
+                    var trigger = e.target.closest && e.target.closest('[data-theme-toggle]');
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) {
+                        var isMine = !!trigger && all[i].contains(trigger);
+                        var open = isMine && trigger.getAttribute('aria-expanded') !== 'true';
+                        setOpen(all[i], open);
+                    }
+                });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key !== 'Escape') return;
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) setOpen(all[i], false);
+                });
+            });
+            // Nothing stored means follow the OS, including when the OS changes.
+            matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+        })();
+    </script>
+    <!-- theme:end -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>See the surface of your route: paved, gravel and unpaved | Route Companion</title>
+    <meta name="description" content="How Route Companion colors your route line by surface, shows how far you ride on paved, gravel and unpaved ground, and where to find the surface band in route details.">
+    <link rel="canonical" href="https://routecompanion.app/guides/route-surface.html">
+    <meta property="og:title" content="See the surface of your route">
+    <meta property="og:description" content="The route line colored by surface, the distance on each surface, and the surface band under the elevation profile.">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/surface-key.jpg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="/assets/tokens.css" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/assets/language.css">
+    <script src="/assets/language.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "datePublished": "2026-10-15",
+      "dateModified": "2026-10-15",
+      "headline": "See the surface of your route",
+      "description": "How Route Companion colors your route line by surface, shows how far you ride on paved, gravel and unpaved ground, and where to find the surface band in route details.",
+      "author": { "@type": "Organization", "name": "Route Companion" },
+      "publisher": { "@type": "Organization", "name": "Route Companion", "logo": { "@type": "ImageObject", "url": "https://routecompanion.app/assets/icon.png" } },
+      "mainEntityOfPage": "https://routecompanion.app/guides/route-surface.html"
+    }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://routecompanion.app/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://routecompanion.app/guides/"},{"@type":"ListItem","position":3,"name":"See the surface of your route","item":"https://routecompanion.app/guides/route-surface.html"}]}</script>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- nav:start -->
+        <nav class="site-nav" aria-label="Site navigation">
+            <div class="site-nav-inner">
+                <a class="brand-link" href="../index.html">
+                    <img src="../assets/icon.png" alt="" width="30" height="30">
+                    <span>Route Companion</span>
+                </a>
+                <div class="nav-links">
+                    <a href="../tools/">Tools</a>
+                    <a href="../guides/" aria-current="page">Guides</a>
+                    <span class="theme-switcher">
+                        <button type="button" class="theme-toggle" data-theme-toggle aria-expanded="false" aria-haspopup="menu" aria-controls="website-theme-menu" aria-label="Appearance">
+                            <svg class="theme-toggle-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+                            <svg class="theme-toggle-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+                        </button>
+                        <span class="theme-menu" id="website-theme-menu" role="menu" data-open="false">
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="system" aria-checked="true">Match system<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="light" aria-checked="false">Light mode<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="dark" aria-checked="false">Dark mode<span class="theme-check" aria-hidden="true"></span></button>
+                        </span>
+                    </span>
+                    <a class="nav-cta" href="https://apps.apple.com/app/apple-store/id6758202473?pt=117888767&amp;ct=guides&amp;mt=8">App Store</a>
+                </div>
+            </div>
+        </nav>
+        <!-- nav:end -->
+
+        <p class="breadcrumb"><a href="index.html">Guides</a><span>See the surface of your route</span></p>
+        <header class="hero">
+            <div>
+                <p class="kicker">App guide</p>
+                <h1>See the surface of your route</h1>
+                <p class="hero-copy">Route Companion colors the route line by surface, so you can see where the gravel starts before you ride it.</p>
+            </div>
+            <div class="phone-stage">
+                <div class="phone-frame">
+                    <picture>
+                        <source srcset="/screenshots/surface-key.webp" type="image/webp">
+                        <img src="/screenshots/surface-key.jpg" alt="Route Companion map with the Surface key open for Siena to Montalcino: Paved 26.7 km, Gravel 16.1 km, Unpaved 4.3 km, Cobblestone 332 m" width="640" height="1391">
+                    </picture>
+                </div>
+            </div>
+        </header>
+
+        <main class="guide-grid">
+            <aside class="toc" aria-label="Guide sections">
+                <p class="toc-title">On this page</p>
+                <a href="#line">The route line</a>
+                <a href="#key">The Surface key</a>
+                <a href="#details">Route details</a>
+                <a href="#data">Where it comes from</a>
+            </aside>
+
+            <article class="article">
+                <section class="section" id="line">
+                    <h2>Read the route line</h2>
+                    <p>Open a route on the map and its line takes the color and pattern of the surface under it. Each surface has its own, so gravel, unpaved and cobbled sections stand out from the paved ones.</p>
+                    <p>The colors show while you plan. Once you start navigating, the map shows the usual route line.</p>
+                </section>
+
+                <section class="section" id="key">
+                    <h2>Open the Surface key</h2>
+                    <ol class="editorial-list">
+                        <li>Tap Surface at the top right of the map. After a few seconds it shrinks to a short line, which you can tap too.</li>
+                        <li>Read how far the route runs on each surface it has, such as Paved, Likely paved, Gravel, Unpaved and Cobblestone.</li>
+                        <li>Tap Turn off surface colors if you want a plain line. Turn them on again in Map options.</li>
+                    </ol>
+                </section>
+
+                <section class="section" id="details">
+                    <h2>See the surface along the profile</h2>
+                    <ol class="editorial-list">
+                        <li>Tap the route's name at the bottom of the screen to open its details.</li>
+                        <li>Look under Elevation and surface.</li>
+                    </ol>
+                    <p>A bar under the elevation profile shows each surface where it falls along the route, and the legend gives each one's share in percent. You can see whether the gravel comes on a climb, a descent or the flat.</p>
+                </section>
+
+                <section class="section" id="data">
+                    <h2>Where the surface comes from</h2>
+                    <p>Surfaces come from OpenStreetMap, so they are only as good as the local mapping. Where nobody has mapped the surface of a stretch, the app shows it as Unknown. Treat a short gravel or cobbled stretch as a lead, and check it if it decides which bike or tyres you take.</p>
+                    <div class="button-row">
+                        <a class="btn btn-primary" href="https://apps.apple.com/app/apple-store/id6758202473?pt=117888767&amp;ct=guides&amp;mt=8">Download on the App Store</a>
+                        <a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=app.routecompanion">Get it on Google Play</a>
+                        <a class="btn btn-secondary" href="cycling-tyre-pressure.html">Next: tyre pressure</a>
+                    </div>
+                </section>
+            </article>
+
+            <aside class="article-related" aria-labelledby="related-heading">
+                <h2 id="related-heading">Related</h2>
+                <div class="related-links">
+                    <a href="cycling-tyre-pressure.html">Tyre pressure</a>
+                    <a href="multi-day-trips.html">Multi-day trips</a>
+                </div>
+            </aside>
+        </main>
+
+        <!-- footer:start -->
+        <footer class="footer">
+            <p class="footer-links">
+                <a href="../index.html">Home</a>
+                <span class="dot">&middot;</span>
+                <a href="../tools/">Tools</a>
+                <span class="dot">&middot;</span>
+                <a href="../guides/">Guides</a>
+                <span class="dot">&middot;</span>
+                <a href="../press.html">Press</a>
+                <span class="dot">&middot;</span>
+                <a href="https://www.instagram.com/route_companion_app/" rel="me noopener" target="_blank">Instagram</a>
+                <span class="dot">&middot;</span>
+                <a href="https://www.reddit.com/r/RouteCompanion/" rel="me noopener" target="_blank">Reddit</a>
+                <span class="dot">&middot;</span>
+                <a href="../privacy.html">Privacy Policy</a>
+                <span class="dot">&middot;</span>
+                <a href="../terms.html">Terms of Service</a>
+                <span class="dot">&middot;</span>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </p>
+            <p class="footer-copyright">&copy; 2026 Route Companion. All rights reserved.</p>
+        </footer>
+        <!-- footer:end -->
+    </div>
+</body>
+</html>

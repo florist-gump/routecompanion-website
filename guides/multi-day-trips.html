@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- theme:start -->
+    <script>
+        (function () {
+            var root = document.documentElement;
+            function stored() {
+                try { return localStorage.getItem('rc-theme'); } catch (e) { return null; }
+            }
+            var saved = stored();
+            if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+            var LABEL = { system: 'Theme: following your system setting', light: 'Theme: light', dark: 'Theme: dark' };
+            function systemDark() {
+                return matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+            function mode() {
+                var t = root.getAttribute('data-theme');
+                return t === 'light' || t === 'dark' ? t : 'system';
+            }
+            // The trigger shows what you are LOOKING AT, not where it came from;
+            // the menu is what says which of the three is active.
+            function resolved() {
+                var m = mode();
+                return m === 'system' ? (systemDark() ? 'dark' : 'light') : m;
+            }
+            function sync() {
+                var m = mode();
+                var triggers = document.querySelectorAll('[data-theme-toggle]');
+                for (var i = 0; i < triggers.length; i++) {
+                    triggers[i].setAttribute('data-appearance', resolved());
+                    triggers[i].setAttribute('title', LABEL[m]);
+                }
+                var options = document.querySelectorAll('[data-theme-choice]');
+                for (var j = 0; j < options.length; j++) {
+                    options[j].setAttribute('aria-checked', String(options[j].dataset.themeChoice === m));
+                }
+            }
+            function choose(next) {
+                if (next === 'system') {
+                    root.removeAttribute('data-theme');
+                    try { localStorage.removeItem('rc-theme'); } catch (err) {}
+                } else {
+                    root.setAttribute('data-theme', next);
+                    try { localStorage.setItem('rc-theme', next); } catch (err) {}
+                }
+                sync();
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                sync();
+                function setOpen(sw, open) {
+                    sw.querySelector('[data-theme-toggle]').setAttribute('aria-expanded', String(open));
+                    sw.querySelector('.theme-menu').dataset.open = String(open);
+                }
+                document.addEventListener('click', function (e) {
+                    var option = e.target.closest && e.target.closest('[data-theme-choice]');
+                    if (option) {
+                        choose(option.dataset.themeChoice);
+                        setOpen(option.closest('.theme-switcher'), false);
+                        option.closest('.theme-switcher').querySelector('[data-theme-toggle]').focus();
+                        return;
+                    }
+                    var trigger = e.target.closest && e.target.closest('[data-theme-toggle]');
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) {
+                        var isMine = !!trigger && all[i].contains(trigger);
+                        var open = isMine && trigger.getAttribute('aria-expanded') !== 'true';
+                        setOpen(all[i], open);
+                    }
+                });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key !== 'Escape') return;
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) setOpen(all[i], false);
+                });
+            });
+            // Nothing stored means follow the OS, including when the OS changes.
+            matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+        })();
+    </script>
+    <!-- theme:end -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan a multi-day bike trip: split a route into days | Route Companion</title>
+    <meta name="description" content="How to split a route into days in Route Companion, choose a hotel or campsite near the end of each day, and save the trip with one route per day.">
+    <link rel="canonical" href="https://routecompanion.app/guides/multi-day-trips.html">
+    <meta property="og:title" content="Plan a multi-day trip">
+    <meta property="og:description" content="Split a route into days, choose where you sleep each night, and save the trip with one route per day.">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/multi-day-days.jpg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="/assets/tokens.css" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/assets/language.css">
+    <script src="/assets/language.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "datePublished": "2026-10-15",
+      "dateModified": "2026-10-15",
+      "headline": "Plan a multi-day trip",
+      "description": "How to split a route into days in Route Companion, choose a hotel or campsite near the end of each day, and save the trip with one route per day.",
+      "author": { "@type": "Organization", "name": "Route Companion" },
+      "publisher": { "@type": "Organization", "name": "Route Companion", "logo": { "@type": "ImageObject", "url": "https://routecompanion.app/assets/icon.png" } },
+      "mainEntityOfPage": "https://routecompanion.app/guides/multi-day-trips.html"
+    }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://routecompanion.app/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://routecompanion.app/guides/"},{"@type":"ListItem","position":3,"name":"Plan a multi-day trip","item":"https://routecompanion.app/guides/multi-day-trips.html"}]}</script>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- nav:start -->
+        <nav class="site-nav" aria-label="Site navigation">
+            <div class="site-nav-inner">
+                <a class="brand-link" href="../index.html">
+                    <img src="../assets/icon.png" alt="" width="30" height="30">
+                    <span>Route Companion</span>
+                </a>
+                <div class="nav-links">
+                    <a href="../tools/">Tools</a>
+                    <a href="../guides/" aria-current="page">Guides</a>
+                    <span class="theme-switcher">
+                        <button type="button" class="theme-toggle" data-theme-toggle aria-expanded="false" aria-haspopup="menu" aria-controls="website-theme-menu" aria-label="Appearance">
+                            <svg class="theme-toggle-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+                            <svg class="theme-toggle-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+                        </button>
+                        <span class="theme-menu" id="website-theme-menu" role="menu" data-open="false">
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="system" aria-checked="true">Match system<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="light" aria-checked="false">Light mode<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="dark" aria-checked="false">Dark mode<span class="theme-check" aria-hidden="true"></span></button>
+                        </span>
+                    </span>
+                    <a class="nav-cta" href="https://apps.apple.com/app/apple-store/id6758202473?pt=117888767&amp;ct=guides&amp;mt=8">App Store</a>
+                </div>
+            </div>
+        </nav>
+        <!-- nav:end -->
+
+        <p class="breadcrumb"><a href="index.html">Guides</a><span>Plan a multi-day trip</span></p>
+        <header class="hero">
+            <div>
+                <p class="kicker">App guide</p>
+                <h1>Plan a multi-day trip</h1>
+                <p class="hero-copy">Split a route into days, choose where you sleep each night, and save the trip with one route per day.</p>
+            </div>
+            <div class="phone-stage">
+                <div class="phone-frame">
+                    <picture>
+                        <source srcset="/screenshots/multi-day-days.webp" type="image/webp">
+                        <img src="/screenshots/multi-day-days.jpg" alt="Route Companion splitting Zurich to Strasbourg into 3 days of about 120 km, with each day's distance, climbing and riding time" width="640" height="1391">
+                    </picture>
+                </div>
+            </div>
+        </header>
+
+        <main class="guide-grid">
+            <aside class="toc" aria-label="Guide sections">
+                <p class="toc-title">On this page</p>
+                <a href="#split">Split into days</a>
+                <a href="#nights">Choose nights</a>
+                <a href="#door">Ride to the door</a>
+                <a href="#save">Save the trip</a>
+            </aside>
+
+            <article class="article">
+                <section class="section" id="split">
+                    <h2>Split the route into days</h2>
+                    <ol class="editorial-list">
+                        <li>Open your route on the map.</li>
+                        <li>Tap More, then Split into days.</li>
+                        <li>Under Split by, choose Days, Distance or Riding time.</li>
+                        <li>Set how many days, or how far or how long you ride each day.</li>
+                    </ol>
+                    <p>Each day lists its distance, climbing and riding time. Turn on Start time to give the days dates and arrival times.</p>
+                </section>
+
+                <section class="section" id="nights">
+                    <h2>Choose where you sleep</h2>
+                    <ol class="editorial-list">
+                        <li>Tap Choose nights, or tap the moon marker at the end of a day on the map.</li>
+                        <li>The map moves to the end of that day and shows hotels and campsites within 2 km of it for a bike trip, or 1 km for a trip on foot.</li>
+                        <li>Tap a place to open its details, then tap Sleep here.</li>
+                        <li>Switch to Night 2 and do the same for the next day.</li>
+                    </ol>
+                    <p>To search further from the day's end, tap the chip under the nights that reads Hotel, Camping and the search distance.</p>
+                    <div class="weather-scenario-grid">
+                        <figure class="weather-scenario">
+                            <picture>
+                                <source srcset="/screenshots/multi-day-night.webp" type="image/webp">
+                                <img src="/screenshots/multi-day-night.jpg" alt="Night 1 in Route Companion: hotels and campsites on the map near the end of day 1 in Basel" width="640" height="1391" loading="lazy" decoding="async">
+                            </picture>
+                            <figcaption>Places to sleep near the end of day 1</figcaption>
+                        </figure>
+                        <figure class="weather-scenario">
+                            <picture>
+                                <source srcset="/screenshots/multi-day-sleep-here.webp" type="image/webp">
+                                <img src="/screenshots/multi-day-sleep-here.jpg" alt="A hotel's details in Route Companion, 21 m off the route, with the Sleep here button" width="640" height="1391" loading="lazy" decoding="async">
+                            </picture>
+                            <figcaption>Sleep here makes it the night after that day</figcaption>
+                        </figure>
+                    </div>
+                </section>
+
+                <section class="section" id="door">
+                    <h2>Ride to the door or end on the route</h2>
+                    <p>When the place you choose is more than 50 m from the route, the app asks how the day ends.</p>
+                    <ul class="editorial-list">
+                        <li>Ride to the door adds the way there to that day. The next day starts at the door and rejoins the route.</li>
+                        <li>End on the route keeps the day on the route.</li>
+                    </ul>
+                    <div class="weather-scenario-grid">
+                        <figure class="weather-scenario">
+                            <picture>
+                                <source srcset="/screenshots/multi-day-ride-to-door.webp" type="image/webp">
+                                <img src="/screenshots/multi-day-ride-to-door.jpg" alt="Route Companion asking whether day 2 rides to the door of a hotel 99 m from the route, with Ride to the door and End on the route" width="640" height="1391" loading="lazy" decoding="async">
+                            </picture>
+                            <figcaption>The question for a place off the route</figcaption>
+                        </figure>
+                    </div>
+                </section>
+
+                <section class="section" id="save">
+                    <h2>Save the trip</h2>
+                    <ol class="editorial-list">
+                        <li>Tap Save trip.</li>
+                        <li>Keep the suggested name or type your own, and choose an icon.</li>
+                        <li>Tap Save trip again.</li>
+                    </ol>
+                    <p>The trip is in History under Collections, with one route per day in day order. Open a day to ride it like any other route. To change the plan, tap Edit trip on the collection.</p>
+                    <div class="weather-scenario-grid">
+                        <figure class="weather-scenario">
+                            <picture>
+                                <source srcset="/screenshots/multi-day-history.webp" type="image/webp">
+                                <img src="/screenshots/multi-day-history.jpg" alt="A saved trip in Route Companion's Collections, Zurich to Innsbruck in 3 days, open to show one route for each day" width="640" height="1391" loading="lazy" decoding="async">
+                            </picture>
+                            <figcaption>The saved trip, one route per day</figcaption>
+                        </figure>
+                    </div>
+                    <div class="button-row">
+                        <a class="btn btn-primary" href="https://apps.apple.com/app/apple-store/id6758202473?pt=117888767&amp;ct=guides&amp;mt=8">Download on the App Store</a>
+                        <a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=app.routecompanion">Get it on Google Play</a>
+                        <a class="btn btn-secondary" href="route-stops.html">Next: stops along a route</a>
+                    </div>
+                </section>
+            </article>
+
+            <aside class="article-related" aria-labelledby="related-heading">
+                <h2 id="related-heading">Related</h2>
+                <div class="related-links">
+                    <a href="bikepacking-day-by-day.html">Bikepacking day by day</a>
+                    <a href="route-stops.html">Stops along a route</a>
+                    <a href="route-surface.html">Route surface</a>
+                </div>
+            </aside>
+        </main>
+
+        <!-- footer:start -->
+        <footer class="footer">
+            <p class="footer-links">
+                <a href="../index.html">Home</a>
+                <span class="dot">&middot;</span>
+                <a href="../tools/">Tools</a>
+                <span class="dot">&middot;</span>
+                <a href="../guides/">Guides</a>
+                <span class="dot">&middot;</span>
+                <a href="../press.html">Press</a>
+                <span class="dot">&middot;</span>
+                <a href="https://www.instagram.com/route_companion_app/" rel="me noopener" target="_blank">Instagram</a>
+                <span class="dot">&middot;</span>
+                <a href="https://www.reddit.com/r/RouteCompanion/" rel="me noopener" target="_blank">Reddit</a>
+                <span class="dot">&middot;</span>
+                <a href="../privacy.html">Privacy Policy</a>
+                <span class="dot">&middot;</span>
+                <a href="../terms.html">Terms of Service</a>
+                <span class="dot">&middot;</span>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </p>
+            <p class="footer-copyright">&copy; 2026 Route Companion. All rights reserved.</p>
+        </footer>
+        <!-- footer:end -->
+    </div>
+</body>
+</html>

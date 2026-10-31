@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- theme:start -->
+    <script>
+        (function () {
+            var root = document.documentElement;
+            function stored() {
+                try { return localStorage.getItem('rc-theme'); } catch (e) { return null; }
+            }
+            var saved = stored();
+            if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+            var LABEL = { system: 'Theme: following your system setting', light: 'Theme: light', dark: 'Theme: dark' };
+            function systemDark() {
+                return matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+            function mode() {
+                var t = root.getAttribute('data-theme');
+                return t === 'light' || t === 'dark' ? t : 'system';
+            }
+            // The trigger shows what you are LOOKING AT, not where it came from;
+            // the menu is what says which of the three is active.
+            function resolved() {
+                var m = mode();
+                return m === 'system' ? (systemDark() ? 'dark' : 'light') : m;
+            }
+            function sync() {
+                var m = mode();
+                var triggers = document.querySelectorAll('[data-theme-toggle]');
+                for (var i = 0; i < triggers.length; i++) {
+                    triggers[i].setAttribute('data-appearance', resolved());
+                    triggers[i].setAttribute('title', LABEL[m]);
+                }
+                var options = document.querySelectorAll('[data-theme-choice]');
+                for (var j = 0; j < options.length; j++) {
+                    options[j].setAttribute('aria-checked', String(options[j].dataset.themeChoice === m));
+                }
+            }
+            function choose(next) {
+                if (next === 'system') {
+                    root.removeAttribute('data-theme');
+                    try { localStorage.removeItem('rc-theme'); } catch (err) {}
+                } else {
+                    root.setAttribute('data-theme', next);
+                    try { localStorage.setItem('rc-theme', next); } catch (err) {}
+                }
+                sync();
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                sync();
+                function setOpen(sw, open) {
+                    sw.querySelector('[data-theme-toggle]').setAttribute('aria-expanded', String(open));
+                    sw.querySelector('.theme-menu').dataset.open = String(open);
+                }
+                document.addEventListener('click', function (e) {
+                    var option = e.target.closest && e.target.closest('[data-theme-choice]');
+                    if (option) {
+                        choose(option.dataset.themeChoice);
+                        setOpen(option.closest('.theme-switcher'), false);
+                        option.closest('.theme-switcher').querySelector('[data-theme-toggle]').focus();
+                        return;
+                    }
+                    var trigger = e.target.closest && e.target.closest('[data-theme-toggle]');
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) {
+                        var isMine = !!trigger && all[i].contains(trigger);
+                        var open = isMine && trigger.getAttribute('aria-expanded') !== 'true';
+                        setOpen(all[i], open);
+                    }
+                });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key !== 'Escape') return;
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) setOpen(all[i], false);
+                });
+            });
+            // Nothing stored means follow the OS, including when the OS changes.
+            matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+        })();
+    </script>
+    <!-- theme:end -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New in 3.3: multi-day trips and surface on the route | Route Companion</title>
+    <meta name="description" content="What's new in Route Companion 3.3: split a route into days and choose where you sleep each night, and see the surface along your route line.">
+    <link rel="canonical" href="https://routecompanion.app/guides/new-in-3-3.html">
+    <link rel="alternate" hreflang="en" href="https://routecompanion.app/guides/new-in-3-3.html">
+    <link rel="alternate" hreflang="de" href="https://routecompanion.app/de/guides/new-in-3-3.html">
+    <link rel="alternate" hreflang="fr" href="https://routecompanion.app/fr/guides/new-in-3-3.html">
+    <link rel="alternate" hreflang="x-default" href="https://routecompanion.app/guides/new-in-3-3.html">
+    <meta property="og:title" content="New in 3.3: multi-day trips and surface on the route">
+    <meta property="og:description" content="Multi-day trips and the surface along your route line">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/multi-day-days.jpg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="/assets/tokens.css" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/assets/language.css">
+    <script src="/assets/language.js"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","datePublished":"2026-10-20","dateModified":"2026-10-20","headline":"New in 3.3","description":"What's new in Route Companion 3.3: split a route into days and choose where you sleep each night, and see the surface along your route line.","author":{"@type":"Organization","name":"Route Companion"},"publisher":{"@type":"Organization","name":"Route Companion","logo":{"@type":"ImageObject","url":"https://routecompanion.app/assets/icon.png"}},"mainEntityOfPage":"https://routecompanion.app/guides/new-in-3-3.html"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://routecompanion.app/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://routecompanion.app/guides/"},{"@type":"ListItem","position":3,"name":"New in 3.3","item":"https://routecompanion.app/guides/new-in-3-3.html"}]}</script>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- nav:start -->
+        <nav class="site-nav" aria-label="Site navigation">
+            <div class="site-nav-inner">
+                <a class="brand-link" href="../index.html">
+                    <img src="../assets/icon.png" alt="" width="30" height="30">
+                    <span>Route Companion</span>
+                </a>
+                <div class="nav-links">
+                    <a href="../tools/">Tools</a>
+                    <a href="../guides/" aria-current="page">Guides</a>
+                    <span class="theme-switcher">
+                        <button type="button" class="theme-toggle" data-theme-toggle aria-expanded="false" aria-haspopup="menu" aria-controls="website-theme-menu" aria-label="Appearance">
+                            <svg class="theme-toggle-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+                            <svg class="theme-toggle-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+                        </button>
+                        <span class="theme-menu" id="website-theme-menu" role="menu" data-open="false">
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="system" aria-checked="true">Match system<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="light" aria-checked="false">Light mode<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="dark" aria-checked="false">Dark mode<span class="theme-check" aria-hidden="true"></span></button>
+                        </span>
+                    </span>
+                    <a class="nav-cta" href="https://apps.apple.com/app/apple-store/id6758202473?pt=117888767&amp;ct=guides&amp;mt=8">App Store</a>
+                </div>
+            </div>
+        </nav>
+        <!-- nav:end -->
+
+        <p class="breadcrumb"><a href="index.html">Guides</a><span>New in 3.3</span></p>
+        <header class="hero hero-single">
+            <div>
+                <p class="kicker">Version 3.3</p>
+                <h1>New in 3.3</h1>
+                <p class="hero-copy">Plan a trip over several days, and see where your route is paved and where it isn't.</p>
+            </div>
+        </header>
+
+        <main class="guide-grid">
+            <aside class="toc" aria-label="On this page">
+                <p class="toc-title">On this page</p>
+                <a href="#trips">Multi-day trips</a>
+                <a href="#surface">Surface on the route</a>
+                <a href="#feedback">Tell us what you think</a>
+            </aside>
+
+            <article class="article">
+                <section class="section" id="trips">
+                    <div class="feature-row">
+                        <div class="feature-copy">
+                            <h2>Multi-day trips</h2>
+                            <p>Split a route into days and choose where you sleep each night. Each day lists its distance, climbing and riding time, and the saved trip holds one route per day.</p>
+                            <div class="button-row">
+                        <a class="btn btn-secondary" href="multi-day-trips.html">Read the guide: Plan a multi-day trip</a>
+                    </div>
+                        </div>
+                        <figure class="feature-media">
+                            <video class="feature-video" controls muted loop playsinline preload="metadata" poster="/assets/multiday-3-3-poster.jpg" width="720" height="900" aria-label="Route Companion planning a trip from Zurich to Innsbruck: split the route into days, find a bed near each day's end, open the hotel's website and ride to the door" data-autoplay-unless-reduced-motion>
+                                <source src="/assets/multiday-3-3.webm" type="video/webm">
+                                <source src="/assets/multiday-3-3.mp4" type="video/mp4">
+                                Your browser can't play this video.
+                            </video>
+                            <figcaption>Zurich to Innsbruck, with English captions</figcaption>
+                        </figure>
+                    </div>
+                </section>
+
+                <section class="section" id="surface">
+                    <div class="feature-row feature-row-reverse">
+                        <div class="feature-copy">
+                            <h2>Surface on the route</h2>
+                            <p>The route line takes the color of the surface under it, so you can see where the gravel starts before you ride it. The Surface key shows how far the route runs on each surface.</p>
+                            <div class="button-row">
+                        <a class="btn btn-secondary" href="route-surface.html">Read the guide: See the surface of your route</a>
+                    </div>
+                        </div>
+                        <figure class="feature-media">
+                            <div class="phone-frame">
+                                <picture>
+                                <source srcset="/screenshots/surface-key.webp" type="image/webp">
+                                <img src="/screenshots/surface-key.jpg" alt="Route Companion map with the Surface key open for Siena to Montalcino: Paved 26.7 km, Gravel 16.1 km, Unpaved 4.3 km, Cobblestone 332 m" width="640" height="1391" loading="lazy" decoding="async">
+                            </picture>
+                            </div>
+                            <figcaption>The Surface key for Siena to Montalcino</figcaption>
+                        </figure>
+                    </div>
+                </section>
+
+                <section class="section" id="feedback">
+                    <h2>Tell us what you think</h2>
+                    <p>Questions or ideas about 3.3? Join the discussion in r/RouteCompanion.</p>
+                    <div class="button-row">
+                        <a class="btn btn-primary" href="https://www.reddit.com/r/RouteCompanion/comments/1x6w4m2/33_plan_a_multiday_trip_and_see_the_surface_on/" rel="noopener" target="_blank">Open the 3.3 post on Reddit</a>
+                    </div>
+                </section>
+            </article>
+
+            <aside class="article-related" aria-labelledby="related-heading">
+                <h2 id="related-heading">Related</h2>
+                <div class="related-links">
+                    <a href="multi-day-trips.html">Plan a multi-day trip</a>
+                    <a href="route-surface.html">See the surface of your route</a>
+                </div>
+            </aside>
+        </main>
+
+        <!-- footer:start -->
+        <footer class="footer">
+            <p class="footer-links">
+                <a href="../index.html">Home</a>
+                <span class="dot">&middot;</span>
+                <a href="../tools/">Tools</a>
+                <span class="dot">&middot;</span>
+                <a href="../guides/">Guides</a>
+                <span class="dot">&middot;</span>
+                <a href="../press.html">Press</a>
+                <span class="dot">&middot;</span>
+                <a href="https://www.instagram.com/route_companion_app/" rel="me noopener" target="_blank">Instagram</a>
+                <span class="dot">&middot;</span>
+                <a href="https://www.reddit.com/r/RouteCompanion/" rel="me noopener" target="_blank">Reddit</a>
+                <span class="dot">&middot;</span>
+                <a href="../privacy.html">Privacy Policy</a>
+                <span class="dot">&middot;</span>
+                <a href="../terms.html">Terms of Service</a>
+                <span class="dot">&middot;</span>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </p>
+            <p class="footer-copyright">&copy; 2026 Route Companion. All rights reserved.</p>
+        </footer>
+        <!-- footer:end -->
+    </div>
+    <script>
+        (function () {
+            var video = document.querySelector('video[data-autoplay-unless-reduced-motion]');
+            if (!video || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            var play = function () { var p = video.play(); if (p && p.catch) p.catch(function () {}); };
+            if ('IntersectionObserver' in window) {
+                new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) { if (e.isIntersecting) play(); else video.pause(); });
+                }, { threshold: 0.4 }).observe(video);
+            } else {
+                play();
+            }
+        })();
+    </script>
+</body>
+</html>

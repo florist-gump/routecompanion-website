@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- theme:start -->
+    <script>
+        (function () {
+            var root = document.documentElement;
+            function stored() {
+                try { return localStorage.getItem('rc-theme'); } catch (e) { return null; }
+            }
+            var saved = stored();
+            if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+            var LABEL = { system: 'Theme: following your system setting', light: 'Theme: light', dark: 'Theme: dark' };
+            function systemDark() {
+                return matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+            function mode() {
+                var t = root.getAttribute('data-theme');
+                return t === 'light' || t === 'dark' ? t : 'system';
+            }
+            // The trigger shows what you are LOOKING AT, not where it came from;
+            // the menu is what says which of the three is active.
+            function resolved() {
+                var m = mode();
+                return m === 'system' ? (systemDark() ? 'dark' : 'light') : m;
+            }
+            function sync() {
+                var m = mode();
+                var triggers = document.querySelectorAll('[data-theme-toggle]');
+                for (var i = 0; i < triggers.length; i++) {
+                    triggers[i].setAttribute('data-appearance', resolved());
+                    triggers[i].setAttribute('title', LABEL[m]);
+                }
+                var options = document.querySelectorAll('[data-theme-choice]');
+                for (var j = 0; j < options.length; j++) {
+                    options[j].setAttribute('aria-checked', String(options[j].dataset.themeChoice === m));
+                }
+            }
+            function choose(next) {
+                if (next === 'system') {
+                    root.removeAttribute('data-theme');
+                    try { localStorage.removeItem('rc-theme'); } catch (err) {}
+                } else {
+                    root.setAttribute('data-theme', next);
+                    try { localStorage.setItem('rc-theme', next); } catch (err) {}
+                }
+                sync();
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                sync();
+                function setOpen(sw, open) {
+                    sw.querySelector('[data-theme-toggle]').setAttribute('aria-expanded', String(open));
+                    sw.querySelector('.theme-menu').dataset.open = String(open);
+                }
+                document.addEventListener('click', function (e) {
+                    var option = e.target.closest && e.target.closest('[data-theme-choice]');
+                    if (option) {
+                        choose(option.dataset.themeChoice);
+                        setOpen(option.closest('.theme-switcher'), false);
+                        option.closest('.theme-switcher').querySelector('[data-theme-toggle]').focus();
+                        return;
+                    }
+                    var trigger = e.target.closest && e.target.closest('[data-theme-toggle]');
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) {
+                        var isMine = !!trigger && all[i].contains(trigger);
+                        var open = isMine && trigger.getAttribute('aria-expanded') !== 'true';
+                        setOpen(all[i], open);
+                    }
+                });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key !== 'Escape') return;
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) setOpen(all[i], false);
+                });
+            });
+            // Nothing stored means follow the OS, including when the OS changes.
+            matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+        })();
+    </script>
+    <!-- theme:end -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bikepacking day by day: split the trip, find a bed, sort the food | Route Companion</title>
+    <meta name="description" content="A multi-day trip is planned one day at a time: how far you ride, where you sleep, and where you get food in the evening and the next morning.">
+    <link rel="canonical" href="https://routecompanion.app/guides/bikepacking-day-by-day.html">
+    <meta property="og:title" content="Bikepacking day by day">
+    <meta property="og:description" content="Split the trip, find a bed, sort the food">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/multi-day-days.jpg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <meta name="theme-color" content="#0D1417">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="/assets/tokens.css" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/assets/language.css">
+    <script src="/assets/language.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "datePublished": "2026-10-28",
+      "dateModified": "2026-10-28",
+      "headline": "Bikepacking day by day",
+      "description": "A multi-day trip is planned one day at a time: how far you ride, where you sleep, and where you get food in the evening and the next morning.",
+      "author": { "@type": "Organization", "name": "Route Companion" },
+      "publisher": { "@type": "Organization", "name": "Route Companion", "logo": { "@type": "ImageObject", "url": "https://routecompanion.app/assets/icon.png" } },
+      "mainEntityOfPage": "https://routecompanion.app/guides/bikepacking-day-by-day.html"
+    }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://routecompanion.app/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://routecompanion.app/guides/"},{"@type":"ListItem","position":3,"name":"Bikepacking day by day","item":"https://routecompanion.app/guides/bikepacking-day-by-day.html"}]}</script>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- nav:start -->
+        <nav class="site-nav" aria-label="Site navigation">
+            <div class="site-nav-inner">
+                <a class="brand-link" href="../index.html">
+                    <img src="../assets/icon.png" alt="" width="30" height="30">
+                    <span>Route Companion</span>
+                </a>
+                <div class="nav-links">
+                    <a href="../tools/">Tools</a>
+                    <a href="../guides/" aria-current="page">Guides</a>
+                    <span class="theme-switcher">
+                        <button type="button" class="theme-toggle" data-theme-toggle aria-expanded="false" aria-haspopup="menu" aria-controls="website-theme-menu" aria-label="Appearance">
+                            <svg class="theme-toggle-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+                            <svg class="theme-toggle-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+                        </button>
+                        <span class="theme-menu" id="website-theme-menu" role="menu" data-open="false">
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="system" aria-checked="true">Match system<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="light" aria-checked="false">Light mode<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="dark" aria-checked="false">Dark mode<span class="theme-check" aria-hidden="true"></span></button>
+                        </span>
+                    </span>
+                    <a class="nav-cta" href="https://apps.apple.com/app/apple-store/id6758202473?pt=117888767&amp;ct=guides&amp;mt=8">App Store</a>
+                </div>
+            </div>
+        </nav>
+        <!-- nav:end -->
+
+        <p class="breadcrumb"><a href="index.html">Guides</a><span>Bikepacking day by day</span></p>
+        <header class="hero hero-single">
+            <div>
+                <p class="kicker">App guide</p>
+                <h1>Bikepacking day by day</h1>
+                <p class="hero-copy">Split the trip, find a bed, sort the food</p>
+            </div>
+        </header>
+
+        <main class="guide-grid">
+            <aside class="toc" aria-label="Guide sections">
+                <p class="toc-title">On this page</p>
+                <a href="#repeat">Pick a day you can repeat</a>
+                <a href="#bed">Let the bed decide where the day ends</a>
+                <a href="#off-route">When the bed is off the route</a>
+                <a href="#dates">Dates, bookings and the closed campsite</a>
+                <a href="#food">Food and water around the night</a>
+                <a href="#save">Save it, then change it</a>
+            </aside>
+
+            <article class="article">
+                <p class="lead">A multi-day trip is planned one day at a time: how far you ride, where you sleep, and where you get food in the evening and the next morning. This guide goes through each of those, and how to set them up in Route Companion.</p>
+                <figure class="feature-media">
+                    <video class="feature-video" controls muted loop playsinline preload="metadata" poster="/assets/multiday-3-3-poster.jpg" width="720" height="900" aria-label="Route Companion planning a trip from Zurich to Innsbruck: split the route into days, find a bed near each day's end, open the hotel's website and ride to the door" data-autoplay-unless-reduced-motion>
+                        <source src="/assets/multiday-3-3.webm" type="video/webm">
+                        <source src="/assets/multiday-3-3.mp4" type="video/mp4">
+                        Your browser can't play this video.
+                    </video>
+                    <figcaption>Zurich to Innsbruck, with English captions</figcaption>
+                </figure>
+
+                <section class="section" id="repeat">
+                    <h2>Pick a day you can repeat</h2>
+                    <p>Plan for a day you could ride again tomorrow, and the day after, on a loaded bike. That's usually well short of your longest day out. Bags slow you down, gravel slows you more, and stops get longer once you're living out of the bike.</p>
+                    <p>If you're not sure, plan shorter than feels right. Finishing at four leaves time to find the campsite, shower, eat and look around. Finishing in the dark leaves none of that.</p>
+                    <p>In the app, open the route and tap Split into days. You can split three ways:</p>
+                    <ul class="editorial-list">
+                        <li>Distance, for a fixed number of kilometres a day (80 km to start with).</li>
+                        <li>Riding time, for a fixed number of hours on the bike. This one is kinder on a hilly route, where 80 km can mean a short afternoon or a very long day.</li>
+                        <li>Days, when the dates are already fixed and the distance has to fit them.</li>
+                    </ul>
+                    <p>Each day shows its distance, climbing and riding time. The times come from your own usual speed and stops, so set those first (the gear next to Split into days takes you there).</p>
+                </section>
+
+                <section class="section" id="bed">
+                    <h2>Let the bed decide where the day ends</h2>
+                    <p>The split ends each day wherever the kilometres run out, and that's rarely next to a bed. Take it as a first guess, then pick the nights.</p>
+                    <p>Tap Choose nights, or the moon marker at the end of a day. The map jumps to that spot and lists hotels, guest houses, hostels and campsites within 2 km, the closest first, with how far each one is before or past the day's end. Nothing there? Tap Widen to 5 km, or open the search chip and go further. If you're carrying a bivvy, you can add shelters to the search too.</p>
+                    <p>Pick one, tap Sleep here, and move on to the next night.</p>
+                </section>
+
+                <section class="section" id="off-route">
+                    <h2>When the bed is off the route</h2>
+                    <p>The nice campsite is often down by the lake, 3 km off your line, and those 3 km are usually downhill on the way there and uphill the next morning. They belong in your plan.</p>
+                    <p>When the place is more than 50 m from the route, the app asks how the day ends. Ride to the door adds the way there to that day, and the next day starts at the door and rides back to the route. End on the route keeps the day on the line and leaves the detour out of the numbers.</p>
+                </section>
+
+                <section class="section" id="dates">
+                    <h2>Dates, bookings and the closed campsite</h2>
+                    <p>Turn on Start time and each day gets a date and an arrival time at your night's stop. That's the time to check against: campsite receptions often close in the evening, and a lot of campsites close for the whole winter.</p>
+                    <p>On busy summer weekends, book the first night and keep the rest loose. Note a second option for each night from the list, so you can change your mind at lunch.</p>
+                </section>
+
+                <section class="section" id="food">
+                    <h2>Food and water around the night</h2>
+                    <p>You roll into the village at seven and the one shop shut at half six. Or it's Sunday, and nothing opens until you're 40 km down the road. Evenings and mornings are where food runs short on a trip.</p>
+                    <p>So when you save the trip, each day becomes its own route. Open a day and search along it for supermarkets, bakeries, cafés or water, and the app shows whether each one will still be open when you get there. For a campsite night, buy dinner and breakfast at the last shop before it, and fill your bottles there too.</p>
+                </section>
+
+                <section class="section" id="save">
+                    <h2>Save it, then change it</h2>
+                    <p>Tap Save trip. You get one route per day, all together in one collection under History, so you can ride each day on its own. Plans change on the road, so Edit trip brings the whole split back: move a night, ride a longer day, and save again.</p>
+                    <div class="button-row">
+                        <a class="btn btn-primary" href="https://apps.apple.com/app/apple-store/id6758202473?pt=117888767&amp;ct=guides&amp;mt=8">Download on the App Store</a>
+                        <a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=app.routecompanion">Get it on Google Play</a>
+                        <a class="btn btn-secondary" href="multi-day-trips.html">Step by step: Plan a multi-day trip</a>
+                    </div>
+                </section>
+            </article>
+
+            <aside class="article-related" aria-labelledby="related-heading">
+                <h2 id="related-heading">Related</h2>
+                <div class="related-links">
+                    <a href="multi-day-trips.html">Plan a multi-day trip</a>
+                    <a href="route-stops.html">Stops along a route</a>
+                    <a href="cycling-fueling.html">Cycling fueling and hydration</a>
+                </div>
+            </aside>
+        </main>
+
+        <!-- footer:start -->
+        <footer class="footer">
+            <p class="footer-links">
+                <a href="../index.html">Home</a>
+                <span class="dot">&middot;</span>
+                <a href="../tools/">Tools</a>
+                <span class="dot">&middot;</span>
+                <a href="../guides/">Guides</a>
+                <span class="dot">&middot;</span>
+                <a href="../press.html">Press</a>
+                <span class="dot">&middot;</span>
+                <a href="https://www.instagram.com/route_companion_app/" rel="me noopener" target="_blank">Instagram</a>
+                <span class="dot">&middot;</span>
+                <a href="https://www.reddit.com/r/RouteCompanion/" rel="me noopener" target="_blank">Reddit</a>
+                <span class="dot">&middot;</span>
+                <a href="../privacy.html">Privacy Policy</a>
+                <span class="dot">&middot;</span>
+                <a href="../terms.html">Terms of Service</a>
+                <span class="dot">&middot;</span>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </p>
+            <p class="footer-copyright">&copy; 2026 Route Companion. All rights reserved.</p>
+        </footer>
+        <!-- footer:end -->
+    </div>
+    <script>
+        (function () {
+            var video = document.querySelector('video[data-autoplay-unless-reduced-motion]');
+            if (!video || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            var play = function () { var p = video.play(); if (p && p.catch) p.catch(function () {}); };
+            if ('IntersectionObserver' in window) {
+                new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) { if (e.isIntersecting) play(); else video.pause(); });
+                }, { threshold: 0.4 }).observe(video);
+            } else {
+                play();
+            }
+        })();
+    </script>
+</body>
+</html>
