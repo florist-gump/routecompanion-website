@@ -1,0 +1,573 @@
+
+
+.page-shell {
+    width: min(100%, 1160px);
+    margin: 0 auto;
+    padding: 0 20px 56px;
+}
+
+/* The header and footer sit inside the page shell here, which already carries
+   the gutter, so they take the shell's edge rather than adding their own. */
+.page-shell .site-nav {
+    margin-bottom: var(--space-3xl);
+}
+
+.page-shell .site-nav-inner {
+    max-width: none;
+    padding-inline: 0;
+}
+
+.page-shell .footer {
+    margin-top: var(--space-3xl);
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.7fr);
+    gap: 44px;
+    align-items: center;
+    padding: 32px 0 48px;
+}
+
+.page-shell {
+    line-height: var(--leading-relaxed);
+}
+
+.page-shell h1 {
+    margin: 0;
+}
+
+.hero-copy {
+    color: var(--text-secondary);
+    font-size: 1.13rem;
+    max-width: 690px;
+    margin: 22px 0 0;
+}
+
+.phone-stage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.phone-frame {
+    width: min(310px, 100%);
+    aspect-ratio: 640 / 1387;
+    padding: 6px;
+    border-radius: var(--radius-phone);
+    background: var(--phone-bezel);
+    border: 1px solid var(--hairline);
+    box-shadow: var(--shadow-lg);
+}
+
+.phone-frame.wide {
+    width: min(360px, 100%);
+    aspect-ratio: 946 / 2048;
+}
+
+.phone-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-phone-inner);
+}
+
+.mascot-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 360px;
+}
+
+.mascot-stage img {
+    display: block;
+    width: min(220px, 58vw);
+    height: auto;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 28px 42px color-mix(in srgb, black 42%, transparent));
+}
+
+.guide-grid {
+    display: block;
+    max-width: 940px;
+    margin: 0 auto;
+}
+
+.article {
+    min-width: 0;
+}
+
+.section {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 0;
+    padding: 46px 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+.article > .section:last-child,
+main > .section:last-child {
+    border-bottom: 0;
+}
+
+.section h2 {
+    margin: 0 0 16px;
+}
+
+.section h3 {
+    margin: 22px 0 8px;
+}
+
+.section p {
+    color: var(--text-secondary);
+    margin: 0 0 14px;
+}
+
+.lead {
+    font-size: 1.08rem;
+}
+
+.editorial-list {
+    display: grid;
+    gap: 14px;
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.editorial-list li {
+    color: var(--text-secondary);
+    padding-left: 22px;
+    position: relative;
+}
+
+.editorial-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.74em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary-light);
+}
+
+.section-note {
+    margin: 22px 0 0;
+    color: var(--text-muted);
+    font-size: 0.96rem;
+}
+
+.commute-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 310px);
+    gap: clamp(28px, 5vw, 54px);
+    align-items: start;
+}
+
+.commute-copy {
+    max-width: 620px;
+}
+
+.commute-copy .editorial-list {
+    margin: 28px 0;
+}
+
+.commute-copy p:last-child {
+    color: var(--text-muted);
+    max-width: 560px;
+}
+
+.commute-phone {
+    justify-content: end;
+}
+
+.commute-phone .phone-frame.wide {
+    width: min(300px, 100%);
+}
+
+.hero.hero-single {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+/* One feature, one visual: copy beside a single framed phone or clip. The
+   visual column is fixed so nothing is stretched, and the frame takes its
+   height from the media so no phone is ever cropped. */
+.feature-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
+    gap: clamp(28px, 5vw, 56px);
+    align-items: center;
+}
+
+.feature-row.feature-row-reverse {
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+}
+
+.feature-row.feature-row-reverse .feature-media {
+    order: -1;
+}
+
+.feature-copy {
+    max-width: 560px;
+}
+
+.feature-media {
+    margin: 0;
+    width: 100%;
+}
+
+.feature-media .phone-frame {
+    width: min(280px, 100%);
+    aspect-ratio: auto;
+    margin: 0 auto;
+}
+
+.feature-media .phone-frame img {
+    height: auto;
+    aspect-ratio: 640 / 1391;
+    object-fit: contain;
+}
+
+.feature-video,
+.feature-still {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    background: var(--bg-surface);
+    box-shadow: var(--shadow-lg);
+}
+
+.feature-media figcaption {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    padding: 12px 4px 0;
+    text-align: center;
+}
+
+.weather-scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 320px));
+    justify-content: center;
+    gap: 24px;
+    max-width: 680px;
+    margin: 28px auto 0;
+}
+
+/* A screenshot and its caption, not a card: the picture carries its own edge. */
+.weather-scenario {
+    width: 100%;
+    margin: 0;
+}
+
+.weather-scenario picture,
+.weather-scenario img {
+    display: block;
+    width: 100%;
+}
+
+.weather-scenario img {
+    height: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+}
+
+.weather-scenario figcaption {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    padding: 12px 4px 0;
+}
+
+/* A worked example inside a section: body text under a rule, not a box. */
+.recipe-panel {
+    margin: 22px 0;
+    padding: 2px 0 2px var(--space-lg);
+    border-left: 2px solid var(--border-color);
+}
+
+.recipe-panel h3 {
+    margin-top: 0;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    margin: 18px 0;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 680px;
+    background: color-mix(in srgb, var(--bg-surface) 52%, transparent);
+}
+
+th,
+td {
+    text-align: left;
+    vertical-align: top;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    color: var(--text-primary);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+td {
+    color: var(--text-secondary);
+}
+
+.temp-alt {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.86em;
+    line-height: 1.35;
+    margin-top: 2px;
+}
+
+tr:last-child td {
+    border-bottom: 0;
+}
+
+@media (max-width: 700px) {
+    .table-wrap {
+        overflow: visible;
+        border: 0;
+        border-radius: 0;
+    }
+
+    table {
+        min-width: 0;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+        background: transparent;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody,
+    tr,
+    td {
+        display: block;
+        width: 100%;
+    }
+
+    tr {
+        padding: 14px 16px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        background: color-mix(in srgb, var(--bg-surface) 58%, transparent);
+    }
+
+    td {
+        border-bottom: 0;
+        padding: 8px 0;
+    }
+
+    td:first-child {
+        color: var(--text-primary);
+        font-size: 1.04rem;
+        font-weight: 800;
+        padding-top: 0;
+    }
+
+    td:not(:first-child)::before {
+        content: attr(data-label);
+        display: block;
+        color: var(--primary-light);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        line-height: 1.25;
+        margin-bottom: 3px;
+        text-transform: uppercase;
+    }
+}
+
+.reference-note {
+    color: var(--text-muted);
+    font-size: 0.94rem;
+}
+
+.guide-link-list {
+    display: grid;
+    gap: 0;
+    margin-top: 20px;
+}
+
+.guide-link-row {
+    display: grid;
+    grid-template-columns: 0.72fr 1fr;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.guide-link-row:hover strong {
+    color: var(--primary-light);
+}
+
+.guide-link-row strong {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    line-height: 1.2;
+}
+
+.guide-link-row span {
+    color: var(--text-muted);
+}
+
+@media (max-width: 900px) {
+    .hero,
+    .guide-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding-top: 8px;
+    }
+
+    .guide-link-row,
+    .commute-layout,
+    .weather-scenario-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .weather-scenario-grid {
+        justify-items: center;
+        max-width: 360px;
+    }
+
+    .feature-row,
+    .feature-row.feature-row-reverse {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .feature-row.feature-row-reverse .feature-media {
+        order: 0;
+    }
+
+    .feature-media {
+        max-width: 340px;
+        margin: 0 auto;
+    }
+
+    .commute-phone {
+        justify-content: center;
+    }
+
+    .section {
+        padding: 22px;
+    }
+}
+
+@media (max-width: 640px) {
+    .page-shell {
+        padding: 0 16px 44px;
+    }
+
+    .phone-frame {
+        width: min(265px, 100%);
+    }
+
+}
+
+/* A guide's way into its tool. It is the site's link row with a rule above it,
+   not a box: a tinted panel across the column out-shouted the heading under it.
+   Below 900px a section insets its text, so the row takes the same inset and
+   the two left edges stay on one line. */
+.tool-next {
+    border-top: 1px solid var(--border-color);
+}
+
+/* A list of rows shares one title column so the descriptions line up. This row
+   stands alone and its title is a question, so the column fits the question
+   instead of breaking it over two lines. */
+@media (min-width: 701px) {
+    .tool-next {
+        grid-template-columns: max-content minmax(0, 1fr) 24px;
+    }
+}
+
+@media (max-width: 900px) {
+    .tool-next {
+        margin: 0 22px;
+    }
+}
+
+/* Trail back up the tree. Defined once here rather than inline per page. */
+.breadcrumb {
+    margin: 0 0 6px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.breadcrumb a {
+    color: var(--text-secondary);
+}
+
+.breadcrumb a:hover {
+    color: var(--text-primary);
+}
+
+.breadcrumb > * + *::before {
+    content: "\203A";
+    margin: 0 8px;
+    color: var(--text-faint);
+}
+
+/* Per-article cross-links. These used to sit in the site nav, where they made
+   the header mean something different on every page. */
+/* The way on from a guide: a hairline above the links and a heading in the
+   site's own type, not a panel. */
+.article-related {
+    margin: 8px 0 40px;
+    padding-top: var(--space-2xl);
+    border-top: 1px solid var(--border-color);
+}
+
+.article-related h2 {
+    margin: 0 0 var(--space-md);
+    font-size: var(--text-h3);
+}
+
+.related-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.related-links a {
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-color);
+    background: color-mix(in srgb, var(--bg-base) 60%, transparent);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.related-links a:hover {
+    border-color: var(--primary-edge);
+    background: var(--primary-tint);
+}
+

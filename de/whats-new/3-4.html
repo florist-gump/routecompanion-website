@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="de"><head>
+    <meta charset="UTF-8">
+    <!-- theme:start -->
+    <script>
+        (function () {
+            var root = document.documentElement;
+            function stored() {
+                try { return localStorage.getItem('rc-theme'); } catch (e) { return null; }
+            }
+            var saved = stored();
+            if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+            var LABEL = { system: 'Theme: following your system setting', light: 'Theme: light', dark: 'Theme: dark' };
+            function systemDark() {
+                return matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+            function mode() {
+                var t = root.getAttribute('data-theme');
+                return t === 'light' || t === 'dark' ? t : 'system';
+            }
+            // The trigger shows what you are LOOKING AT, not where it came from;
+            // the menu is what says which of the three is active.
+            function resolved() {
+                var m = mode();
+                return m === 'system' ? (systemDark() ? 'dark' : 'light') : m;
+            }
+            function sync() {
+                var m = mode();
+                var triggers = document.querySelectorAll('[data-theme-toggle]');
+                for (var i = 0; i < triggers.length; i++) {
+                    triggers[i].setAttribute('data-appearance', resolved());
+                    triggers[i].setAttribute('title', LABEL[m]);
+                }
+                var options = document.querySelectorAll('[data-theme-choice]');
+                for (var j = 0; j < options.length; j++) {
+                    options[j].setAttribute('aria-checked', String(options[j].dataset.themeChoice === m));
+                }
+            }
+            function choose(next) {
+                if (next === 'system') {
+                    root.removeAttribute('data-theme');
+                    try { localStorage.removeItem('rc-theme'); } catch (err) {}
+                } else {
+                    root.setAttribute('data-theme', next);
+                    try { localStorage.setItem('rc-theme', next); } catch (err) {}
+                }
+                sync();
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                sync();
+                function setOpen(sw, open) {
+                    sw.querySelector('[data-theme-toggle]').setAttribute('aria-expanded', String(open));
+                    sw.querySelector('.theme-menu').dataset.open = String(open);
+                }
+                document.addEventListener('click', function (e) {
+                    var option = e.target.closest && e.target.closest('[data-theme-choice]');
+                    if (option) {
+                        choose(option.dataset.themeChoice);
+                        setOpen(option.closest('.theme-switcher'), false);
+                        option.closest('.theme-switcher').querySelector('[data-theme-toggle]').focus();
+                        return;
+                    }
+                    var trigger = e.target.closest && e.target.closest('[data-theme-toggle]');
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) {
+                        var isMine = !!trigger && all[i].contains(trigger);
+                        var open = isMine && trigger.getAttribute('aria-expanded') !== 'true';
+                        setOpen(all[i], open);
+                    }
+                });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key !== 'Escape') return;
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) setOpen(all[i], false);
+                });
+            });
+            // Nothing stored means follow the OS, including when the OS changes.
+            matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+        })();
+    </script>
+    <!-- theme:end -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neu in 3.4: Route beschreiben, Anstiege und sehenswerte Orte und die beste Abfahrtszeit | Route Companion</title>
+    <meta name="description" content="Das ist neu in Route Companion 3.4: Gib die Tour ein, die du fahren willst, und bekomm eine Route dafür, sieh die Anstiege und sehenswerten Orte an der Strecke und finde die beste Abfahrtszeit.">
+    <link rel="canonical" href="https://routecompanion.app/de/whats-new/3-4.html">
+    <link rel="alternate" hreflang="en" href="https://routecompanion.app/whats-new/3-4.html">
+    <link rel="alternate" hreflang="de" href="https://routecompanion.app/de/whats-new/3-4.html">
+    <link rel="alternate" hreflang="fr" href="https://routecompanion.app/fr/whats-new/3-4.html">
+    <link rel="alternate" hreflang="x-default" href="https://routecompanion.app/whats-new/3-4.html">
+    <meta property="og:title" content="Neu in 3.4: Route beschreiben, Anstiege und sehenswerte Orte und die beste Abfahrtszeit">
+    <meta property="og:description" content="Route beschreiben, Anstiege und sehenswerte Orte und die beste Abfahrtszeit">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://routecompanion.app/assets/climbs-3-4.jpg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <meta name="theme-color" content="#F1F4F3" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0D1417" media="(prefers-color-scheme: dark)">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="/assets/tokens.css">
+    <link rel="stylesheet" href="/assets/site.css">
+    <link rel="stylesheet" href="/guides/styles.css">
+    <link rel="stylesheet" href="/assets/language.css">
+    <script src="/assets/language.js"></script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","datePublished":"2026-11-05","dateModified":"2026-11-05","headline":"Neu in 3.4","description":"Das ist neu in Route Companion 3.4: Gib die Tour ein, die du fahren willst, und bekomm eine Route dafür, sieh die Anstiege und sehenswerten Orte an der Strecke und finde die beste Abfahrtszeit.","author":{"@type":"Organization","name":"Route Companion"},"publisher":{"@type":"Organization","name":"Route Companion","logo":{"@type":"ImageObject","url":"https://routecompanion.app/assets/icon.png"}},"mainEntityOfPage":"https://routecompanion.app/de/whats-new/3-4.html"}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Start","item":"https://routecompanion.app/de/"},{"@type":"ListItem","position":2,"name":"Neuerungen","item":"https://routecompanion.app/de/whats-new/"},{"@type":"ListItem","position":3,"name":"Neu in 3.4","item":"https://routecompanion.app/de/whats-new/3-4.html"}]}
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- nav:start -->
+        <nav class="site-nav" aria-label="Seitennavigation">
+            <div class="site-nav-inner">
+                <a class="brand-link" href="/de/">
+                    <img src="/assets/icon.png" alt="" width="30" height="30">
+                    <span>Route Companion</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/de/tools/">Tools</a>
+                    <a href="/de/guides/">Ratgeber</a>
+                    <span class="theme-switcher">
+                        <button type="button" class="theme-toggle" data-theme-toggle="" aria-expanded="false" aria-haspopup="menu" aria-controls="website-theme-menu" aria-label="Darstellung">
+                            <svg class="theme-toggle-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+                            <svg class="theme-toggle-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+                        </button>
+                        <span class="theme-menu" id="website-theme-menu" role="menu" data-open="false">
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="system" aria-checked="true">Systemeinstellung<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="light" aria-checked="false">Heller Modus<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="dark" aria-checked="false">Dunkler Modus<span class="theme-check" aria-hidden="true"></span></button>
+                        </span>
+                    </span>
+                    <a class="nav-cta" href="https://apps.apple.com/app/apple-store/id6758202473?pt=117888767&amp;ct=website&amp;mt=8">App Store</a>
+                </div>
+            </div>
+        </nav>
+        <!-- nav:end -->
+
+        <p class="breadcrumb"><a href="/de/whats-new/">Neuerungen</a><span>Neu in 3.4</span></p>
+        <header class="hero hero-single">
+            <div>
+                <p class="kicker">Version 3.4</p>
+                <h1>Neu in 3.4</h1>
+                <p class="hero-copy">Gib die Tour ein, die du fahren willst, und bekomm eine Route dafür, sieh die Anstiege und sehenswerten Orte an der Strecke und finde die beste Abfahrtszeit.</p>
+            </div>
+        </header>
+
+        <main class="guide-grid">
+            <article class="article">
+                <section class="section" id="describe">
+                    <div class="feature-row">
+                        <div class="feature-copy">
+                            <h2>Route beschreiben (Beta)</h2>
+                            <p>Tippe im Planer auf Beschreiben und gib die Runde oder Reise ein, die du fahren willst, etwa „Von Zürich nach Luzern über Zug“. Der Planer findet Routen dafür. Du kannst es kostenlos ausprobieren.</p>
+                        </div>
+                        <figure class="feature-media">
+                            <video class="feature-video" controls="" muted="" loop="" playsinline="" preload="metadata" poster="/assets/describe-3-4-poster.jpg" width="720" height="900" aria-label="Route beschreiben in Route Companion: die Fahrt von Zürich nach Luzern über Zug eintippen, die Route planen lassen und die geplante Route über Zug sehen" data-autoplay-unless-reduced-motion="">
+                                <source src="/assets/describe-3-4.webm" type="video/webm">
+                                <source src="/assets/describe-3-4.mp4" type="video/mp4">
+                                Dein Browser kann dieses Video nicht abspielen.
+                            </video>
+                            <figcaption>Zürich nach Luzern über Zug, mit englischen Einblendungen</figcaption>
+                        </figure>
+                    </div>
+                </section>
+
+                <section class="section" id="climbs">
+                    <div class="feature-row feature-row-reverse">
+                        <div class="feature-copy">
+                            <h2>Anstiege und sehenswerte Orte</h2>
+                            <p>Die Routendetails zeigen die Anstiege deiner Route und die Aussichtspunkte, Seen, Pässe und Badestellen an der Strecke. Der Planer zeigt sie schon beim Zeichnen unter dem Höhenprofil.</p>
+                        </div>
+                        <figure class="feature-media">
+                            <picture>
+                                <source srcset="/assets/climbs-3-4.webp" type="image/webp">
+                                <img class="feature-still" src="/assets/climbs-3-4.jpg" alt="Routendetails von Florenz nach Siena: das Höhenprofil, die ersten drei von fünf Anstiegen mit Höhenmetern, Länge und durchschnittlicher Steigung und sehenswerte Orte an der Strecke wie Belvedere sull'Arno und Palazzo Pubblico" width="720" height="900" loading="lazy" decoding="async">
+                            </picture>
+                            <figcaption>Anstiege und sehenswerte Orte von Florenz nach Siena</figcaption>
+                        </figure>
+                    </div>
+                </section>
+
+                <section class="section" id="weather">
+                    <div class="feature-row">
+                        <div class="feature-copy">
+                            <h2>Nach dem Wetter planen</h2>
+                            <p>Das Wetter für deine Route siehst du Stunde für Stunde, mit Regen und Wind dort, wo du dann gerade fährst. Die Zeile Abfahrtszeit schlägt vor, wann du am besten losfährst. Das stündliche Wetter gehört zu Pro.</p>
+                        </div>
+                        <figure class="feature-media">
+                            <picture>
+                                <source srcset="/assets/weather-3-4.webp" type="image/webp">
+                                <img class="feature-still" src="/assets/weather-3-4.jpg" alt="Wetter für eine Fahrt von Zürich nach Luzern: Wind mit 6 km/h aus Nord, den ganzen Tag trocken, Abfahrtszeit mit der besten Zeit um 13:00 (trocken, windstill und frisch) und die Temperaturen entlang der Route" width="720" height="900" loading="lazy" decoding="async">
+                            </picture>
+                            <figcaption>Abfahrtszeit von Zürich nach Luzern</figcaption>
+                        </figure>
+                    </div>
+                </section>
+
+                <section class="section" id="hours">
+                    <h2>Falsche Öffnungszeiten melden</h2>
+                    <p>Bei einem Stopp stimmen die Öffnungszeiten nicht? Tippe auf „Problem melden“ und wähle „Öffnungszeiten stimmen nicht“.</p>
+                </section>
+
+                <section class="section" id="feedback">
+                    <h2>Sag uns deine Meinung</h2>
+                    <p>Fragen oder Ideen zu 3.4? Diskutiere mit in r/RouteCompanion.</p>
+                    <div class="button-row">
+                        <a class="btn btn-primary" href="https://www.reddit.com/r/RouteCompanion/" rel="noopener" target="_blank">r/RouteCompanion öffnen</a>
+                    </div>
+                </section>
+            </article>
+
+            <aside class="article-related" aria-labelledby="related-heading">
+                <h2 id="related-heading">Passend dazu</h2>
+                <div class="related-links">
+                    <a href="/de/whats-new/3-3.html">Neu in 3.3</a>
+                </div>
+            </aside>
+        </main>
+
+        <!-- footer:start -->
+        <footer class="footer">
+            <p class="footer-links">
+                <a href="/de/">Start</a>
+                <span class="dot">·</span>
+                <a href="/de/tools/">Tools</a>
+                <span class="dot">·</span>
+                <a href="/de/guides/">Ratgeber</a>
+                <span class="dot">·</span>
+                <a href="/press.html">Presse</a>
+                <span class="dot">·</span>
+                <a href="https://www.instagram.com/route_companion_app/" rel="me noopener" target="_blank">Instagram</a>
+                <span class="dot">·</span>
+                <a href="https://www.reddit.com/r/RouteCompanion/" rel="me noopener" target="_blank">Reddit</a>
+                <span class="dot">·</span>
+                <a href="/privacy.html">Datenschutz</a>
+                <span class="dot">·</span>
+                <a href="/terms.html">Nutzungsbedingungen</a>
+                <span class="dot">·</span>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </p>
+            <p class="footer-copyright">© 2026 Route Companion. Alle Rechte vorbehalten.</p>
+        </footer>
+        <!-- footer:end -->
+    </div>
+    <script>
+        (function () {
+            var video = document.querySelector('video[data-autoplay-unless-reduced-motion]');
+            if (!video || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            var play = function () { var p = video.play(); if (p && p.catch) p.catch(function () {}); };
+            if ('IntersectionObserver' in window) {
+                new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) { if (e.isIntersecting) play(); else video.pause(); });
+                }, { threshold: 0.4 }).observe(video);
+            } else {
+                play();
+            }
+        })();
+    </script>
+
+
+</body></html>
