@@ -1,0 +1,102 @@
+/* Legal pages (privacy, terms, press): an editorial reading surface. The
+   header, footer, links, buttons and type come from site.css. */
+
+/* Page header */
+.page-header {
+    position: relative;
+    overflow: hidden;
+    padding: 40px 0 28px;
+    text-align: center;
+}
+
+.page-backdrop {
+    position: absolute;
+    inset: -60px 0 0 0;
+    background-image: url("topo.svg");
+    background-size: cover;
+    background-position: center top;
+    opacity: 0.16;
+    -webkit-mask-image: radial-gradient(ellipse 70% 90% at 50% 0%, black 0%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 90% at 50% 0%, black 0%, transparent 100%);
+    pointer-events: none;
+}
+
+.page-header .container {
+    position: relative;
+}
+
+.page-header h1 {
+    margin: 0;
+}
+
+.page-meta {
+    margin: 12px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Article */
+/* No card. A privacy policy is a document, not an object sitting on a page,
+   and a 2,000-word box is the least readable way to present one. The section
+   rules below already separate it; a measure keeps the lines readable. */
+.legal {
+    max-width: 68ch;
+    margin: 12px 0 56px;
+}
+
+.legal h2 {
+    font-size: var(--text-h3);
+    margin: 34px 0 10px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border-color);
+}
+
+.legal h2:first-of-type {
+    border-top: 0;
+    padding-top: 0;
+    margin-top: 22px;
+}
+
+.legal p,
+.legal li {
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+}
+
+.legal strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.legal ul {
+    padding-left: 20px;
+}
+
+.legal li {
+    margin-bottom: 8px;
+}
+
+.legal a:hover {
+    text-decoration: underline;
+}
+
+.legal li::marker {
+    color: var(--primary-light);
+}
+
+@media (max-width: 900px) {
+    .page-header {
+        padding: 28px 0 20px;
+    }
+
+    .legal {
+        padding: 8px 20px 24px;
+    }
+}
+

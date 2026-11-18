@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <!-- Same-origin stylesheet and fonts, the one inline script below, nothing
+         else. No analytics, no third party. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; form-action 'none'">
+    <title>Open preview in Route Companion</title>
+    <link rel="stylesheet" href="/assets/tokens.css">
+    <!--
+      Factory preview hand-off. docs/agents/factory/preview.sh prints
+      https://routecompanion.app/dev/open/?url=<encoded tunnel URL> because
+      Telegram only links http(s). This page turns that into the dev client's
+      exp+route-companion:// link. It only ever forwards an https URL on
+      *.exp.direct (an Expo tunnel), so it cannot be used as an open redirect.
+      Like the OAuth interstitials it carries no site chrome.
+    -->
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-2xl);
+            box-sizing: border-box;
+            font-family: var(--font-sans);
+            text-align: center;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+        }
+        h1 {
+            font-size: 1.25rem;
+            margin: 0 0 var(--space-2xl);
+        }
+        .open {
+            display: block;
+            width: 100%;
+            max-width: 360px;
+            box-sizing: border-box;
+            padding: var(--space-lg) var(--space-2xl);
+            background-color: var(--primary);
+            color: var(--text-on-primary);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        .note {
+            margin: var(--space-lg) 0 0;
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+        }
+        /* The script sets data-state once it has read the link. Until then,
+           and with scripts off, nothing is offered. */
+        .ready, .invalid { display: none; }
+        body[data-state="ready"] .ready { display: block; }
+        body[data-state="invalid"] .invalid { display: block; }
+    </style>
+</head>
+<body>
+    <div class="ready">
+        <h1>Opening the preview</h1>
+        <a id="open" class="open" href="#">Open in Route Companion</a>
+        <p class="note">Nothing opens? Install the Route Companion dev build first</p>
+    </div>
+    <div class="invalid">
+        <h1>This is not a preview link</h1>
+        <p class="note">Ask for a new preview link from the factory</p>
+    </div>
+    <noscript><p class="note">Turn on JavaScript to open the preview</p></noscript>
+    <script id="open-preview">
+        // Returns the tunnel origin when `search` carries ?url= with an https
+        // URL on a subdomain of exp.direct, otherwise null. Everything but the
+        // origin is dropped: the dev client only needs where Metro is.
+        function tunnelUrlFrom(search) {
+            var raw = new URLSearchParams(search || '').get('url');
+            if (!raw) return null;
+            var url;
+            try {
+                url = new URL(raw);
+            } catch (e) {
+                return null;
+            }
+            if (url.protocol !== 'https:') return null;
+            if (url.username || url.password || url.port) return null;
+            if (!/^([a-z0-9-]+\.)+exp\.direct$/.test(url.hostname)) return null;
+            return 'https://' + url.hostname;
+        }
+
+        function appLinkFor(tunnelUrl) {
+            return 'exp+route-companion://expo-development-client/?url=' + encodeURIComponent(tunnelUrl);
+        }
+
+        (function () {
+            var tunnelUrl = tunnelUrlFrom(window.location.search);
+            if (!tunnelUrl) {
+                document.body.setAttribute('data-state', 'invalid');
+                return;
+            }
+            var appLink = appLinkFor(tunnelUrl);
+            document.getElementById('open').setAttribute('href', appLink);
+            document.body.setAttribute('data-state', 'ready');
+            window.location.href = appLink;
+        })();
+    </script>
+</body>
+</html>
