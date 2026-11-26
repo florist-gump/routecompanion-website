@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- theme:start -->
+    <script>
+        (function () {
+            var root = document.documentElement;
+            function stored() {
+                try { return localStorage.getItem('rc-theme'); } catch (e) { return null; }
+            }
+            var saved = stored();
+            if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+            var LABEL = { system: 'Theme: following your system setting', light: 'Theme: light', dark: 'Theme: dark' };
+            function systemDark() {
+                return matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+            function mode() {
+                var t = root.getAttribute('data-theme');
+                return t === 'light' || t === 'dark' ? t : 'system';
+            }
+            // The trigger shows what you are LOOKING AT, not where it came from;
+            // the menu is what says which of the three is active.
+            function resolved() {
+                var m = mode();
+                return m === 'system' ? (systemDark() ? 'dark' : 'light') : m;
+            }
+            function sync() {
+                var m = mode();
+                var triggers = document.querySelectorAll('[data-theme-toggle]');
+                for (var i = 0; i < triggers.length; i++) {
+                    triggers[i].setAttribute('data-appearance', resolved());
+                    triggers[i].setAttribute('title', LABEL[m]);
+                }
+                var options = document.querySelectorAll('[data-theme-choice]');
+                for (var j = 0; j < options.length; j++) {
+                    options[j].setAttribute('aria-checked', String(options[j].dataset.themeChoice === m));
+                }
+            }
+            function choose(next) {
+                if (next === 'system') {
+                    root.removeAttribute('data-theme');
+                    try { localStorage.removeItem('rc-theme'); } catch (err) {}
+                } else {
+                    root.setAttribute('data-theme', next);
+                    try { localStorage.setItem('rc-theme', next); } catch (err) {}
+                }
+                sync();
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                sync();
+                function setOpen(sw, open) {
+                    sw.querySelector('[data-theme-toggle]').setAttribute('aria-expanded', String(open));
+                    sw.querySelector('.theme-menu').dataset.open = String(open);
+                }
+                document.addEventListener('click', function (e) {
+                    var option = e.target.closest && e.target.closest('[data-theme-choice]');
+                    if (option) {
+                        choose(option.dataset.themeChoice);
+                        setOpen(option.closest('.theme-switcher'), false);
+                        option.closest('.theme-switcher').querySelector('[data-theme-toggle]').focus();
+                        return;
+                    }
+                    var trigger = e.target.closest && e.target.closest('[data-theme-toggle]');
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) {
+                        var isMine = !!trigger && all[i].contains(trigger);
+                        var open = isMine && trigger.getAttribute('aria-expanded') !== 'true';
+                        setOpen(all[i], open);
+                    }
+                });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key !== 'Escape') return;
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) setOpen(all[i], false);
+                });
+            });
+            // Nothing stored means follow the OS, including when the OS changes.
+            matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+        })();
+    </script>
+    <!-- theme:end -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan a long ride: food, water and stops that are open when you get there | Route Companion</title>
+    <meta name="description" content="How to plan a 200 to 600 km ride: when you reach each stop, what is still open at night and on Sundays, where the longest gap without water is, and how to share the plan with your group.">
+    <link rel="canonical" href="https://routecompanion.app/guides/long-rides.html">
+    <meta property="og:title" content="Plan a long ride">
+    <meta property="og:description" content="When you reach each stop, whether it will be open, and a plan the whole group can open.">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://routecompanion.app/screenshots/2.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+    <meta name="theme-color" content="#F1F4F3" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0D1417" media="(prefers-color-scheme: dark)">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="/assets/tokens.css" />
+    <link rel="stylesheet" href="/assets/site.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/assets/language.css">
+    <script src="/assets/language.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "datePublished": "2026-11-26",
+      "dateModified": "2026-11-26",
+      "headline": "Plan a long ride",
+      "description": "How to plan a 200 to 600 km ride: when you reach each stop, what is still open at night and on Sundays, where the longest gap without water is, and how to share the plan with your group.",
+      "author": { "@type": "Organization", "name": "Route Companion" },
+      "publisher": { "@type": "Organization", "name": "Route Companion", "logo": { "@type": "ImageObject", "url": "https://routecompanion.app/assets/icon.png" } },
+      "mainEntityOfPage": "https://routecompanion.app/guides/long-rides.html"
+    }
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://routecompanion.app/"},{"@type":"ListItem","position":2,"name":"Guides","item":"https://routecompanion.app/guides/"},{"@type":"ListItem","position":3,"name":"Plan a long ride","item":"https://routecompanion.app/guides/long-rides.html"}]}</script>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- nav:start -->
+        <nav class="site-nav" aria-label="Site navigation">
+            <div class="site-nav-inner">
+                <a class="brand-link" href="../index.html">
+                    <img src="../assets/icon.png" alt="" width="30" height="30">
+                    <span>Route Companion</span>
+                </a>
+                <div class="nav-links">
+                    <a href="../tools/">Tools</a>
+                    <a href="../guides/" aria-current="page">Guides</a>
+                    <span class="theme-switcher">
+                        <button type="button" class="theme-toggle" data-theme-toggle aria-expanded="false" aria-haspopup="menu" aria-controls="website-theme-menu" aria-label="Appearance">
+                            <svg class="theme-toggle-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+                            <svg class="theme-toggle-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+                        </button>
+                        <span class="theme-menu" id="website-theme-menu" role="menu" data-open="false">
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="system" aria-checked="true">Match system<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="light" aria-checked="false">Light mode<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="dark" aria-checked="false">Dark mode<span class="theme-check" aria-hidden="true"></span></button>
+                        </span>
+                    </span>
+                    <a class="nav-cta" href="https://apps.apple.com/app/apple-store/id6758202473?pt=117888767&amp;ct=guides&amp;mt=8">App Store</a>
+                </div>
+            </div>
+        </nav>
+        <!-- nav:end -->
+
+        <p class="breadcrumb"><a href="index.html">Guides</a><span>Plan a long ride</span></p>
+        <header class="hero">
+            <div>
+                <p class="kicker">Long Ride Guide</p>
+                <h1>Plan a long ride</h1>
+                <p class="hero-copy">On a 300 km day, most of the planning is about time. The bakery shuts at noon, the village shop doesn't open on Sunday, and after midnight the only food on the route may be one gas station. Work out when you reach each stop before you decide where to stop.</p>
+            </div>
+            <div class="phone-stage">
+                <div class="phone-frame">
+                    <picture>
+                        <source srcset="/screenshots/2.webp" type="image/webp">
+                        <img src="/screenshots/2.png" alt="Route Companion showing a 145.6 km loop with 7 marked stops: cafes, restaurants, a supermarket, a water tap and a viewpoint" width="640" height="1387">
+                    </picture>
+                </div>
+            </div>
+        </header>
+
+        <main class="guide-grid">
+            <article class="article">
+                <section class="section" id="time">
+                    <h2>Start with the start time</h2>
+                    <p class="lead">A stop's opening hours only mean something once you know when you will be there. That depends on when you leave, how fast you ride with the climbing that is still ahead, and how long you stop.</p>
+                    <p>Work it out the evening before, from your own numbers. On a brevet the control times are limits, not a plan: they tell you where you must be by when, not where you will eat. Stops add up, too: fifteen minutes every two hours adds about an hour and a half to 12 hours of riding.</p>
+                    <p>In Route Companion, open the route and tap Get ready. Under Getting there:</p>
+                    <ul class="editorial-list">
+                        <li>Start time sets when you leave. Stops, weather and daylight follow it.</li>
+                        <li>Ride time shows your riding time, your stops and when you finish.</li>
+                        <li>Tap Ride time to change how long you stop: let the app learn it from your own rides, or set it yourself.</li>
+                    </ul>
+                </section>
+
+                <section class="section" id="open">
+                    <h2>Check what will be open when you get there</h2>
+                    <p>Most long rides that go wrong go wrong at a closed door. The cafe at 90 km is easy at ten in the morning and shut by the time a slow group gets there. On a 400 km ride you reach small villages in the middle of the night, and in much of Germany, Austria and Switzerland most shops stay shut all Sunday.</p>
+                    <p>Places that are often open at odd hours:</p>
+                    <ul class="editorial-list">
+                        <li>Gas stations on main roads, some of them around the clock.</li>
+                        <li>Bakeries, which often open before six.</li>
+                        <li>Fast food on the edge of larger towns.</li>
+                        <li>Kiosks and vending machines at bigger train stations.</li>
+                    </ul>
+                    <p>Where a stop you mark has opening hours on OpenStreetMap, Route Companion checks them against the time you will reach it. Get ready lists up to three stops that will be closed or about to close, and each checked stop shows a line like these:</p>
+                    <ul class="editorial-list">
+                        <li>Open on arrival ~Sat 14:20</li>
+                        <li>Closes 14:00, you arrive ~Sat 14:20</li>
+                        <li>Closed on arrival ~Sun 02:10, opens 06:00</li>
+                    </ul>
+                    <p>When a stop will be closed, the app looks for a place of the same kind near it on the route that will be open, and tells you when you would get there. If every checked stop works, Get ready says so: "All 5 stops are open when you pass them". A stop with no hours on the map gets no check, so look those up yourself. Where a shop's hours list public holidays, the app knows the holiday dates in Germany, Austria, Switzerland, France, Italy, Slovenia, Croatia, Czechia and Great Britain.</p>
+                    <p>The hours come from OpenStreetMap, so take the check as a good guess, not a promise. For anything you can't do without, note a second place.</p>
+                </section>
+
+                <section class="section" id="gaps">
+                    <h2>Find the longest gap</h2>
+                    <p>How much you carry depends on the longest stretch with no water or food you can count on, not on the total distance. Two bottles and a shop every 30 km is a different ride from two bottles and 90 km of nothing after dark.</p>
+                    <ul class="editorial-list">
+                        <li>At night, count only places that will be open. A fountain works at three in the morning. A cafe doesn't.</li>
+                        <li>Cemeteries often have a tap.</li>
+                        <li>In the Alps and much of northern Europe, many public fountains are switched off in winter.</li>
+                        <li>Fill up before a long climb or an exposed stretch, not after it.</li>
+                    </ul>
+                    <p>In the app, search along the route for water, shops, cafes and bakeries, gas stations and vending machines, and set how far off the route you are willing to go. The results come in the order you reach them, so the gaps are easy to see. Mark the ones you plan to use.</p>
+                    <p>Fueling in Get ready turns the ride time into what to pack: carbs, bottles and the refill stops for the rest. Turn on Eat reminders and the app reminds you to eat as you ride. The numbers behind it are in <a href="cycling-fueling.html">Cycling fueling and hydration</a>.</p>
+                </section>
+
+                <section class="section" id="weather">
+                    <h2>Check the weather for the hours you ride</h2>
+                    <p>The forecast for the start town at the start hour says little about two in the morning on a ridge 200 km away. Look for the night's low, where the wind turns against you and when the rain arrives, and pack for the coldest hour, not the start.</p>
+                    <p>Route Companion reads the forecast for where you will be at each hour of the ride. Get ready also warns you about the dark: "Starting in the dark. Take lights." or "Finishing after sunset. Take lights." How to turn the forecast into clothes is in <a href="cycling-weather-clothing.html">What to wear cycling</a>.</p>
+                </section>
+
+                <section class="section" id="device">
+                    <h2>Put the stops on your head unit</h2>
+                    <p>A stop you planned but can't find in the dark is no use. Send the route to your Garmin or Wahoo with the stops you marked, and they travel with it.</p>
+                    <div class="weather-scenario-grid">
+                        <figure class="weather-scenario">
+                            <picture>
+                                <source srcset="/screenshots/6.webp" type="image/webp">
+                                <img src="/screenshots/6.png" alt="Route Companion's Share route sheet, with Garmin Connect and Wahoo set to upload the route with your stops" width="640" height="1387" loading="lazy" decoding="async">
+                            </picture>
+                            <figcaption>Garmin Connect and Wahoo take the route with your stops</figcaption>
+                        </figure>
+                    </div>
+                </section>
+
+                <section class="section" id="group">
+                    <h2>Send the plan to the group</h2>
+                    <p>A group plan only works if everyone has seen it. Agree on the stops and the start time the evening before, not at the first junction.</p>
+                    <p>Share the plan, in Get ready, makes one link with the route, the stops you marked and the start time. Nobody needs an account, and nobody needs the app to read it. In a browser they see:</p>
+                    <ul class="editorial-list">
+                        <li>When the group reaches each stop, and whether it will be open.</li>
+                        <li>The weather along the way.</li>
+                        <li>A GPX with the stops for their own Garmin, Wahoo or Hammerhead.</li>
+                    </ul>
+                    <p>Riders who join from the app show up on the plan while they ride, so the group can see where everyone is. For someone at home, Follow my ride sends one link that shows where you are, how far you have to go and when you should be back.</p>
+                </section>
+
+                <section class="section" id="checklist">
+                    <h2>The evening before</h2>
+                    <ol class="editorial-list">
+                        <li>Set the start time and check the finish.</li>
+                        <li>Mark your stops, with a second place for anything you can't do without.</li>
+                        <li>Fix every stop that will be closed, and look up the ones with no hours, before you leave.</li>
+                        <li>Count bottles for the longest gap.</li>
+                        <li>Check the night's low and pack for it.</li>
+                        <li>Send the route to your head unit and the plan to the group.</li>
+                    </ol>
+                    <p>If you are riding a qualifying series for Paris-Brest-Paris in 2027, the 400 and the 600 are where this matters most. Both usually run through the night.</p>
+                    <p>Route Companion is free to download. Weather, fueling and the upload to Garmin and Wahoo are part of Route Companion Pro.</p>
+                    <div class="button-row">
+                        <a class="btn btn-primary" href="https://apps.apple.com/app/apple-store/id6758202473?pt=117888767&amp;ct=guides&amp;mt=8">Download on the App Store</a>
+                        <a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=app.routecompanion">Get it on Google Play</a>
+                        <a class="btn btn-secondary" href="route-stops.html">Next: stops along a route</a>
+                    </div>
+                </section>
+            </article>
+
+            <aside class="article-related" aria-labelledby="related-heading">
+                <h2 id="related-heading">Related</h2>
+                <div class="related-links">
+                    <a href="route-stops.html">Stops along a route</a>
+                    <a href="cycling-fueling.html">Fueling</a>
+                    <a href="cycling-weather-clothing.html">What to wear cycling</a>
+                </div>
+            </aside>
+        </main>
+
+        <!-- footer:start -->
+        <footer class="footer">
+            <p class="footer-links">
+                <a href="../index.html">Home</a>
+                <span class="dot">&middot;</span>
+                <a href="../tools/">Tools</a>
+                <span class="dot">&middot;</span>
+                <a href="../guides/">Guides</a>
+                <span class="dot">&middot;</span>
+                <a href="../press.html">Press</a>
+                <span class="dot">&middot;</span>
+                <a href="https://www.instagram.com/route_companion_app/" rel="me noopener" target="_blank">Instagram</a>
+                <span class="dot">&middot;</span>
+                <a href="https://www.reddit.com/r/RouteCompanion/" rel="me noopener" target="_blank">Reddit</a>
+                <span class="dot">&middot;</span>
+                <a href="../privacy.html">Privacy Policy</a>
+                <span class="dot">&middot;</span>
+                <a href="../terms.html">Terms of Service</a>
+                <span class="dot">&middot;</span>
+                <a href="mailto:support@routecompanion.app">Support</a>
+            </p>
+            <p class="footer-copyright">&copy; 2026 Route Companion. All rights reserved.</p>
+        </footer>
+        <!-- footer:end -->
+    </div>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="fr"><head>
+    <meta charset="UTF-8">
+    <!-- theme:start -->
+    <script>
+        (function () {
+            var root = document.documentElement;
+            function stored() {
+                try { return localStorage.getItem('rc-theme'); } catch (e) { return null; }
+            }
+            var saved = stored();
+            if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+            var LABEL = { system: 'Theme: following your system setting', light: 'Theme: light', dark: 'Theme: dark' };
+            function systemDark() {
+                return matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+            function mode() {
+                var t = root.getAttribute('data-theme');
+                return t === 'light' || t === 'dark' ? t : 'system';
+            }
+            // The trigger shows what you are LOOKING AT, not where it came from;
+            // the menu is what says which of the three is active.
+            function resolved() {
+                var m = mode();
+                return m === 'system' ? (systemDark() ? 'dark' : 'light') : m;
+            }
+            function sync() {
+                var m = mode();
+                var triggers = document.querySelectorAll('[data-theme-toggle]');
+                for (var i = 0; i < triggers.length; i++) {
+                    triggers[i].setAttribute('data-appearance', resolved());
+                    triggers[i].setAttribute('title', LABEL[m]);
+                }
+                var options = document.querySelectorAll('[data-theme-choice]');
+                for (var j = 0; j < options.length; j++) {
+                    options[j].setAttribute('aria-checked', String(options[j].dataset.themeChoice === m));
+                }
+            }
+            function choose(next) {
+                if (next === 'system') {
+                    root.removeAttribute('data-theme');
+                    try { localStorage.removeItem('rc-theme'); } catch (err) {}
+                } else {
+                    root.setAttribute('data-theme', next);
+                    try { localStorage.setItem('rc-theme', next); } catch (err) {}
+                }
+                sync();
+            }
+            document.addEventListener('DOMContentLoaded', function () {
+                sync();
+                function setOpen(sw, open) {
+                    sw.querySelector('[data-theme-toggle]').setAttribute('aria-expanded', String(open));
+                    sw.querySelector('.theme-menu').dataset.open = String(open);
+                }
+                document.addEventListener('click', function (e) {
+                    var option = e.target.closest && e.target.closest('[data-theme-choice]');
+                    if (option) {
+                        choose(option.dataset.themeChoice);
+                        setOpen(option.closest('.theme-switcher'), false);
+                        option.closest('.theme-switcher').querySelector('[data-theme-toggle]').focus();
+                        return;
+                    }
+                    var trigger = e.target.closest && e.target.closest('[data-theme-toggle]');
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) {
+                        var isMine = !!trigger && all[i].contains(trigger);
+                        var open = isMine && trigger.getAttribute('aria-expanded') !== 'true';
+                        setOpen(all[i], open);
+                    }
+                });
+                document.addEventListener('keydown', function (e) {
+                    if (e.key !== 'Escape') return;
+                    var all = document.querySelectorAll('.theme-switcher');
+                    for (var i = 0; i < all.length; i++) setOpen(all[i], false);
+                });
+            });
+            // Nothing stored means follow the OS, including when the OS changes.
+            matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+        })();
+    </script>
+    <!-- theme:end -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouveautés de la 3.4 : décrire un itinéraire, montées et sites remarquables, et la meilleure heure de départ | Route Companion</title>
+    <meta name="description" content="Les nouveautés de Route Companion 3.4 : saisissez la sortie que vous voulez et obtenez un itinéraire, voyez les montées et les sites remarquables en chemin, et choisissez la meilleure heure de départ.">
+    <link rel="canonical" href="https://routecompanion.app/fr/whats-new/3-4.html">
+    <link rel="alternate" hreflang="en" href="https://routecompanion.app/whats-new/3-4.html">
+    <link rel="alternate" hreflang="de" href="https://routecompanion.app/de/whats-new/3-4.html">
+    <link rel="alternate" hreflang="fr" href="https://routecompanion.app/fr/whats-new/3-4.html">
+    <link rel="alternate" hreflang="x-default" href="https://routecompanion.app/whats-new/3-4.html">
+    <meta property="og:title" content="Nouveautés de la 3.4 : décrire un itinéraire, montées et sites remarquables, et la meilleure heure de départ">
+    <meta property="og:description" content="Décrire un itinéraire, montées et sites remarquables, et la meilleure heure de départ">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://routecompanion.app/assets/climbs-3-4.jpg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <meta name="theme-color" content="#F1F4F3" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0D1417" media="(prefers-color-scheme: dark)">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="/assets/tokens.css">
+    <link rel="stylesheet" href="/assets/site.css">
+    <link rel="stylesheet" href="/guides/styles.css">
+    <link rel="stylesheet" href="/assets/language.css">
+    <script src="/assets/language.js"></script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","datePublished":"2026-11-05","dateModified":"2026-11-05","headline":"Nouveautés de la 3.4","description":"Les nouveautés de Route Companion 3.4 : saisissez la sortie que vous voulez et obtenez un itinéraire, voyez les montées et les sites remarquables en chemin, et choisissez la meilleure heure de départ.","author":{"@type":"Organization","name":"Route Companion"},"publisher":{"@type":"Organization","name":"Route Companion","logo":{"@type":"ImageObject","url":"https://routecompanion.app/assets/icon.png"}},"mainEntityOfPage":"https://routecompanion.app/fr/whats-new/3-4.html"}
+    </script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://routecompanion.app/fr/"},{"@type":"ListItem","position":2,"name":"Nouveautés","item":"https://routecompanion.app/fr/whats-new/"},{"@type":"ListItem","position":3,"name":"Nouveautés de la 3.4","item":"https://routecompanion.app/fr/whats-new/3-4.html"}]}
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <!-- nav:start -->
+        <nav class="site-nav" aria-label="Navigation sur les sites">
+            <div class="site-nav-inner">
+                <a class="brand-link" href="/fr/">
+                    <img src="/assets/icon.png" alt="" width="30" height="30">
+                    <span>Route Companion</span>
+                </a>
+                <div class="nav-links">
+                    <a href="/fr/tools/">Outils</a>
+                    <a href="/fr/guides/">Guides</a>
+                    <span class="theme-switcher">
+                        <button type="button" class="theme-toggle" data-theme-toggle="" aria-expanded="false" aria-haspopup="menu" aria-controls="website-theme-menu" aria-label="Apparence">
+                            <svg class="theme-toggle-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+                            <svg class="theme-toggle-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+                        </button>
+                        <span class="theme-menu" id="website-theme-menu" role="menu" data-open="false">
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="system" aria-checked="true">Comme le système<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="light" aria-checked="false">Mode clair<span class="theme-check" aria-hidden="true"></span></button>
+                            <button type="button" class="theme-option" role="menuitemradio" data-theme-choice="dark" aria-checked="false">Mode sombre<span class="theme-check" aria-hidden="true"></span></button>
+                        </span>
+                    </span>
+                    <a class="nav-cta" href="https://apps.apple.com/app/apple-store/id6758202473?pt=117888767&amp;ct=website&amp;mt=8">App Store</a>
+                </div>
+            </div>
+        </nav>
+        <!-- nav:end -->
+
+        <p class="breadcrumb"><a href="/fr/whats-new/">Nouveautés</a><span>Nouveautés de la 3.4</span></p>
+        <header class="hero hero-single">
+            <div>
+                <p class="kicker">Version 3.4</p>
+                <h1>Nouveautés de la 3.4</h1>
+                <p class="hero-copy">Saisissez la sortie que vous voulez et obtenez un itinéraire, voyez les montées et les sites remarquables en chemin, et choisissez la meilleure heure de départ.</p>
+            </div>
+        </header>
+
+        <main class="guide-grid">
+            <article class="article">
+                <section class="section" id="describe">
+                    <div class="feature-row">
+                        <div class="feature-copy">
+                            <h2>Décrire un itinéraire (bêta)</h2>
+                            <p>Dans le planificateur, appuyez sur Décrire et saisissez la boucle ou le voyage que vous voulez, par exemple « De Zurich à Lucerne via Zoug ». Le planificateur trouve des itinéraires qui y correspondent. Vous pouvez l’essayer gratuitement.</p>
+                        </div>
+                        <figure class="feature-media">
+                            <video class="feature-video" controls="" muted="" loop="" playsinline="" preload="metadata" poster="/assets/describe-3-4-poster.jpg" width="720" height="900" aria-label="Décrire un itinéraire dans Route Companion : saisir le trajet de Zurich à Lucerne via Zoug, lancer la planification et voir l’itinéraire qui passe par Zoug" data-autoplay-unless-reduced-motion="">
+                                <source src="/assets/describe-3-4.webm" type="video/webm">
+                                <source src="/assets/describe-3-4.mp4" type="video/mp4">
+                                Votre navigateur ne peut pas lire cette vidéo.
+                            </video>
+                            <figcaption>Zurich à Lucerne via Zoug, avec des textes en anglais</figcaption>
+                        </figure>
+                    </div>
+                </section>
+
+                <section class="section" id="climbs">
+                    <div class="feature-row feature-row-reverse">
+                        <div class="feature-copy">
+                            <h2>Montées et sites remarquables</h2>
+                            <p>Les détails de votre itinéraire listent ses montées, ainsi que les points de vue, lacs, cols et lieux de baignade en chemin. Le planificateur les affiche sous le profil d’altitude pendant que vous tracez.</p>
+                        </div>
+                        <figure class="feature-media">
+                            <picture>
+                                <source srcset="/assets/climbs-3-4.webp" type="image/webp">
+                                <img class="feature-still" src="/assets/climbs-3-4.jpg" alt="Détails de l’itinéraire de Florence à Sienne : le profil d’altitude, les trois premières des cinq montées avec leur dénivelé, leur longueur et leur pente moyenne, et des sites remarquables en chemin comme le Belvedere sull'Arno et le Palazzo Pubblico" width="720" height="900" loading="lazy" decoding="async">
+                            </picture>
+                            <figcaption>Montées et sites remarquables de Florence à Sienne</figcaption>
+                        </figure>
+                    </div>
+                </section>
+
+                <section class="section" id="weather">
+                    <div class="feature-row">
+                        <div class="feature-copy">
+                            <h2>Planifier selon la météo</h2>
+                            <p>La météo de votre itinéraire s’affiche heure par heure, avec la pluie et le vent là où vous serez. La ligne Heure de départ suggère quand partir. La météo heure par heure fait partie de Pro.</p>
+                        </div>
+                        <figure class="feature-media">
+                            <picture>
+                                <source srcset="/assets/weather-3-4.webp" type="image/webp">
+                                <img class="feature-still" src="/assets/weather-3-4.jpg" alt="Météo pour une sortie de Zurich à Lucerne : vent de 6 km/h du nord, sec toute la journée, Heure de départ avec le meilleur moment à 13:00 (sec, calme et frais), et les températures le long de l’itinéraire" width="720" height="900" loading="lazy" decoding="async">
+                            </picture>
+                            <figcaption>Heure de départ de Zurich à Lucerne</figcaption>
+                        </figure>
+                    </div>
+                </section>
+
+                <section class="section" id="hours">
+                    <h2>Signaler des horaires incorrects</h2>
+                    <p>Les horaires d’un arrêt sont faux ? Appuyez sur Signaler un problème et choisissez « Horaires incorrects ».</p>
+                </section>
+
+                <section class="section" id="feedback">
+                    <h2>Dites-nous ce que vous en pensez</h2>
+                    <p>Des questions ou des idées sur la version 3.4 ? Rejoignez la discussion sur r/RouteCompanion.</p>
+                    <div class="button-row">
+                        <a class="btn btn-primary" href="https://www.reddit.com/r/RouteCompanion/" rel="noopener" target="_blank">Ouvrir r/RouteCompanion</a>
+                    </div>
+                </section>
+            </article>
+
+            <aside class="article-related" aria-labelledby="related-heading">
+                <h2 id="related-heading">Voir aussi</h2>
+                <div class="related-links">
+                    <a href="/fr/whats-new/3-3.html">Nouveautés de la 3.3</a>
+                </div>
+            </aside>
+        </main>
+
+        <!-- footer:start -->
+        <footer class="footer">
+            <p class="footer-links">
+                <a href="/fr/">Accueil</a>
+                <span class="dot">·</span>
+                <a href="/fr/tools/">Outils</a>
+                <span class="dot">·</span>
+                <a href="/fr/guides/">Guides</a>
+                <span class="dot">·</span>
+                <a href="/press.html">Presse</a>
+                <span class="dot">·</span>
+                <a href="https://www.instagram.com/route_companion_app/" rel="me noopener" target="_blank">Instagram</a>
+                <span class="dot">·</span>
+                <a href="https://www.reddit.com/r/RouteCompanion/" rel="me noopener" target="_blank">Reddit</a>
+                <span class="dot">·</span>
+                <a href="/privacy.html">Politique de confidentialité</a>
+                <span class="dot">·</span>
+                <a href="/terms.html">Conditions d’utilisation</a>
+                <span class="dot">·</span>
+                <a href="mailto:support@routecompanion.app">Assistance</a>
+            </p>
+            <p class="footer-copyright">© 2026 Route Companion. Tous droits réservés.</p>
+        </footer>
+        <!-- footer:end -->
+    </div>
+    <script>
+        (function () {
+            var video = document.querySelector('video[data-autoplay-unless-reduced-motion]');
+            if (!video || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            var play = function () { var p = video.play(); if (p && p.catch) p.catch(function () {}); };
+            if ('IntersectionObserver' in window) {
+                new IntersectionObserver(function (entries) {
+                    entries.forEach(function (e) { if (e.isIntersecting) play(); else video.pause(); });
+                }, { threshold: 0.4 }).observe(video);
+            } else {
+                play();
+            }
+        })();
+    </script>
+
+
+</body></html>
